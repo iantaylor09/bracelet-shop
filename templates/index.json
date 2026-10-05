@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
@@ -6,6 +15,7 @@
         "seaglass": {
           "type": "slide",
           "settings": {
+            "product": "",
             "tag": "Bestseller",
             "heading": "Seaglass",
             "text": "<p>Ocean blues, sea greens and a flash of white. The one people ask about most.</p>",
@@ -18,6 +28,7 @@
         "peach_haze": {
           "type": "slide",
           "settings": {
+            "product": "",
             "tag": "Customer favourite",
             "heading": "Peach Haze",
             "text": "<p>Soft peach and warm grey with a cool blue accent. Easy to wear with everything.</p>",
@@ -30,6 +41,7 @@
         "berry_bloom": {
           "type": "slide",
           "settings": {
+            "product": "",
             "tag": "New this season",
             "heading": "Berry Bloom",
             "text": "<p>Deep violet and hot pink, lifted with a few bright pastels.</p>",
@@ -59,28 +71,36 @@
           "type": "column",
           "settings": {
             "title": "Made to order",
-            "text": "<p>Every bracelet is threaded by hand once you order it.</p>"
+            "text": "<p>Every bracelet is threaded by hand once you order it.</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "p2": {
           "type": "column",
           "settings": {
             "title": "Plastic-free packaging",
-            "text": "<p>Wrapped and posted in recyclable materials. [Confirm before launch]</p>"
+            "text": "<p>Wrapped and posted in recyclable materials. [Confirm before launch]</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "p3": {
           "type": "column",
           "settings": {
             "title": "UK delivery",
-            "text": "<p>Sent by Royal Mail within 3 to 5 working days. [Confirm before launch]</p>"
+            "text": "<p>Sent by Royal Mail within 3 to 5 working days. [Confirm before launch]</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "p4": {
           "type": "column",
           "settings": {
             "title": "Gift ready",
-            "text": "<p>Add gift wrap and a note at checkout.</p>"
+            "text": "<p>Add gift wrap and a note at checkout.</p>",
+            "link_label": "",
+            "link": ""
           }
         }
       },
@@ -95,10 +115,11 @@
         "heading_size": "h2",
         "image_width": "third",
         "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
         "columns_desktop": 4,
         "column_alignment": "left",
         "background_style": "none",
-        "button_label": "",
         "color_scheme": "scheme-2",
         "columns_mobile": "2",
         "swipe_on_mobile": false,
@@ -112,6 +133,7 @@
         "bead_1": {
           "type": "bead",
           "settings": {
+            "product": "",
             "name": "Blue/Green",
             "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
             "colours": "#1f3c8f,#4f8fd6,#93d6a2,#2f8a55,#f3f4f1,#1b6a3b",
@@ -122,6 +144,7 @@
         "bead_2": {
           "type": "bead",
           "settings": {
+            "product": "",
             "name": "Pastel/Multi",
             "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
             "colours": "#ef6a95,#e23b45,#f7d443,#86cfee,#2c3a8f,#f6b7cd,#9fd3a5",
@@ -132,6 +155,7 @@
         "bead_3": {
           "type": "bead",
           "settings": {
+            "product": "",
             "name": "Peach/Grey",
             "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
             "colours": "#f4b57a,#f8d8a6,#a6a8ab,#fbe6c7,#e59b62,#c9c9c4",
@@ -142,6 +166,7 @@
         "bead_4": {
           "type": "bead",
           "settings": {
+            "product": "",
             "name": "Purple/Pink",
             "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
             "colours": "#5b2a9a,#8b4fc4,#b9a1e0,#e3256f,#3b2386,#f1eef8",
@@ -152,6 +177,7 @@
         "bead_5": {
           "type": "bead",
           "settings": {
+            "product": "",
             "name": "Red/Green",
             "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
             "colours": "#e2342c,#f6b52a,#c3cf38,#b6a2dc,#f2732f,#f5e04a",
@@ -171,6 +197,9 @@
         "caption": "Design your own",
         "heading": "Build a bracelet bead by bead",
         "heading_size": "h1",
+        "text": "<p>Pick your wrist size, then add polymer clay heishi beads one at a time. The bracelet fills up as you go and the price updates with every bead.</p>",
+        "size_note": "<p>Not sure? See the <a href=\"#sizes\">size guide</a>. If you're between sizes, go up one.</p>",
+        "base_product": "",
         "fallback_base_price": 15,
         "anchor": "design",
         "color_scheme": "scheme-1",
@@ -185,21 +214,27 @@
           "type": "column",
           "settings": {
             "title": "1. You design it",
-            "text": "<p>Choose a ready-made favourite or build your own, bead by bead, sized to your wrist.</p>"
+            "text": "<p>Choose a ready-made favourite or build your own, bead by bead, sized to your wrist.</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "h2": {
           "type": "column",
           "settings": {
             "title": "2. I thread it by hand",
-            "text": "<p>Every bracelet is made to order on strong cord with a secure clasp, so nothing sits in a warehouse.</p>"
+            "text": "<p>Every bracelet is made to order on strong cord with a secure clasp, so nothing sits in a warehouse.</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "h3": {
           "type": "column",
           "settings": {
             "title": "3. It's posted to you",
-            "text": "<p>Wrapped in recyclable, plastic-free packaging and sent within 3 to 5 working days.</p>"
+            "text": "<p>Wrapped in recyclable, plastic-free packaging and sent within 3 to 5 working days.</p>",
+            "link_label": "",
+            "link": ""
           }
         }
       },
@@ -213,10 +248,11 @@
         "heading_size": "h1",
         "image_width": "third",
         "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
         "columns_desktop": 3,
         "column_alignment": "left",
         "background_style": "none",
-        "button_label": "",
         "color_scheme": "scheme-2",
         "columns_mobile": "1",
         "swipe_on_mobile": false,
@@ -231,6 +267,7 @@
         "heading": "Find your fit",
         "heading_size": "h1",
         "show_beads": true,
+        "how_to": "<h3>How to measure</h3><ol><li>Wrap a soft tape measure, or a strip of paper, around your wrist just below the wrist bone.</li><li>Mark where it meets and measure the length in centimetres.</li><li>Find your measurement in the table. If you're between sizes, or like a looser fit, go up one.</li></ol><p>Buying a gift? A medium fits most adult wrists.</p>",
         "anchor": "sizes",
         "color_scheme": "scheme-1",
         "padding_top": 52,
@@ -260,7 +297,7 @@
         "head": {
           "type": "heading",
           "settings": {
-            "heading": "Hi, I'm [Name]",
+            "heading": "Hi, I'm Brittany",
             "heading_size": "h1"
           }
         },
@@ -318,7 +355,8 @@
           "settings": {
             "heading": "How long will my order take?",
             "icon": "truck",
-            "row_content": "<p>Each bracelet is made to order, usually within 3 to 5 working days, then sent by Royal Mail. You'll get an email when it's on its way.</p>"
+            "row_content": "<p>Each bracelet is made to order, usually within 3 to 5 working days, then sent by Royal Mail. You'll get an email when it's on its way.</p>",
+            "page": ""
           }
         },
         "q2": {
@@ -326,7 +364,8 @@
           "settings": {
             "heading": "Can I return a bracelet?",
             "icon": "return",
-            "row_content": "<p>Ready-made bracelets can be returned unworn within 14 days. Custom designs are made just for you, so they can't be returned unless they arrive faulty, but I'm happy to resize one if the fit isn't right.</p>"
+            "row_content": "<p>Ready-made bracelets can be returned unworn within 14 days. Custom designs are made just for you, so they can't be returned unless they arrive faulty, but I'm happy to resize one if the fit isn't right.</p>",
+            "page": ""
           }
         },
         "q3": {
@@ -334,7 +373,8 @@
           "settings": {
             "heading": "What are the beads made of?",
             "icon": "question_mark",
-            "row_content": "<p>The beads are 6 mm polymer clay heishi discs, threaded on strong cord with a metal clasp.</p>"
+            "row_content": "<p>The beads are 6 mm polymer clay heishi discs, threaded on strong cord with a metal clasp.</p>",
+            "page": ""
           }
         },
         "q4": {
@@ -342,7 +382,8 @@
           "settings": {
             "heading": "How do I look after my bracelet?",
             "icon": "heart",
-            "row_content": "<p>Take it off before swimming, showering or exercising, and keep it away from perfume and lotions.</p>"
+            "row_content": "<p>Take it off before swimming, showering or exercising, and keep it away from perfume and lotions.</p>",
+            "page": ""
           }
         },
         "q5": {
@@ -350,7 +391,8 @@
           "settings": {
             "heading": "Can I send it as a gift?",
             "icon": "box",
-            "row_content": "<p>Yes. Choose gift wrap at checkout and add a note, and I'll leave the price off the packing slip.</p>"
+            "row_content": "<p>Yes. Choose gift wrap at checkout and add a note, and I'll leave the price off the packing slip.</p>",
+            "page": ""
           }
         }
       },
