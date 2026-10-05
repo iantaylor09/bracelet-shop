@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bracelet Builder Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: preview of the bracelet on the left (sticky), steps on the right; one column with a sticky basket bar on phones.
+   Everything is scoped under #bead-builder so the block can later drop into a Shopify theme section. */
+:root{
+  --bg:#eef0eb;        /* stone with a faint sage bias */
+  --surface:#f8f9f6;
+  --ink:#1e2622;
+  --muted:#5f6b64;
+  --line:#d3d8d0;
+  --accent:#3d6b57;    /* eucalyptus */
+  --accent-ink:#f4f7f3;
+  --cord:#8c7a63;      /* undyed cord */
+  --clasp:#b29a5b;
+  --slot:#cfd5cc;
+  --warn:#9a5b16;
+  --font-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body:"Figtree", "Helvetica Neue", Arial, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161b18; --surface:#1f2622; --ink:#e7ece7; --muted:#9ba89f; --line:#334039;
+    --accent:#7fb59b; --accent-ink:#10231a; --cord:#a8957c; --clasp:#cdb478; --slot:#36423b; --warn:#e0a257;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161b18; --surface:#1f2622; --ink:#e7ece7; --muted:#9ba89f; --line:#334039;
+  --accent:#7fb59b; --accent-ink:#10231a; --cord:#a8957c; --clasp:#cdb478; --slot:#36423b; --warn:#e0a257;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.5}
+
+[hidden]{display:none!important}
+#bead-builder{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:20px 120px}
+#bead-builder *{box-sizing:border-box}
+#bead-builder h1,#bead-builder h2{font-family:var(--font-display);text-wrap:balance;margin:0;letter-spacing:-0.01em}
+#bead-builder h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;line-height:1.1}
+#bead-builder h2{font-size:1.15rem;font-weight:700}
+.bb-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.bb-brand{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.bb-demo{font-size:.8rem;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:2px 10px}
+.bb-lede{color:var(--muted);max-width:60ch;margin:6px 0 0}
+
+.bb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:32px;align-items:start;margin-top:24px}
+@media (max-width:860px){.bb-grid{grid-template-columns:minmax(0,1fr);gap:20px}}
+
+/* Preview */
+.bb-preview{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px}
+@media (max-width:860px){.bb-preview{position:static}.bb-ring{max-width:300px}}
+.bb-ring{width:100%;max-width:420px;aspect-ratio:1/1;margin:0 auto;display:block}
+.bb-meter{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-variant-numeric:tabular-nums}
+.bb-meter strong{font-family:var(--font-display);font-size:1.5rem}
+.bb-bar{height:6px;border-radius:99px;background:var(--slot);overflow:hidden}
+.bb-bar>i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s ease}
+.bb-note{font-size:.85rem;color:var(--muted);margin:0}
+.bb-note.warn{color:var(--warn)}
+.bb-tools{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Steps */
+.bb-steps{display:flex;flex-direction:column;gap:28px;min-width:0}
+.bb-step{display:flex;flex-direction:column;gap:12px}
+.bb-step-head{display:flex;gap:10px;align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.bb-step-num{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.bb-seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.bb-seg button{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:500;padding:5px 14px;border-radius:999px;cursor:pointer}
+.bb-seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+.bb-sizes{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+.bb-size{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:10px 12px;text-align:left;font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:2px;font-variant-numeric:tabular-nums}
+.bb-size b{font-weight:600}
+.bb-size span{font-size:.8rem;color:var(--muted)}
+.bb-size[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.bb-size[aria-pressed="true"] b{color:var(--accent)}
+
+.bb-products{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.bb-prod{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px}
+.bb-prod img{width:72px;height:72px;object-fit:cover;border-radius:10px;display:block}
+.bb-prod-name{font-weight:600;line-height:1.25}
+.bb-prod-meta{font-size:.8rem;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.bb-swatches{display:inline-flex;gap:2px}
+.bb-swatches i{width:5px;height:14px;border-radius:2px;display:block}
+.bb-prod-actions{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.bb-count{font-size:.75rem;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+
+.bb-btn{font:inherit;font-weight:600;border-radius:999px;padding:7px 14px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);white-space:nowrap}
+.bb-btn:hover:not(:disabled){border-color:var(--ink)}
+.bb-btn:disabled{opacity:.45;cursor:not-allowed}
+.bb-btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.bb-btn.primary:hover:not(:disabled){filter:brightness(1.07);border-color:var(--accent)}
+.bb-btn.small{padding:4px 11px;font-size:.85rem}
+.bb-btn.ghost{background:transparent}
+#bead-builder button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.bb-seq{display:flex;flex-wrap:wrap;gap:4px;min-height:34px;padding:8px;border:1px dashed var(--line);border-radius:12px}
+.bb-seq button{width:18px;height:26px;border-radius:5px;border:1px solid rgba(0,0,0,.18);cursor:pointer;padding:0}
+.bb-seq button:hover{transform:translateY(-2px)}
+.bb-seq-empty{color:var(--muted);font-size:.85rem;align-self:center}
+
+.bb-summary{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;font-variant-numeric:tabular-nums}
+.bb-row{display:flex;justify-content:space-between;gap:12px}
+.bb-row.total{border-top:1px solid var(--line);padding-top:8px;margin-top:4px;font-weight:600;font-size:1.05rem}
+.bb-row span:first-child{color:var(--muted)}
+.bb-row.total span:first-child{color:var(--ink)}
+details.bb-dev{font-size:.82rem;color:var(--muted)}
+details.bb-dev summary{cursor:pointer}
+details.bb-dev pre{overflow-x:auto;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.75rem;color:var(--ink)}
+
+/* Sticky basket bar */
+.bb-bar-fixed{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));z-index:5}
+.bb-bar-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bb-bar-total{font-variant-numeric:tabular-nums;display:flex;flex-direction:column;line-height:1.2}
+.bb-bar-total strong{font-family:var(--font-display);font-size:1.35rem}
+.bb-bar-total span{font-size:.8rem;color:var(--muted)}
+.bb-bar-actions{display:flex;gap:8px;align-items:center}
+.bb-basket-count{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:99px;background:var(--ink);color:var(--bg);font-size:.72rem;margin-left:6px;padding:0 5px}
+
+.bb-drawer{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));width:min(380px,calc(100% - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.18);padding:16px;z-index:6;display:flex;flex-direction:column;gap:10px;max-height:60vh;overflow:auto}
+.bb-line{display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:10px}
+.bb-line:last-of-type{border-bottom:0}
+.bb-line canvas{flex:none;border-radius:6px}
+.bb-line div{min-width:0;flex:1;font-size:.85rem}
+.bb-line b{display:block;font-size:.9rem}
+.bb-toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(92px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:.9rem;z-index:7}
+@media (prefers-reduced-motion:reduce){#bead-builder *{transition:none!important}}
+</style>
+
+<div id="bead-builder">
+  <div class="bb-top">
+    <div class="bb-brand">Your shop name</div>
+    <div class="bb-demo">Demo · prices and basket are placeholders</div>
+  </div>
+  <h1>Design your bracelet</h1>
+  <p class="bb-lede">Pick a wrist size, then add polymer clay heishi beads one at a time. The bracelet fills up as you go, and the price updates with every bead.</p>
+
+  <div class="bb-grid">
+    <section class="bb-preview" aria-label="Bracelet preview">
+      <svg class="bb-ring" id="bb-ring" viewBox="0 0 400 400" role="img" aria-label="Preview of your bracelet"></svg>
+      <div class="bb-meter"><span><strong id="bb-used">0</strong> <span id="bb-of">of 0 beads</span></span><span id="bb-length" class="bb-note"></span></div>
+      <div class="bb-bar" aria-hidden="true"><i id="bb-fill"></i></div>
+      <p class="bb-note" id="bb-hint"></p>
+      <div class="bb-tools">
+        <button class="bb-btn small" id="bb-undo" type="button">Undo last bead</button>
+        <button class="bb-btn small" id="bb-shuffle" type="button">Shuffle order</button>
+        <button class="bb-btn small ghost" id="bb-clear" type="button">Clear all</button>
+      </div>
+    </section>
+
+    <div class="bb-steps">
+      <section class="bb-step" aria-labelledby="bb-s1">
+        <div class="bb-step-head">
+          <div><div class="bb-step-num">Step 1</div><h2 id="bb-s1">Choose your size</h2></div>
+          <div class="bb-seg" role="group" aria-label="Size chart">
+            <button type="button" id="bb-fit-women" data-fit="women" aria-pressed="true">Women's</button>
+            <button type="button" id="bb-fit-men" data-fit="men" aria-pressed="false">Men's</button>
+          </div>
+        </div>
+        <div class="bb-sizes" id="bb-sizes"></div>
+        <p class="bb-note">Measure around your wrist bone with a soft tape. If you're between sizes, go up one.</p>
+      </section>
+
+      <section class="bb-step" aria-labelledby="bb-s2">
+        <div class="bb-step-head">
+          <div><div class="bb-step-num">Step 2</div><h2 id="bb-s2">Add your beads</h2></div>
+        </div>
+        <div class="bb-products" id="bb-products"></div>
+        <div>
+          <p class="bb-note" style="margin-bottom:6px">Your bead order, clasp to clasp. Tap a bead to remove it.</p>
+          <div class="bb-seq" id="bb-seq"></div>
+        </div>
+      </section>
+
+      <section class="bb-step" aria-labelledby="bb-s3">
+        <div><div class="bb-step-num">Step 3</div><h2 id="bb-s3">Review</h2></div>
+        <div class="bb-summary" id="bb-summary"></div>
+        <details class="bb-dev">
+          <summary>What the shop would receive (for setup)</summary>
+          <pre id="bb-payload"></pre>
+        </details>
+      </section>
+    </div>
+  </div>
+
+  <div class="bb-bar-fixed">
+    <div class="bb-bar-inner">
+      <div class="bb-bar-total"><strong id="bb-total">£0.00</strong><span id="bb-bar-sub">Choose a size to start</span></div>
+      <div class="bb-bar-actions">
+        <button class="bb-btn" id="bb-basket-btn" type="button">Basket<span class="bb-basket-count" id="bb-basket-count">0</span></button>
+        <button class="bb-btn primary" id="bb-add" type="button">Add to basket</button>
+      </div>
+    </div>
+  </div>
+  <div class="bb-drawer" id="bb-drawer" hidden></div>
+  <div class="bb-toast" id="bb-toast" role="status" hidden></div>
+</div>
+
+<script>
+(function(){
+  /* ---- Shop data. In Shopify these come from the bead products and a metafield for sizes. ---- */
+  const CONFIG = {
+    currency: "GBP",
+    beadLengthCm: 0.6,
+    claspAllowanceCm: 2,
+    basePrice: 15,         // cord + clasp
+    products: [
+      { id:"blue-green",   name:"Blue/Green",   img:"img/blue-green.jpg",   price:0.05, colours:["#1f3c8f","#4f8fd6","#93d6a2","#2f8a55","#f3f4f1","#1b6a3b"] },
+      { id:"pastel-multi", name:"Pastel/Multi", img:"img/pastel-multi.jpg", price:0.05, colours:["#ef6a95","#e23b45","#f7d443","#86cfee","#2c3a8f","#f6b7cd","#9fd3a5"] },
+      { id:"peach-grey",   name:"Peach/Grey",   img:"img/peach-grey.jpg",   price:0.05, colours:["#f4b57a","#f8d8a6","#a6a8ab","#fbe6c7","#e59b62","#c9c9c4"] },
+      { id:"purple-pink",  name:"Purple/Pink",  img:"img/purple-pink.jpg",  price:0.05, colours:["#5b2a9a","#8b4fc4","#b9a1e0","#e3256f","#3b2386","#f1eef8"] },
+      { id:"red-green",    name:"Red/Green",    img:"img/red-green.jpg",    price:0.05, colours:["#e2342c","#f6b52a","#c3cf38","#b6a2dc","#f2732f","#f5e04a"] }
+    ],
+    productTitle: "Polymer Clay Heishi Beads 6mm · Flat Round Disc",
+    // From the Bracelet Guide: max wrist size (cm) per size.
+    sizes: [
+      { cm:[12.7,14.0], women:"X-Small" },
+      { cm:[14.0,15.2], women:"Small" },
+      { cm:[15.2,16.5], women:"Medium" },
+      { cm:[16.5,17.8], women:"Large",   men:"Small" },
+      { cm:[17.8,19.0], women:"X-Large", men:"Medium" },
+      { cm:[19.0,20.3], women:"2X-Large",men:"Large" },
+      { cm:[20.3,21.6], women:"3X-Large",men:"X-Large" },
+      { cm:[21.6,22.9],                  men:"2X-Large" },
+      { cm:[22.9,24.1],                  men:"3X-Large" }
+    ]
+  };
+  // Max beads = floor((max wrist cm − clasp) ÷ bead length). The small epsilon stops 19.9999 rounding down to 19.
+  const maxBeads = s => Math.floor((s.cm[1] - CONFIG.claspAllowanceCm) / CONFIG.beadLengthCm + 1e-9);
+  const byId = Object.fromEntries(CONFIG.products.map(p => [p.id, p]));
+  const money = n => new Intl.NumberFormat("en-GB",{style:"currency",currency:CONFIG.currency}).format(n);
+  const $ = id => document.getElementById(id);
+
+  /* ---- State. Each bead remembers its product and which shade of that mix it drew. ---- */
+  const state = { fit:"women", sizeIdx:2, beads:[], basket:[], sample:true, seed:7 };
+  function shadeFor(pid){ const p=byId[pid]; state.seed=(state.seed*9301+49297)%233280; return Math.floor(state.seed/233280*p.colours.length); }
+  function newBead(pid){ return { pid, shade: shadeFor(pid) }; }
+  const size = () => CONFIG.sizes[state.sizeIdx];
+  const cap = () => maxBeads(size());
+  const total = () => CONFIG.basePrice + state.beads.reduce((t,b)=>t+byId[b.pid].price,0);
+
+  // Opening sample: a Medium in blue/green and peach/grey, so the preview shows what the tool does.
+  (function sample(){
+    const pattern=["blue-green","blue-green","peach-grey","peach-grey","peach-grey"];
+    for(let i=0;i<maxBeads(CONFIG.sizes[2]);i++) state.beads.push(newBead(pattern[i%pattern.length]));
+  })();
+
+  /* ---- Sizes ---- */
+  function renderSizes(){
+    document.querySelectorAll(".bb-seg button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.fit===state.fit)));
+    const wrap=$("bb-sizes"); wrap.innerHTML="";
+    CONFIG.sizes.forEach((s,i)=>{
+      const label=s[state.fit]; if(!label) return;
+      const b=document.createElement("button");
+      b.type="button"; b.className="bb-size"; b.id="bb-size-"+i;
+      b.setAttribute("aria-pressed", String(i===state.sizeIdx));
+      b.innerHTML=`<b>${label}</b><span>${s.cm[0].toFixed(1)}–${s.cm[1].toFixed(1)} cm</span><span>Up to ${maxBeads(s)} beads</span>`;
+      b.onclick=()=>pickSize(i);
+      wrap.appendChild(b);
+    });
+  }
+  function pickSize(i){
+    state.sizeIdx=i;
+    const c=cap();
+    if(state.beads.length>c){ const cut=state.beads.length-c; state.beads.length=c; toast(`Removed ${cut} bead${cut>1?"s":""} from the end to fit this size`); }
+    render();
+  }
+  function setFit(fit){
+    state.fit=fit;
+    if(!size()[fit]){ // keep the closest size that exists on this chart
+      const opts=CONFIG.sizes.map((s,i)=>s[fit]?i:-1).filter(i=>i>=0);
+      const near=opts.reduce((a,b)=>Math.abs(b-state.sizeIdx)<Math.abs(a-state.sizeIdx)?b:a);
+      pickSize(near); return;
+    }
+    render();
+  }
+  $("bb-fit-women").onclick=()=>setFit("women");
+  $("bb-fit-men").onclick=()=>setFit("men");
+
+  /* ---- Products ---- */
+  function renderProducts(){
+    const wrap=$("bb-products"); wrap.innerHTML="";
+    const full=state.beads.length>=cap();
+    CONFIG.products.forEach(p=>{
+      const n=state.beads.filter(b=>b.pid===p.id).length;
+      const row=document.createElement("div"); row.className="bb-prod";
+      row.innerHTML=`
+        <img src="${p.img}" alt="${p.name} heishi bead strands" width="72" height="72">
+        <div style="min-width:0">
+          <div class="bb-prod-name">${p.name}</div>
+          <div class="bb-prod-meta"><span class="bb-swatches">${p.colours.map(c=>`<i style="background:${c}"></i>`).join("")}</span><span>${CONFIG.productTitle}</span></div>
+          <div class="bb-prod-meta"><span>${money(p.price)} per bead</span></div>
+        </div>
+        <div class="bb-prod-actions">
+          <button type="button" class="bb-btn small primary" id="bb-add-${p.id}" ${full?"disabled":""}>Add bead</button>
+          <button type="button" class="bb-btn small" id="bb-fillwith-${p.id}" ${full?"disabled":""}>Fill rest</button>
+          <div class="bb-count">${n} in design</div>
+        </div>`;
+      row.querySelector("#bb-add-"+p.id).onclick=()=>addBead(p.id);
+      row.querySelector("#bb-fillwith-"+p.id).onclick=()=>{ while(state.beads.length<cap()) state.beads.push(newBead(p.id)); state.sample=false; render(); };
+      wrap.appendChild(row);
+    });
+  }
+  function addBead(pid){
+    if(state.beads.length>=cap()){ toast("This size is full. Remove a bead or choose a larger size."); return; }
+    state.beads.push(newBead(pid)); state.sample=false; render();
+  }
+
+  /* ---- Sequence strip ---- */
+  function renderSeq(){
+    const wrap=$("bb-seq"); wrap.innerHTML="";
+    if(!state.beads.length){ wrap.innerHTML='<span class="bb-seq-empty">No beads yet. Add some from the list above.</span>'; return; }
+    state.beads.forEach((b,i)=>{
+      const p=byId[b.pid]; const btn=document.createElement("button");
+      btn.type="button"; btn.style.background=p.colours[b.shade];
+      btn.title=`Bead ${i+1}: ${p.name}. Tap to remove.`; btn.setAttribute("aria-label",btn.title);
+      btn.onclick=()=>{ state.beads.splice(i,1); state.sample=false; render(); };
+      wrap.appendChild(btn);
+    });
+  }
+
+  /* ---- Bracelet preview: beads sit around the ring, the clasp fills the 2 cm gap at the top ---- */
+  function renderRing(){
+    const svg=$("bb-ring"), c=cap(), s=size();
+    const cx=200, cy=210, R=150;
+    const totalLen=c*CONFIG.beadLengthCm+CONFIG.claspAllowanceCm;
+    const claspArc=CONFIG.claspAllowanceCm/totalLen*2*Math.PI;
+    const step=(2*Math.PI-claspArc)/c;
+    const start=-Math.PI/2+claspArc/2+step/2;
+    const beadW=Math.min(R*step*0.86,28), beadH=34;
+    let out=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="var(--cord)" stroke-width="2.5" stroke-dasharray="1 0"/>`;
+    for(let i=0;i<c;i++){
+      const a=start+i*step, x=cx+R*Math.cos(a), y=cy+R*Math.sin(a), deg=a*180/Math.PI+90;
+      const b=state.beads[i];
+      if(b){
+        const col=byId[b.pid].colours[b.shade];
+        out+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${deg.toFixed(1)})">
+          <rect x="${-beadW/2}" y="${-beadH/2}" width="${beadW}" height="${beadH}" rx="${beadW*0.32}" fill="${col}" stroke="rgba(0,0,0,.22)" stroke-width="1"/>
+          <rect x="${-beadW/2+2}" y="${-beadH/2+3}" width="${Math.max(beadW*0.22,2)}" height="${beadH-6}" rx="1.5" fill="rgba(255,255,255,.28)"/></g>`;
+      } else {
+        out+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="var(--slot)"/>`;
+      }
+    }
+    // Lobster-style clasp
+    const ty=cy-R;
+    out+=`<g transform="translate(${cx} ${ty})">
+      <ellipse cx="-10" cy="0" rx="12" ry="8" fill="none" stroke="var(--clasp)" stroke-width="4"/>
+      <circle cx="13" cy="0" r="6" fill="none" stroke="var(--clasp)" stroke-width="3.5"/>
+      <rect x="-25" y="-2" width="5" height="4" rx="1" fill="var(--clasp)"/></g>`;
+    out+=`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-family="var(--font-display)" font-size="22" font-weight="700" fill="var(--ink)">${s[state.fit]}</text>
+          <text x="${cx}" y="${cy+20}" text-anchor="middle" font-family="var(--font-body)" font-size="13" fill="var(--muted)">${state.fit==="women"?"Women's":"Men's"} · ${s.cm[0].toFixed(1)}–${s.cm[1].toFixed(1)} cm</text>`;
+    svg.innerHTML=out;
+  }
+
+  /* ---- Summary, payload, bar ---- */
+  function lineItem(){
+    const s=size(), counts={};
+    state.beads.forEach(b=>counts[byId[b.pid].name]=(counts[byId[b.pid].name]||0)+1);
+    // Shape of a Shopify /cart/add.js request: one "custom bracelet" variant, with the design as line item properties.
+    return {
+      items:[{
+        id:"<custom-bracelet-variant-id>",
+        quantity:1,
+        properties:{
+          "Size": `${state.fit==="women"?"Women's":"Men's"} ${s[state.fit]} (${s.cm[0]}–${s.cm[1]} cm)`,
+          "Beads": `${state.beads.length} of ${cap()}`,
+          "Mix": Object.entries(counts).map(([k,v])=>`${k} ×${v}`).join(", ") || "None",
+          "_Order": state.beads.map(b=>b.pid+":"+b.shade).join(","),
+          "_Price": total().toFixed(2)
+        }
+      }]
+    };
+  }
+  function renderSummary(){
+    const s=size(), n=state.beads.length, c=cap(), counts={};
+    state.beads.forEach(b=>counts[b.pid]=(counts[b.pid]||0)+1);
+    let rows=`<div class="bb-row"><span>Size</span><span>${state.fit==="women"?"Women's":"Men's"} ${s[state.fit]}</span></div>`;
+    CONFIG.products.forEach(p=>{ if(counts[p.id]) rows+=`<div class="bb-row"><span>${p.name} × ${counts[p.id]}</span><span>${money(counts[p.id]*p.price)}</span></div>`; });
+    rows+=`<div class="bb-row"><span>Cord and clasp</span><span>${CONFIG.basePrice?money(CONFIG.basePrice):"Included"}</span></div>`;
+    rows+=`<div class="bb-row total"><span>Total</span><span>${money(total())}</span></div>`;
+    $("bb-summary").innerHTML=rows;
+    $("bb-payload").textContent=JSON.stringify(lineItem(),null,2);
+
+    $("bb-used").textContent=n; $("bb-of").textContent=`of ${c} beads`;
+    $("bb-length").textContent=`${(n*CONFIG.beadLengthCm+CONFIG.claspAllowanceCm).toFixed(1)} cm with clasp`;
+    $("bb-fill").style.width=(c?n/c*100:0)+"%";
+    const hint=$("bb-hint");
+    hint.className="bb-note";
+    if(state.sample) hint.textContent="This is a sample design. Clear it to start your own, or tap beads below to change it.";
+    else if(!n) hint.textContent="Add beads from Step 2 to see them on the bracelet.";
+    else if(n<c){ hint.textContent=`${c-n} space${c-n>1?"s":""} left. A full bracelet sits best on the wrist.`; hint.classList.add("warn"); }
+    else hint.textContent="Your bracelet is full.";
+    $("bb-total").textContent=money(total());
+    $("bb-bar-sub").textContent=`${s[state.fit]} · ${n} of ${c} beads`;
+    $("bb-add").disabled=!n;
+    $("bb-undo").disabled=!n; $("bb-shuffle").disabled=n<2; $("bb-clear").disabled=!n;
+    $("bb-basket-count").textContent=state.basket.length;
+  }
+
+  /* ---- Basket (mocked) ---- */
+  function thumb(beads){
+    const cv=document.createElement("canvas"); cv.width=44; cv.height=44;
+    const g=cv.getContext("2d"), n=Math.max(beads.length,1);
+    beads.forEach((b,i)=>{ const a=-Math.PI/2+(i+.5)/n*Math.PI*2*0.92+0.25; g.fillStyle=byId[b.pid].colours[b.shade]; g.beginPath(); g.arc(22+16*Math.cos(a),22+16*Math.sin(a),3.2,0,7); g.fill(); });
+    return cv;
+  }
+  function renderDrawer(){
+    const d=$("bb-drawer"); d.innerHTML="";
+    const h=document.createElement("h2"); h.textContent="Basket"; d.appendChild(h);
+    if(!state.basket.length){ const p=document.createElement("p"); p.className="bb-note"; p.textContent="Your basket is empty."; d.appendChild(p); return; }
+    let sum=0;
+    state.basket.forEach((item,i)=>{
+      sum+=item.price;
+      const line=document.createElement("div"); line.className="bb-line";
+      line.appendChild(thumb(item.beads));
+      const t=document.createElement("div");
+      t.innerHTML=`<b>Custom heishi bracelet</b>${item.props["Size"]}<br>${item.props["Beads"]} beads · ${item.props["Mix"]}`;
+      line.appendChild(t);
+      const right=document.createElement("div"); right.style.flex="none"; right.style.textAlign="right";
+      right.innerHTML=`<div style="font-variant-numeric:tabular-nums;font-weight:600">${money(item.price)}</div>`;
+      const rm=document.createElement("button"); rm.type="button"; rm.className="bb-btn small ghost"; rm.textContent="Remove";
+      rm.onclick=()=>{ state.basket.splice(i,1); renderDrawer(); renderSummary(); };
+      right.appendChild(rm); line.appendChild(right); d.appendChild(line);
+    });
+    const foot=document.createElement("div"); foot.className="bb-row total"; foot.innerHTML=`<span>Subtotal</span><span>${money(sum)}</span>`; d.appendChild(foot);
+    const co=document.createElement("button"); co.type="button"; co.className="bb-btn primary"; co.textContent="Checkout";
+    co.onclick=()=>toast("Checkout is where Shopify takes over. Not connected in this demo."); d.appendChild(co);
+  }
+  $("bb-add").onclick=()=>{
+    if(!state.beads.length) return;
+    const li=lineItem().items[0];
+    state.basket.push({ beads: state.beads.slice(), props: li.properties, price: total() });
+    renderSummary(); renderDrawer(); toast("Added to basket");
+  };
+  $("bb-basket-btn").onclick=()=>{ const d=$("bb-drawer"); d.hidden=!d.hidden; if(!d.hidden) renderDrawer(); };
+
+  /* ---- Tools ---- */
+  $("bb-undo").onclick=()=>{ state.beads.pop(); state.sample=false; render(); };
+  $("bb-clear").onclick=()=>{ state.beads=[]; state.sample=false; render(); };
+  $("bb-shuffle").onclick=()=>{ for(let i=state.beads.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.beads[i],state.beads[j]]=[state.beads[j],state.beads[i]]; } state.sample=false; render(); };
+
+  let tt; function toast(msg){ const t=$("bb-toast"); t.textContent=msg; t.hidden=false; clearTimeout(tt); tt=setTimeout(()=>t.hidden=true,2400); }
+
+  function render(){ renderSizes(); renderProducts(); renderSeq(); renderRing(); renderSummary(); }
+  render();
+})();
+</script>
+
+</html>

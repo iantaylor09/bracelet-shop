@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bracelet Shop Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: one-page shop. Sticky nav, a sliding hero banner for three bestsellers, then the builder,
+   how it's made, size guide, about, FAQ and contact. Each section is self-contained so it maps to a Shopify theme section. */
+:root{
+  --bg:#eef0eb; --surface:#f8f9f6; --ink:#1e2622; --muted:#5f6b64; --line:#d3d8d0;
+  --accent:#3d6b57; --accent-ink:#f4f7f3; --deep:#24382f; --deep-ink:#eef3ee;
+  --cord:#8c7a63; --clasp:#b29a5b; --slot:#cfd5cc; --warn:#9a5b16;
+  --font-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --font-body:"Figtree","Helvetica Neue",Arial,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161b18; --surface:#1f2622; --ink:#e7ece7; --muted:#9ba89f; --line:#334039;
+    --accent:#7fb59b; --accent-ink:#10231a; --deep:#0f1512; --deep-ink:#e7ece7;
+    --cord:#a8957c; --clasp:#cdb478; --slot:#36423b; --warn:#e0a257; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161b18; --surface:#1f2622; --ink:#e7ece7; --muted:#9ba89f; --line:#334039;
+  --accent:#7fb59b; --accent-ink:#10231a; --deep:#0f1512; --deep-ink:#e7ece7;
+  --cord:#a8957c; --clasp:#cdb478; --slot:#36423b; --warn:#e0a257; color-scheme:dark;
+}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55}
+*{box-sizing:border-box}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;letter-spacing:-0.01em;line-height:1.12}
+h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:700}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px}
+section.block{padding-block:72px;scroll-margin-top:64px}
+.eyebrow{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);max-width:60ch}
+.sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.ph{font-size:.72rem;color:var(--warn);border:1px dashed currentColor;border-radius:999px;padding:1px 8px;display:inline-block;vertical-align:middle;margin-left:6px;white-space:nowrap;font-family:var(--font-body);letter-spacing:0;text-transform:none;font-weight:500}
+
+.btn{font:inherit;font-weight:600;border-radius:999px;padding:9px 18px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn:hover:not(:disabled){border-color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover:not(:disabled){filter:brightness(1.07);border-color:var(--accent)}
+.btn.small{padding:4px 11px;font-size:.85rem}
+.btn.ghost{background:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--font-display);font-weight:700;font-size:1.15rem;text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand-dots{display:inline-flex;gap:2px}
+.brand-dots i{width:4px;height:14px;border-radius:2px;display:block}
+.links{display:flex;gap:22px;align-items:center}
+.links a{text-decoration:none;color:var(--muted);font-weight:500}
+.links a:hover{color:var(--ink)}
+@media (max-width:760px){.links{display:none}}
+.count{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:99px;background:var(--ink);color:var(--bg);font-size:.72rem;padding:0 5px}
+
+/* Hero banner */
+.hero{position:relative;overflow:hidden;background:var(--deep);color:var(--deep-ink)}
+.slides{position:relative;min-height:520px}
+@media (max-width:760px){.slides{min-height:640px}}
+.slide{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:24px;opacity:0;visibility:hidden;transition:opacity .7s ease,visibility .7s}
+.slide.on{opacity:1;visibility:visible}
+@media (max-width:760px){.slide{grid-template-columns:minmax(0,1fr);align-content:center;gap:8px;padding-block:24px}}
+.slide-copy{display:flex;flex-direction:column;gap:14px;max-width:34rem;padding-right:16px;min-width:0}
+.slide.on .slide-copy>*{animation:rise .7s ease both}
+.slide.on .slide-copy>*:nth-child(2){animation-delay:.08s}
+.slide.on .slide-copy>*:nth-child(3){animation-delay:.16s}
+.slide.on .slide-copy>*:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.slide-copy h1{font-size:clamp(2.2rem,5.4vw,3.8rem);font-weight:700}
+.slide-copy .eyebrow{color:color-mix(in srgb,var(--deep-ink) 70%,transparent)}
+.slide-copy p.desc{color:color-mix(in srgb,var(--deep-ink) 78%,transparent);max-width:44ch}
+.slide-price{font-family:var(--font-display);font-size:1.4rem;font-variant-numeric:tabular-nums}
+.slide-cta{display:flex;gap:10px;flex-wrap:wrap}
+.hero .btn{border-color:color-mix(in srgb,var(--deep-ink) 35%,transparent);background:transparent;color:var(--deep-ink)}
+.hero .btn.primary{background:var(--deep-ink);color:var(--deep);border-color:var(--deep-ink)}
+.slide-art{position:relative;width:100%;max-width:440px;aspect-ratio:1/1;justify-self:center}
+@media (max-width:760px){.slide-art{max-width:280px;order:-1}}
+.slide-art img{position:absolute;inset:14%;width:72%;height:72%;object-fit:cover;border-radius:50%;opacity:.9}
+.slide-art svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-ctrl{position:absolute;left:0;right:0;bottom:22px}
+.hero-ctrl .wrap{display:flex;gap:10px;align-items:center}
+.dot{width:34px;height:4px;border-radius:2px;border:0;background:color-mix(in srgb,var(--deep-ink) 30%,transparent);cursor:pointer;padding:0;position:relative;overflow:hidden}
+.dot.on::after{content:"";position:absolute;inset:0;background:var(--deep-ink);transform-origin:left;animation:fill 6s linear both}
+.hero.paused .dot.on::after{animation-play-state:paused}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.pause{margin-left:8px;background:transparent;border:0;color:color-mix(in srgb,var(--deep-ink) 75%,transparent);font:inherit;font-size:.82rem;cursor:pointer;text-decoration:underline}
+
+/* Promise strip */
+.strip{border-bottom:1px solid var(--line);background:var(--surface)}
+.strip .wrap{display:flex;justify-content:space-between;gap:12px 28px;flex-wrap:wrap;padding-block:16px}
+.strip span{display:flex;gap:8px;align-items:center;font-weight:500;font-size:.92rem}
+.strip svg{flex:none;color:var(--accent)}
+
+/* Builder (from the configurator demo) */
+.bb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:32px;align-items:start}
+@media (max-width:860px){.bb-grid{grid-template-columns:minmax(0,1fr);gap:20px}}
+.bb-preview{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px}
+@media (max-width:860px){.bb-preview{position:static}.bb-ring{max-width:300px}}
+.bb-ring{width:100%;max-width:420px;aspect-ratio:1/1;margin:0 auto;display:block}
+.bb-meter{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-variant-numeric:tabular-nums}
+.bb-meter strong{font-family:var(--font-display);font-size:1.5rem}
+.bb-bar{height:6px;border-radius:99px;background:var(--slot);overflow:hidden}
+.bb-bar>i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s ease}
+.note{font-size:.85rem;color:var(--muted)}
+.note.warn{color:var(--warn)}
+.bb-tools{display:flex;gap:8px;flex-wrap:wrap}
+.bb-steps{display:flex;flex-direction:column;gap:28px;min-width:0}
+.bb-step{display:flex;flex-direction:column;gap:12px}
+.bb-step-head{display:flex;gap:10px;align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:500;padding:5px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.bb-sizes{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+.bb-size{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:10px 12px;text-align:left;font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:2px;font-variant-numeric:tabular-nums}
+.bb-size b{font-weight:600}
+.bb-size span{font-size:.8rem;color:var(--muted)}
+.bb-size[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.bb-size[aria-pressed="true"] b{color:var(--accent)}
+.bb-products{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.bb-prod{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px}
+.bb-prod img{width:64px;height:64px;object-fit:cover;border-radius:10px;display:block}
+.bb-prod-name{font-weight:600;line-height:1.25}
+.bb-prod-meta{font-size:.8rem;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.swatches{display:inline-flex;gap:2px}
+.swatches i{width:5px;height:14px;border-radius:2px;display:block}
+.bb-prod-actions{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.bb-count{font-size:.75rem;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.bb-seq{display:flex;flex-wrap:wrap;gap:4px;min-height:34px;padding:8px;border:1px dashed var(--line);border-radius:12px}
+.bb-seq button{width:18px;height:26px;border-radius:5px;border:1px solid rgba(0,0,0,.18);cursor:pointer;padding:0}
+.bb-seq button:hover{transform:translateY(-2px)}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;font-variant-numeric:tabular-nums}
+.row{display:flex;justify-content:space-between;gap:12px}
+.row.total{border-top:1px solid var(--line);padding-top:8px;margin-top:4px;font-weight:600;font-size:1.05rem}
+.row span:first-child{color:var(--muted)}
+.row.total span:first-child{color:var(--ink)}
+.bb-buy{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.bb-buy strong{font-family:var(--font-display);font-size:1.5rem;font-variant-numeric:tabular-nums}
+
+/* How it's made */
+.steps3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;counter-reset:s}
+@media (max-width:760px){.steps3{grid-template-columns:minmax(0,1fr)}}
+.steps3 li{list-style:none;display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:2px solid var(--ink)}
+.steps3 li::before{counter-increment:s;content:counter(s);font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--accent);line-height:1}
+.steps3 p{color:var(--muted)}
+ol.steps3{padding:0;margin:0}
+
+/* Size guide */
+.size-wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:start}
+@media (max-width:860px){.size-wrap{grid-template-columns:minmax(0,1fr)}}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.92rem}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+td.none{color:var(--muted)}
+.measure{display:flex;flex-direction:column;gap:12px}
+.measure ol{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+
+/* About */
+.about{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px;align-items:center}
+@media (max-width:760px){.about{grid-template-columns:minmax(0,1fr)}}
+.portrait{aspect-ratio:4/5;width:100%;max-width:380px;justify-self:center;border-radius:18px;border:1px dashed var(--line);background:var(--surface);display:grid;place-items:center;text-align:center;color:var(--muted);padding:24px;position:relative;overflow:hidden}
+.portrait svg{width:70%;max-width:260px;opacity:.9}
+.about-copy{display:flex;flex-direction:column;gap:14px;max-width:58ch}
+.about-copy p{color:var(--muted)}
+.about-copy p.big{font-family:var(--font-display);font-size:1.35rem;color:var(--ink);line-height:1.3}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;border-top:1px solid var(--line);max-width:780px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--font-display);font-size:1.3rem;line-height:1;color:var(--accent)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding-bottom:16px;color:var(--muted);max-width:65ch}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:40px;align-items:start}
+@media (max-width:760px){.contact{grid-template-columns:minmax(0,1fr)}}
+.contact-info{display:flex;flex-direction:column;gap:16px}
+.contact-info dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px}
+.contact-info dt{color:var(--muted)}
+.contact-info dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+form.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:600;font-size:.9rem}
+.field input,.field textarea,.field select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+.field textarea{min-height:120px;resize:vertical}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media (max-width:520px){.two{grid-template-columns:minmax(0,1fr)}}
+.form-msg{font-size:.9rem;color:var(--accent);font-weight:500}
+
+/* Footer */
+footer{background:var(--deep);color:var(--deep-ink);padding-block:48px 32px}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,1fr));gap:32px}
+@media (max-width:760px){footer .wrap{grid-template-columns:minmax(0,1fr)}}
+footer h3{font-size:1rem}
+footer p,footer li{color:color-mix(in srgb,var(--deep-ink) 75%,transparent);font-size:.9rem}
+footer ul{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-direction:column;gap:6px}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
+.news{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.news input{flex:1;min-width:0;font:inherit;padding:9px 12px;border-radius:999px;border:1px solid color-mix(in srgb,var(--deep-ink) 30%,transparent);background:transparent;color:var(--deep-ink)}
+.news input::placeholder{color:color-mix(in srgb,var(--deep-ink) 55%,transparent)}
+.news .btn{background:var(--deep-ink);color:var(--deep);border-color:var(--deep-ink)}
+.fine{grid-column:1/-1;border-top:1px solid color-mix(in srgb,var(--deep-ink) 18%,transparent);padding-top:16px;font-size:.8rem}
+
+/* Basket drawer + toast */
+.drawer{position:fixed;right:16px;top:calc(env(safe-area-inset-top,0px) + 68px);width:min(380px,calc(100% - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.18);padding:16px;z-index:30;display:flex;flex-direction:column;gap:10px;max-height:70vh;overflow:auto}
+.line{display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:10px}
+.line canvas{flex:none;border-radius:6px}
+.line div{min-width:0;flex:1;font-size:.85rem}
+.line b{display:block;font-size:.9rem}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:.9rem;z-index:40;max-width:calc(100% - 32px);text-align:center}
+</style>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="brand-dots" aria-hidden="true"><i style="background:#3d8a5a"></i><i style="background:#f4b57a"></i><i style="background:#8b4fc4"></i><i style="background:#4f8fd6"></i></span>Your shop name</a>
+    <nav class="links" aria-label="Main">
+      <a href="#bestsellers">Bestsellers</a>
+      <a href="#design">Design your own</a>
+      <a href="#sizes">Size guide</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="btn small" id="basket-btn" type="button" aria-expanded="false">Basket <span class="count" id="basket-count">0</span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="bestsellers" aria-roledescription="carousel" aria-label="Bestselling bracelets">
+    <div class="slides" id="slides"></div>
+    <div class="hero-ctrl"><div class="wrap" id="dots"></div></div>
+  </section>
+
+  <div class="strip">
+    <div class="wrap">
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Made to order, by hand</span>
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19c8 0 14-6 14-14C11 5 5 11 5 19Z"/><path d="M5 19l7-7"/></svg>Plastic-free packaging <em class="ph">confirm</em></span>
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h12v10H3zM15 10h4l2 3v4h-6"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg>UK delivery from £0.00 <em class="ph">set price</em></span>
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18M12 8c-2-4-6-4-6-1s6 1 6 1Zm0 0c2-4 6-4 6-1s-6 1-6 1Z"/></svg>Gift wrap available</span>
+    </div>
+  </div>
+
+  <section class="block" id="design">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Design your own</div>
+        <h2>Build a bracelet bead by bead</h2>
+        <p class="lede">Pick your wrist size, then add polymer clay heishi beads one at a time. The bracelet fills up as you go and the price updates with every bead.</p>
+      </div>
+      <div class="bb-grid">
+        <div class="bb-preview" aria-label="Bracelet preview">
+          <svg class="bb-ring" id="bb-ring" viewBox="0 0 400 400" role="img" aria-label="Preview of your bracelet"></svg>
+          <div class="bb-meter"><span><strong id="bb-used">0</strong> <span id="bb-of">of 0 beads</span></span><span id="bb-length" class="note"></span></div>
+          <div class="bb-bar" aria-hidden="true"><i id="bb-fill"></i></div>
+          <p class="note" id="bb-hint"></p>
+          <div class="bb-tools">
+            <button class="btn small" id="bb-undo" type="button">Undo last bead</button>
+            <button class="btn small" id="bb-shuffle" type="button">Shuffle order</button>
+            <button class="btn small ghost" id="bb-clear" type="button">Clear all</button>
+          </div>
+        </div>
+        <div class="bb-steps">
+          <div class="bb-step">
+            <div class="bb-step-head">
+              <div><div class="eyebrow">Step 1</div><h3>Choose your size</h3></div>
+              <div class="seg" role="group" aria-label="Size chart">
+                <button type="button" id="bb-fit-women" data-fit="women" aria-pressed="true">Women's</button>
+                <button type="button" id="bb-fit-men" data-fit="men" aria-pressed="false">Men's</button>
+              </div>
+            </div>
+            <div class="bb-sizes" id="bb-sizes"></div>
+            <p class="note">Not sure? See the <a href="#sizes">size guide</a>. If you're between sizes, go up one.</p>
+          </div>
+          <div class="bb-step">
+            <div><div class="eyebrow">Step 2</div><h3>Add your beads</h3></div>
+            <div class="bb-products" id="bb-products"></div>
+            <div>
+              <p class="note" style="margin-bottom:6px">Your bead order, clasp to clasp. Tap a bead to remove it.</p>
+              <div class="bb-seq" id="bb-seq"></div>
+            </div>
+          </div>
+          <div class="bb-step">
+            <div><div class="eyebrow">Step 3</div><h3>Review</h3></div>
+            <div class="summary" id="bb-summary"></div>
+            <div class="bb-buy">
+              <strong id="bb-total">£0.00</strong>
+              <button class="btn primary" id="bb-add" type="button">Add to basket</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="how" style="background:var(--surface);border-block:1px solid var(--line)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">How it's made</div>
+        <h2>From your design to your wrist</h2>
+      </div>
+      <ol class="steps3">
+        <li><h3>You design it</h3><p>Choose a ready-made favourite or build your own here, bead by bead, sized to your wrist.</p></li>
+        <li><h3>I thread it by hand</h3><p>Every bracelet is made to order on strong cord with a secure clasp, so nothing sits in a warehouse. <em class="ph">check wording</em></p></li>
+        <li><h3>It's posted to you</h3><p>Wrapped in recyclable, plastic-free packaging and sent within 3 to 5 working days. <em class="ph">confirm timings</em></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="sizes">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Size guide</div>
+        <h2>Find your fit</h2>
+      </div>
+      <div class="size-wrap">
+        <div class="table-scroll">
+          <table id="size-table">
+            <thead><tr><th>Wrist (in)</th><th>Wrist (cm)</th><th>Women's</th><th>Men's</th><th>Max beads</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="measure">
+          <h3>How to measure</h3>
+          <ol>
+            <li>Wrap a soft tape measure, or a strip of paper, around your wrist just below the wrist bone.</li>
+            <li>Mark where it meets and measure the length in centimetres.</li>
+            <li>Find your measurement in the table. If you're between sizes, or like a looser fit, go up one.</li>
+          </ol>
+          <p class="note">Buying a gift? A medium fits most adult wrists.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="about" style="background:var(--surface);border-block:1px solid var(--line)">
+    <div class="wrap about">
+      <div class="portrait">
+        <div>
+          <svg viewBox="0 0 200 200" id="portrait-ring" aria-hidden="true"></svg>
+          <p class="note" style="margin-top:10px">Photo of the maker goes here</p>
+        </div>
+      </div>
+      <div class="about-copy">
+        <div class="eyebrow">About me <em class="ph">placeholder story</em></div>
+        <h2>Hi, I'm [Name]</h2>
+        <p class="big">I make colourful, made-to-order bracelets from my kitchen table, one bead at a time.</p>
+        <p>It started as a way to switch off after work and turned into gifts for friends, then friends of friends. Every bracelet is threaded by hand, and because I only make what's ordered, there's no excess stock and very little waste.</p>
+        <p>I'd love for you to design something that's completely yours. If you have an idea that doesn't fit the builder, get in touch and we'll make it together.</p>
+        <div><a class="btn" href="#contact">Say hello</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Questions</div>
+        <h2>Good to know <em class="ph">check answers</em></h2>
+      </div>
+      <div class="faq">
+        <details><summary>How long will my order take?</summary><p>Each bracelet is made to order, usually within 3 to 5 working days, then sent by Royal Mail. You'll get an email when it's on its way.</p></details>
+        <details><summary>Can I return a bracelet?</summary><p>Ready-made bracelets can be returned unworn within 14 days. Custom designs are made just for you, so they can't be returned unless they arrive faulty, but I'm happy to resize one if the fit isn't right.</p></details>
+        <details><summary>What are the beads made of?</summary><p>The beads are 6 mm polymer clay heishi discs, threaded on strong cord with a metal clasp. They're light, colourful and comfortable to wear every day.</p></details>
+        <details><summary>How do I look after my bracelet?</summary><p>Take it off before swimming, showering or exercising, and keep it away from perfume and lotions. Store it flat so the cord keeps its shape.</p></details>
+        <details><summary>Can I send it as a gift?</summary><p>Yes. Choose gift wrap at checkout and add a note, and I'll leave the price off the packing slip.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="contact" style="background:var(--surface);border-top:1px solid var(--line)">
+    <div class="wrap contact">
+      <div class="contact-info">
+        <div class="sec-head" style="margin:0">
+          <div class="eyebrow">Contact</div>
+          <h2>Get in touch</h2>
+          <p class="lede">Questions about an order, a custom idea or a bulk order for an event? Send a message and I'll reply within two working days.</p>
+        </div>
+        <dl>
+          <dt>Email</dt><dd>hello@yourshopname.co.uk <em class="ph">placeholder</em></dd>
+          <dt>Instagram</dt><dd>@yourshopname <em class="ph">placeholder</em></dd>
+          <dt>Based in</dt><dd>[Town], UK</dd>
+        </dl>
+      </div>
+      <form class="card" id="contact-form" novalidate>
+        <div class="two">
+          <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="field"><label for="c-topic">What's it about?</label>
+          <select id="c-topic" name="topic"><option>A question about an order</option><option>A custom design idea</option><option>Bulk or event orders</option><option>Something else</option></select></div>
+        <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" name="message" required></textarea></div>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <button class="btn primary" type="submit">Send message</button>
+          <span class="form-msg" id="form-msg" role="status"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h3>Your shop name</h3>
+      <p style="margin-top:8px;max-width:40ch">Handmade, made-to-order heishi bead bracelets.</p>
+      <form class="news" id="news-form" novalidate>
+        <label for="news-email" class="eyebrow" style="width:100%;color:inherit">Get new colours first</label>
+        <input id="news-email" type="email" placeholder="Your email" autocomplete="email">
+        <button class="btn small" type="submit">Sign up</button>
+      </form>
+      <p class="note" id="news-msg" style="margin-top:8px;color:inherit" role="status"></p>
+    </div>
+    <div><h3>Shop</h3><ul><li><a href="#bestsellers">Bestsellers</a></li><li><a href="#design">Design your own</a></li><li><a href="#sizes">Size guide</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+    <div><h3>Info</h3><ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li><li><a href="#faq">Delivery and returns</a></li><li><a href="#faq">Privacy policy</a></li><li><a href="#faq">Terms of sale</a></li></ul></div>
+    <p class="fine">Demo site. Products, prices, policies and the basket are placeholders and nothing is sold or sent from this page.</p>
+  </div>
+</footer>
+
+<div class="drawer" id="drawer" hidden></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+  /* ---------- Shop data. In Shopify these come from products, a size metafield and theme settings. ---------- */
+  const CONFIG = {
+    currency:"GBP", beadLengthCm:0.6, claspAllowanceCm:2,
+    basePrice:15, // cord + clasp
+    productTitle:"Polymer Clay Heishi Beads 6mm · Flat Round Disc",
+    products:[
+      { id:"blue-green",   name:"Blue/Green",   img:"img/blue-green.jpg",   price:0.05, colours:["#1f3c8f","#4f8fd6","#93d6a2","#2f8a55","#f3f4f1","#1b6a3b"] },
+      { id:"pastel-multi", name:"Pastel/Multi", img:"img/pastel-multi.jpg", price:0.05, colours:["#ef6a95","#e23b45","#f7d443","#86cfee","#2c3a8f","#f6b7cd","#9fd3a5"] },
+      { id:"peach-grey",   name:"Peach/Grey",   img:"img/peach-grey.jpg",   price:0.05, colours:["#f4b57a","#f8d8a6","#a6a8ab","#fbe6c7","#e59b62","#c9c9c4"] },
+      { id:"purple-pink",  name:"Purple/Pink",  img:"img/purple-pink.jpg",  price:0.05, colours:["#5b2a9a","#8b4fc4","#b9a1e0","#e3256f","#3b2386","#f1eef8"] },
+      { id:"red-green",    name:"Red/Green",    img:"img/red-green.jpg",    price:0.05, colours:["#e2342c","#f6b52a","#c3cf38","#b6a2dc","#f2732f","#f5e04a"] }
+    ],
+    sizes:[
+      { inch:"5–5.5", cm:[12.7,14.0], women:"X-Small" },
+      { inch:"5.5–6", cm:[14.0,15.2], women:"Small" },
+      { inch:"6–6.5", cm:[15.2,16.5], women:"Medium" },
+      { inch:"6.5–7", cm:[16.5,17.8], women:"Large",    men:"Small" },
+      { inch:"7–7.5", cm:[17.8,19.0], women:"X-Large",  men:"Medium" },
+      { inch:"7.5–8", cm:[19.0,20.3], women:"2X-Large", men:"Large" },
+      { inch:"8–8.5", cm:[20.3,21.6], women:"3X-Large", men:"X-Large" },
+      { inch:"8.5–9", cm:[21.6,22.9],                   men:"2X-Large" },
+      { inch:"9–9.5", cm:[22.9,24.1],                   men:"3X-Large" }
+    ],
+    // Three bestsellers for the banner. Placeholder names and designs: swap for her real top sellers.
+    bestsellers:[
+      { name:"Seaglass", tag:"Bestseller", pattern:["blue-green"], img:"img/blue-green.jpg",
+        desc:"Ocean blues, sea greens and a flash of white. The one people ask about most." },
+      { name:"Peach Haze", tag:"Customer favourite", pattern:["peach-grey","peach-grey","peach-grey","blue-green"], img:"img/peach-grey.jpg",
+        desc:"Soft peach and warm grey with a cool blue accent. Easy to wear with everything." },
+      { name:"Berry Bloom", tag:"New this season", pattern:["purple-pink","purple-pink","pastel-multi"], img:"img/purple-pink.jpg",
+        desc:"Deep violet and hot pink, lifted with a few bright pastels." }
+    ]
+  };
+  const maxBeads = s => Math.floor((s.cm[1]-CONFIG.claspAllowanceCm)/CONFIG.beadLengthCm + 1e-9);
+  const byId = Object.fromEntries(CONFIG.products.map(p=>[p.id,p]));
+  const money = n => new Intl.NumberFormat("en-GB",{style:"currency",currency:CONFIG.currency}).format(n);
+  const $ = id => document.getElementById(id);
+  const MEDIUM = 2;
+
+  let seed = 7;
+  function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
+  const newBead = pid => ({ pid, shade: Math.floor(rnd()*byId[pid].colours.length) });
+  const priceOf = beads => CONFIG.basePrice + beads.reduce((t,b)=>t+byId[b.pid].price,0);
+  function fromPattern(pattern, n){ const out=[]; for(let i=0;i<n;i++) out.push(newBead(pattern[i%pattern.length])); return out; }
+
+  /* ---------- Shared ring drawing (builder, banner, about) ---------- */
+  function ringSVG(beads, slots, opts={}){
+    const cx=200, cy=opts.cy||200, R=opts.R||150;
+    const totalLen=slots*CONFIG.beadLengthCm+CONFIG.claspAllowanceCm;
+    const claspArc=CONFIG.claspAllowanceCm/totalLen*2*Math.PI;
+    const step=(2*Math.PI-claspArc)/slots, start=-Math.PI/2+claspArc/2+step/2;
+    const beadW=Math.min(R*step*0.86,28), beadH=opts.beadH||34;
+    let out=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${opts.cord||"var(--cord)"}" stroke-width="2.5"/>`;
+    for(let i=0;i<slots;i++){
+      const a=start+i*step, x=cx+R*Math.cos(a), y=cy+R*Math.sin(a), deg=a*180/Math.PI+90, b=beads[i];
+      if(b){
+        out+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${deg.toFixed(1)})"><rect x="${-beadW/2}" y="${-beadH/2}" width="${beadW}" height="${beadH}" rx="${beadW*0.32}" fill="${byId[b.pid].colours[b.shade]}" stroke="rgba(0,0,0,.22)"/><rect x="${-beadW/2+2}" y="${-beadH/2+3}" width="${Math.max(beadW*0.22,2)}" height="${beadH-6}" rx="1.5" fill="rgba(255,255,255,.28)"/></g>`;
+      } else if(!opts.noSlots){
+        out+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="var(--slot)"/>`;
+      }
+    }
+    out+=`<g transform="translate(${cx} ${cy-R})"><ellipse cx="-10" cy="0" rx="12" ry="8" fill="none" stroke="var(--clasp)" stroke-width="4"/><circle cx="13" cy="0" r="6" fill="none" stroke="var(--clasp)" stroke-width="3.5"/><rect x="-25" y="-2" width="5" height="4" rx="1" fill="var(--clasp)"/></g>`;
+    return out;
+  }
+
+  /* ---------- Basket (mocked) ---------- */
+  const basket=[];
+  function addToBasket(item){ basket.push(item); $("basket-count").textContent=basket.length; if(!$("drawer").hidden) renderDrawer(); toast(`Added ${item.title} to your basket`); }
+  function thumb(beads){
+    const cv=document.createElement("canvas"); cv.width=44; cv.height=44;
+    const g=cv.getContext("2d"), n=Math.max(beads.length,1);
+    beads.forEach((b,i)=>{ const a=-Math.PI/2+(i+.5)/n*Math.PI*2*0.92+0.25; g.fillStyle=byId[b.pid].colours[b.shade]; g.beginPath(); g.arc(22+16*Math.cos(a),22+16*Math.sin(a),3.2,0,7); g.fill(); });
+    return cv;
+  }
+  function renderDrawer(){
+    const d=$("drawer"); d.innerHTML="";
+    const h=document.createElement("h3"); h.textContent="Your basket"; d.appendChild(h);
+    if(!basket.length){ const p=document.createElement("p"); p.className="note"; p.textContent="Your basket is empty."; d.appendChild(p); return; }
+    let sum=0;
+    basket.forEach((item,i)=>{
+      sum+=item.price;
+      const line=document.createElement("div"); line.className="line";
+      line.appendChild(thumb(item.beads));
+      const t=document.createElement("div"); t.innerHTML=`<b>${item.title}</b>${item.detail}`; line.appendChild(t);
+      const right=document.createElement("div"); right.style.cssText="flex:none;text-align:right";
+      right.innerHTML=`<div style="font-variant-numeric:tabular-nums;font-weight:600">${money(item.price)}</div>`;
+      const rm=document.createElement("button"); rm.type="button"; rm.className="btn small ghost"; rm.textContent="Remove";
+      rm.onclick=()=>{ basket.splice(i,1); $("basket-count").textContent=basket.length; renderDrawer(); };
+      right.appendChild(rm); line.appendChild(right); d.appendChild(line);
+    });
+    const foot=document.createElement("div"); foot.className="row total"; foot.innerHTML=`<span>Subtotal</span><span>${money(sum)}</span>`; d.appendChild(foot);
+    const co=document.createElement("button"); co.type="button"; co.className="btn primary"; co.textContent="Checkout";
+    co.onclick=()=>toast("Checkout is where Shopify takes over. It isn't connected in this demo."); d.appendChild(co);
+  }
+  $("basket-btn").onclick=()=>{ const d=$("drawer"); d.hidden=!d.hidden; $("basket-btn").setAttribute("aria-expanded",String(!d.hidden)); if(!d.hidden) renderDrawer(); };
+  document.addEventListener("click",e=>{ const d=$("drawer"); if(!d.hidden && !d.contains(e.target) && !$("basket-btn").contains(e.target) && e.target.isConnected){ d.hidden=true; $("basket-btn").setAttribute("aria-expanded","false"); } });
+
+  let tt; function toast(msg){ const t=$("toast"); t.textContent=msg; t.hidden=false; clearTimeout(tt); tt=setTimeout(()=>t.hidden=true,2600); }
+
+  /* ---------- Hero banner ---------- */
+  const mSize=CONFIG.sizes[MEDIUM], mMax=maxBeads(mSize);
+  const sellers=CONFIG.bestsellers.map(b=>({...b, beads:fromPattern(b.pattern,mMax)}));
+  const slidesEl=$("slides"), dotsEl=$("dots");
+  sellers.forEach((s,i)=>{
+    const price=priceOf(s.beads);
+    const el=document.createElement("div"); el.className="slide"+(i===0?" on":""); el.setAttribute("role","group"); el.setAttribute("aria-roledescription","slide"); el.setAttribute("aria-label",`${i+1} of ${sellers.length}: ${s.name}`);
+    el.innerHTML=`
+      <div class="slide-copy" style="padding-left:max(16px, calc((100vw - 1120px)/2 + 16px))">
+        <div class="eyebrow">${s.tag} <em class="ph" style="color:inherit">placeholder product</em></div>
+        <h1>${s.name}</h1>
+        <p class="desc">${s.desc}</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span class="slide-price">${money(price)} <span style="font-family:var(--font-body);font-size:.85rem;opacity:.75">Women's Medium</span></span>
+          <div class="slide-cta">
+            <button class="btn primary" type="button" data-buy="${i}">Add to basket</button>
+            <button class="btn" type="button" data-custom="${i}">Customise this design</button>
+          </div>
+        </div>
+      </div>
+      <div class="slide-art"><img src="${s.img}" alt=""><svg viewBox="0 0 400 400" aria-hidden="true">${ringSVG(s.beads,mMax,{R:172,beadH:30,noSlots:true})}</svg></div>`;
+    slidesEl.appendChild(el);
+    const dot=document.createElement("button"); dot.type="button"; dot.className="dot"+(i===0?" on":""); dot.setAttribute("aria-label",`Show ${s.name}`);
+    dot.onclick=()=>{ go(i); restart(); };
+    dotsEl.appendChild(dot);
+  });
+  const pauseBtn=document.createElement("button"); pauseBtn.type="button"; pauseBtn.className="pause"; pauseBtn.textContent="Pause";
+  dotsEl.appendChild(pauseBtn);
+  let cur=0, timer=null, paused=false;
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function go(i){
+    cur=(i+sellers.length)%sellers.length;
+    slidesEl.querySelectorAll(".slide").forEach((s,j)=>s.classList.toggle("on",j===cur));
+    dotsEl.querySelectorAll(".dot").forEach((d,j)=>{ d.classList.remove("on"); void d.offsetWidth; d.classList.toggle("on",j===cur); });
+  }
+  function restart(){ clearInterval(timer); if(!paused) timer=setInterval(()=>go(cur+1),6000); }
+  function setPaused(p){ paused=p; $("bestsellers").classList.toggle("paused",p); pauseBtn.textContent=p?"Play":"Pause"; restart(); }
+  pauseBtn.onclick=()=>setPaused(!paused);
+  if(reduce) setPaused(true); else restart();
+  const hero=$("bestsellers");
+  hero.addEventListener("mouseenter",()=>{ if(!paused){ clearInterval(timer); hero.classList.add("paused"); } });
+  hero.addEventListener("mouseleave",()=>{ if(!paused){ hero.classList.remove("paused"); go(cur); restart(); } });
+  slidesEl.addEventListener("click",e=>{
+    const b=e.target.closest("[data-buy]"), c=e.target.closest("[data-custom]");
+    if(b){ const s=sellers[+b.dataset.buy]; addToBasket({ title:s.name, detail:`Women's ${mSize.women} · ${s.beads.length} beads`, beads:s.beads, price:priceOf(s.beads) }); }
+    if(c){ const s=sellers[+c.dataset.custom]; state.fit="women"; state.sizeIdx=MEDIUM; state.beads=s.beads.map(b=>({...b})); state.label=s.name; render(); $("design").scrollIntoView({behavior:reduce?"auto":"smooth"}); }
+  });
+
+  /* ---------- Builder ---------- */
+  const state={ fit:"women", sizeIdx:MEDIUM, beads:fromPattern(["blue-green","blue-green","peach-grey","peach-grey","peach-grey"],mMax), label:"sample" };
+  const size=()=>CONFIG.sizes[state.sizeIdx], cap=()=>maxBeads(size());
+  const fitName=()=>state.fit==="women"?"Women's":"Men's";
+  const touched=()=>{ state.label=null; };
+
+  function renderSizes(){
+    document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.fit===state.fit)));
+    const wrap=$("bb-sizes"); wrap.innerHTML="";
+    CONFIG.sizes.forEach((s,i)=>{
+      const label=s[state.fit]; if(!label) return;
+      const b=document.createElement("button"); b.type="button"; b.className="bb-size"; b.id="bb-size-"+i;
+      b.setAttribute("aria-pressed",String(i===state.sizeIdx));
+      b.innerHTML=`<b>${label}</b><span>${s.cm[0].toFixed(1)}–${s.cm[1].toFixed(1)} cm</span><span>Up to ${maxBeads(s)} beads</span>`;
+      b.onclick=()=>pickSize(i); wrap.appendChild(b);
+    });
+  }
+  function pickSize(i){
+    state.sizeIdx=i; const c=cap();
+    if(state.beads.length>c){ const cut=state.beads.length-c; state.beads.length=c; toast(`Removed ${cut} bead${cut>1?"s":""} from the end to fit this size`); }
+    render();
+  }
+  function setFit(fit){
+    state.fit=fit;
+    if(!size()[fit]){ const opts=CONFIG.sizes.map((s,i)=>s[fit]?i:-1).filter(i=>i>=0); pickSize(opts.reduce((a,b)=>Math.abs(b-state.sizeIdx)<Math.abs(a-state.sizeIdx)?b:a)); return; }
+    render();
+  }
+  $("bb-fit-women").onclick=()=>setFit("women");
+  $("bb-fit-men").onclick=()=>setFit("men");
+
+  function renderProducts(){
+    const wrap=$("bb-products"); wrap.innerHTML=""; const full=state.beads.length>=cap();
+    CONFIG.products.forEach(p=>{
+      const n=state.beads.filter(b=>b.pid===p.id).length;
+      const row=document.createElement("div"); row.className="bb-prod";
+      row.innerHTML=`<img src="${p.img}" alt="${p.name} heishi bead strands" width="64" height="64">
+        <div style="min-width:0"><div class="bb-prod-name">${p.name}</div>
+          <div class="bb-prod-meta"><span class="swatches">${p.colours.map(c=>`<i style="background:${c}"></i>`).join("")}</span><span>${CONFIG.productTitle}</span></div>
+          <div class="bb-prod-meta"><span>${money(p.price)} per bead</span></div></div>
+        <div class="bb-prod-actions">
+          <button type="button" class="btn small primary" id="bb-add-${p.id}" ${full?"disabled":""}>Add bead</button>
+          <button type="button" class="btn small" id="bb-fillwith-${p.id}" ${full?"disabled":""}>Fill rest</button>
+          <div class="bb-count">${n} in design</div></div>`;
+      row.querySelector("#bb-add-"+p.id).onclick=()=>{ if(state.beads.length>=cap()) return; state.beads.push(newBead(p.id)); touched(); render(); };
+      row.querySelector("#bb-fillwith-"+p.id).onclick=()=>{ while(state.beads.length<cap()) state.beads.push(newBead(p.id)); touched(); render(); };
+      wrap.appendChild(row);
+    });
+  }
+  function renderSeq(){
+    const wrap=$("bb-seq"); wrap.innerHTML="";
+    if(!state.beads.length){ wrap.innerHTML='<span class="note" style="align-self:center">No beads yet. Add some from the list above.</span>'; return; }
+    state.beads.forEach((b,i)=>{
+      const p=byId[b.pid], btn=document.createElement("button"); btn.type="button"; btn.style.background=p.colours[b.shade];
+      btn.title=`Bead ${i+1}: ${p.name}. Tap to remove.`; btn.setAttribute("aria-label",btn.title);
+      btn.onclick=()=>{ state.beads.splice(i,1); touched(); render(); };
+      wrap.appendChild(btn);
+    });
+  }
+  function renderRing(){
+    const s=size();
+    $("bb-ring").innerHTML=ringSVG(state.beads,cap(),{cy:210})+
+      `<text x="200" y="206" text-anchor="middle" font-family="var(--font-display)" font-size="22" font-weight="700" fill="var(--ink)">${s[state.fit]}</text>
+       <text x="200" y="230" text-anchor="middle" font-family="var(--font-body)" font-size="13" fill="var(--muted)">${fitName()} · ${s.cm[0].toFixed(1)}–${s.cm[1].toFixed(1)} cm</text>`;
+  }
+  function renderSummary(){
+    const s=size(), n=state.beads.length, c=cap(), counts={};
+    state.beads.forEach(b=>counts[b.pid]=(counts[b.pid]||0)+1);
+    let rows=`<div class="row"><span>Size</span><span>${fitName()} ${s[state.fit]}</span></div>`;
+    CONFIG.products.forEach(p=>{ if(counts[p.id]) rows+=`<div class="row"><span>${p.name} × ${counts[p.id]}</span><span>${money(counts[p.id]*p.price)}</span></div>`; });
+    rows+=`<div class="row"><span>Cord and clasp</span><span>${money(CONFIG.basePrice)}</span></div>`;
+    rows+=`<div class="row total"><span>Total</span><span>${money(priceOf(state.beads))}</span></div>`;
+    $("bb-summary").innerHTML=rows;
+    $("bb-used").textContent=n; $("bb-of").textContent=`of ${c} beads`;
+    $("bb-length").textContent=`${(n*CONFIG.beadLengthCm+CONFIG.claspAllowanceCm).toFixed(1)} cm with clasp`;
+    $("bb-fill").style.width=(c?n/c*100:0)+"%";
+    const hint=$("bb-hint"); hint.className="note";
+    if(state.label==="sample") hint.textContent="This is a sample design. Clear it to start your own, or tap beads to change it.";
+    else if(state.label) hint.textContent=`Started from ${state.label}. Add, remove or shuffle beads to make it yours.`;
+    else if(!n) hint.textContent="Add beads from Step 2 to see them on the bracelet.";
+    else if(n<c){ hint.textContent=`${c-n} space${c-n>1?"s":""} left. A full bracelet sits best on the wrist.`; hint.classList.add("warn"); }
+    else hint.textContent="Your bracelet is full.";
+    $("bb-total").textContent=money(priceOf(state.beads));
+    $("bb-add").disabled=!n; $("bb-undo").disabled=!n; $("bb-shuffle").disabled=n<2; $("bb-clear").disabled=!n;
+  }
+  $("bb-add").onclick=()=>{
+    if(!state.beads.length) return; const s=size(), counts={};
+    state.beads.forEach(b=>counts[byId[b.pid].name]=(counts[byId[b.pid].name]||0)+1);
+    addToBasket({ title:"Custom bracelet", detail:`${fitName()} ${s[state.fit]} · ${state.beads.length} beads<br>${Object.entries(counts).map(([k,v])=>`${k} ×${v}`).join(", ")}`, beads:state.beads.slice(), price:priceOf(state.beads) });
+  };
+  $("bb-undo").onclick=()=>{ state.beads.pop(); touched(); render(); };
+  $("bb-clear").onclick=()=>{ state.beads=[]; touched(); render(); };
+  $("bb-shuffle").onclick=()=>{ for(let i=state.beads.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [state.beads[i],state.beads[j]]=[state.beads[j],state.beads[i]]; } touched(); render(); };
+  function render(){ renderSizes(); renderProducts(); renderSeq(); renderRing(); renderSummary(); }
+  render();
+
+  /* ---------- Size table ---------- */
+  $("size-table").querySelector("tbody").innerHTML=CONFIG.sizes.map(s=>`<tr><td>${s.inch}</td><td>${s.cm[0].toFixed(1)}–${s.cm[1].toFixed(1)}</td><td class="${s.women?"":"none"}">${s.women||"–"}</td><td class="${s.men?"":"none"}">${s.men||"–"}</td><td>${maxBeads(s)}</td></tr>`).join("");
+
+  /* ---------- About portrait placeholder ---------- */
+  $("portrait-ring").innerHTML=`<g transform="scale(.5)">${ringSVG(fromPattern(["pastel-multi"],mMax),mMax,{noSlots:true})}</g>`;
+
+  /* ---------- Forms (demo only) ---------- */
+  $("contact-form").addEventListener("submit",e=>{
+    e.preventDefault(); const f=e.target, msg=$("form-msg");
+    if(!f.name.value.trim()||!f.email.value.includes("@")||!f.message.value.trim()){ msg.style.color="var(--warn)"; msg.textContent="Please add your name, a valid email and a message."; return; }
+    msg.style.color=""; msg.textContent="Thanks! In this demo nothing is sent. On Shopify this form emails the shop."; f.reset();
+  });
+  $("news-form").addEventListener("submit",e=>{
+    e.preventDefault(); const v=$("news-email").value;
+    $("news-msg").textContent=v.includes("@")?"You're on the list (demo only, nothing was saved).":"Please enter a valid email address.";
+  });
+})();
+</script>
+
+</html>
