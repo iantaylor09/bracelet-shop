@@ -59,7 +59,7 @@
       ],
       "settings": {
         "label": "Bestselling bracelets",
-        "interval": 6,
+        "interval": 5,
         "anchor": "bestsellers",
         "color_scheme": "scheme-3"
       }
