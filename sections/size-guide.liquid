@@ -1,0 +1,89 @@
+{%- style -%}
+  .size-guide { padding-block: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px; }
+  @media screen and (min-width: 750px) {
+    .size-guide { padding-block: {{ section.settings.padding_top }}px {{ section.settings.padding_bottom }}px; }
+  }
+  .size-guide__grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 3.2rem; align-items: start; margin-top: 2.8rem; }
+  @media screen and (max-width: 989px) { .size-guide__grid { grid-template-columns: minmax(0, 1fr); } }
+  .size-guide__eyebrow { margin: 0; font-size: 1.2rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(var(--color-foreground), 0.68); }
+  .size-guide h2, .size-guide h3 { margin: 0.6rem 0 0; }
+  .size-guide__table { overflow-x: auto; border: 1px solid rgba(var(--color-foreground), 0.16); border-radius: 1.4rem; }
+  .size-guide table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 1.45rem; }
+  .size-guide th, .size-guide td { padding: 1rem 1.4rem; text-align: left; border-bottom: 1px solid rgba(var(--color-foreground), 0.16); white-space: nowrap; }
+  .size-guide th { font-size: 1.15rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(var(--color-foreground), 0.68); font-weight: 600; }
+  .size-guide tr:last-child td { border-bottom: 0; }
+  .size-guide__empty { color: rgba(var(--color-foreground), 0.5); }
+  .size-guide__how ol { padding-left: 1.2em; display: flex; flex-direction: column; gap: 0.6rem; }
+{%- endstyle -%}
+
+{%- liquid
+  assign bead_mm = settings.bead_length_mm | at_least: 1
+  assign clasp_mm = settings.clasp_allowance_mm
+  assign lines = settings.bracelet_size_chart | newline_to_br | split: '<br />'
+-%}
+
+<div id="{{ section.settings.anchor | default: 'sizes' }}" class="size-guide color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    {%- if section.settings.caption != blank -%}<p class="size-guide__eyebrow">{{ section.settings.caption | escape }}</p>{%- endif -%}
+    <h2 class="{{ section.settings.heading_size }}">{{ section.settings.heading | escape }}</h2>
+    <div class="size-guide__grid">
+      <div class="size-guide__table">
+        <table>
+          <thead>
+            <tr><th>Wrist (in)</th><th>Wrist (cm)</th><th>Women's</th><th>Men's</th>{% if section.settings.show_beads %}<th>Max beads</th>{% endif %}</tr>
+          </thead>
+          <tbody>
+            {%- for line in lines -%}
+              {%- assign c = line | strip | split: '|' -%}
+              {%- if c.size >= 3 -%}
+                {%- assign inch = c[0] | strip -%}
+                {%- assign min_cm = c[1] | strip -%}
+                {%- assign max_cm = c[2] | strip -%}
+                {%- assign women = c[3] | strip -%}
+                {%- assign men = c[4] | strip -%}
+                {%- assign max_beads = max_cm | times: 10.0 | minus: clasp_mm | divided_by: bead_mm | plus: 0.0001 | floor -%}
+                <tr>
+                  <td>{{ inch }}</td>
+                  <td>{{ min_cm }}–{{ max_cm }}</td>
+                  <td{% if women == blank %} class="size-guide__empty"{% endif %}>{{ women | default: '–' }}</td>
+                  <td{% if men == blank %} class="size-guide__empty"{% endif %}>{{ men | default: '–' }}</td>
+                  {%- if section.settings.show_beads -%}<td>{{ max_beads }}</td>{%- endif -%}
+                </tr>
+              {%- endif -%}
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+      <div class="size-guide__how rte">
+        {{ section.settings.how_to }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Size guide",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Sizes come from Theme settings › Bracelet builder." },
+    { "type": "text", "id": "caption", "label": "Caption", "default": "Size guide" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find your fit" },
+    {
+      "type": "select", "id": "heading_size", "label": "Heading size", "default": "h1",
+      "options": [ { "value": "h2", "label": "Small" }, { "value": "h1", "label": "Medium" }, { "value": "h0", "label": "Large" } ]
+    },
+    { "type": "checkbox", "id": "show_beads", "label": "Show max beads", "default": true },
+    {
+      "type": "richtext", "id": "how_to", "label": "How to measure",
+      "default": "<h3>How to measure</h3><ol><li>Wrap a soft tape measure, or a strip of paper, around your wrist just below the wrist bone.</li><li>Mark where it meets and measure the length in centimetres.</li><li>Find your measurement in the table. If you're between sizes, or like a looser fit, go up one.</li></ol><p>Buying a gift? A medium fits most adult wrists.</p>"
+    },
+    { "type": "text", "id": "anchor", "label": "Link anchor", "default": "sizes" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 52 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 52 }
+  ],
+  "presets": [ { "name": "Size guide" } ]
+}
+{% endschema %}

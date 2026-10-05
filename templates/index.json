@@ -1,0 +1,446 @@
+{
+  "sections": {
+    "banner": {
+      "type": "bracelet-banner",
+      "blocks": {
+        "seaglass": {
+          "type": "slide",
+          "settings": {
+            "tag": "Bestseller",
+            "heading": "Seaglass",
+            "text": "<p>Ocean blues, sea greens and a flash of white. The one people ask about most.</p>",
+            "price_note": "Women's Medium",
+            "pattern": "Blue/Green",
+            "ring_colours": "#1f3c8f,#4f8fd6,#93d6a2,#2f8a55,#f3f4f1,#1b6a3b",
+            "fallback_image": "bead-blue-green.jpg"
+          }
+        },
+        "peach_haze": {
+          "type": "slide",
+          "settings": {
+            "tag": "Customer favourite",
+            "heading": "Peach Haze",
+            "text": "<p>Soft peach and warm grey with a cool blue accent. Easy to wear with everything.</p>",
+            "price_note": "Women's Medium",
+            "pattern": "Peach/Grey,Peach/Grey,Peach/Grey,Blue/Green",
+            "ring_colours": "#f4b57a,#f8d8a6,#a6a8ab,#fbe6c7,#e59b62,#4f8fd6",
+            "fallback_image": "bead-peach-grey.jpg"
+          }
+        },
+        "berry_bloom": {
+          "type": "slide",
+          "settings": {
+            "tag": "New this season",
+            "heading": "Berry Bloom",
+            "text": "<p>Deep violet and hot pink, lifted with a few bright pastels.</p>",
+            "price_note": "Women's Medium",
+            "pattern": "Purple/Pink,Purple/Pink,Pastel/Multi",
+            "ring_colours": "#5b2a9a,#8b4fc4,#b9a1e0,#e3256f,#3b2386,#f7d443",
+            "fallback_image": "bead-purple-pink.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "seaglass",
+        "peach_haze",
+        "berry_bloom"
+      ],
+      "settings": {
+        "label": "Bestselling bracelets",
+        "interval": 6,
+        "anchor": "bestsellers",
+        "color_scheme": "scheme-3"
+      }
+    },
+    "promise": {
+      "type": "multicolumn",
+      "blocks": {
+        "p1": {
+          "type": "column",
+          "settings": {
+            "title": "Made to order",
+            "text": "<p>Every bracelet is threaded by hand once you order it.</p>"
+          }
+        },
+        "p2": {
+          "type": "column",
+          "settings": {
+            "title": "Plastic-free packaging",
+            "text": "<p>Wrapped and posted in recyclable materials. [Confirm before launch]</p>"
+          }
+        },
+        "p3": {
+          "type": "column",
+          "settings": {
+            "title": "UK delivery",
+            "text": "<p>Sent by Royal Mail within 3 to 5 working days. [Confirm before launch]</p>"
+          }
+        },
+        "p4": {
+          "type": "column",
+          "settings": {
+            "title": "Gift ready",
+            "text": "<p>Add gift wrap and a note at checkout.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "left",
+        "background_style": "none",
+        "button_label": "",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "builder": {
+      "type": "bead-builder",
+      "blocks": {
+        "bead_1": {
+          "type": "bead",
+          "settings": {
+            "name": "Blue/Green",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#1f3c8f,#4f8fd6,#93d6a2,#2f8a55,#f3f4f1,#1b6a3b",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-blue-green.jpg"
+          }
+        },
+        "bead_2": {
+          "type": "bead",
+          "settings": {
+            "name": "Pastel/Multi",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#ef6a95,#e23b45,#f7d443,#86cfee,#2c3a8f,#f6b7cd,#9fd3a5",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-pastel-multi.jpg"
+          }
+        },
+        "bead_3": {
+          "type": "bead",
+          "settings": {
+            "name": "Peach/Grey",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#f4b57a,#f8d8a6,#a6a8ab,#fbe6c7,#e59b62,#c9c9c4",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-peach-grey.jpg"
+          }
+        },
+        "bead_4": {
+          "type": "bead",
+          "settings": {
+            "name": "Purple/Pink",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#5b2a9a,#8b4fc4,#b9a1e0,#e3256f,#3b2386,#f1eef8",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-purple-pink.jpg"
+          }
+        },
+        "bead_5": {
+          "type": "bead",
+          "settings": {
+            "name": "Red/Green",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#e2342c,#f6b52a,#c3cf38,#b6a2dc,#f2732f,#f5e04a",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-red-green.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "bead_1",
+        "bead_2",
+        "bead_3",
+        "bead_4",
+        "bead_5"
+      ],
+      "settings": {
+        "caption": "Design your own",
+        "heading": "Build a bracelet bead by bead",
+        "heading_size": "h1",
+        "fallback_base_price": 15,
+        "anchor": "design",
+        "color_scheme": "scheme-1",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "how": {
+      "type": "multicolumn",
+      "blocks": {
+        "h1": {
+          "type": "column",
+          "settings": {
+            "title": "1. You design it",
+            "text": "<p>Choose a ready-made favourite or build your own, bead by bead, sized to your wrist.</p>"
+          }
+        },
+        "h2": {
+          "type": "column",
+          "settings": {
+            "title": "2. I thread it by hand",
+            "text": "<p>Every bracelet is made to order on strong cord with a secure clasp, so nothing sits in a warehouse.</p>"
+          }
+        },
+        "h3": {
+          "type": "column",
+          "settings": {
+            "title": "3. It's posted to you",
+            "text": "<p>Wrapped in recyclable, plastic-free packaging and sent within 3 to 5 working days.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3"
+      ],
+      "settings": {
+        "title": "From your design to your wrist",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "none",
+        "button_label": "",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "sizes": {
+      "type": "size-guide",
+      "settings": {
+        "caption": "Size guide",
+        "heading": "Find your fit",
+        "heading_size": "h1",
+        "show_beads": true,
+        "anchor": "sizes",
+        "color_scheme": "scheme-1",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "about_anchor": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div id=\"about\"></div>",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "image-with-text",
+      "blocks": {
+        "cap": {
+          "type": "caption",
+          "settings": {
+            "caption": "About me",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "head": {
+          "type": "heading",
+          "settings": {
+            "heading": "Hi, I'm [Name]",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>I make colourful, made-to-order bracelets from my kitchen table, one bead at a time. It started as a way to switch off after work and turned into gifts for friends, then friends of friends.</p><p>Because I only make what's ordered, there's no excess stock and very little waste. If you have an idea that doesn't fit the builder, get in touch and we'll make it together.</p>",
+            "text_style": "body"
+          }
+        },
+        "btn": {
+          "type": "button",
+          "settings": {
+            "button_label": "Say hello",
+            "button_link": "/#contact",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "cap",
+        "head",
+        "text",
+        "btn"
+      ],
+      "settings": {
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "faq_anchor": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div id=\"faq\"></div>",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long will my order take?",
+            "icon": "truck",
+            "row_content": "<p>Each bracelet is made to order, usually within 3 to 5 working days, then sent by Royal Mail. You'll get an email when it's on its way.</p>"
+          }
+        },
+        "q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I return a bracelet?",
+            "icon": "return",
+            "row_content": "<p>Ready-made bracelets can be returned unworn within 14 days. Custom designs are made just for you, so they can't be returned unless they arrive faulty, but I'm happy to resize one if the fit isn't right.</p>"
+          }
+        },
+        "q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What are the beads made of?",
+            "icon": "question_mark",
+            "row_content": "<p>The beads are 6 mm polymer clay heishi discs, threaded on strong cord with a metal clasp.</p>"
+          }
+        },
+        "q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I look after my bracelet?",
+            "icon": "heart",
+            "row_content": "<p>Take it off before swimming, showering or exercising, and keep it away from perfume and lotions.</p>"
+          }
+        },
+        "q5": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I send it as a gift?",
+            "icon": "box",
+            "row_content": "<p>Yes. Choose gift wrap at checkout and add a note, and I'll leave the price off the packing slip.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "caption": "Questions",
+        "heading": "Good to know",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "layout": "none",
+        "container_color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "contact_anchor": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div id=\"contact\"></div>",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "contact": {
+      "type": "contact-form",
+      "settings": {
+        "heading": "Get in touch",
+        "heading_size": "h1",
+        "color_scheme": "scheme-2",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "heading": "Get new colours first",
+            "heading_size": "h2"
+          }
+        },
+        "p": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>New bead mixes, restocks and the occasional offer. No spam.</p>"
+          }
+        },
+        "f": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "h",
+        "p",
+        "f"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "promise",
+    "builder",
+    "how",
+    "sizes",
+    "about_anchor",
+    "about",
+    "faq_anchor",
+    "faq",
+    "contact_anchor",
+    "contact",
+    "newsletter"
+  ]
+}
