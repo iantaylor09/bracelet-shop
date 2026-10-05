@@ -1,36 +1,46 @@
 # Bracelet shop
 
-A one-page demo website for a handmade, made-to-order heishi bead bracelet shop, with a "design your own bracelet" builder.
+A Shopify theme for a handmade, made-to-order heishi bead bracelet shop, with a "design your own bracelet" builder.
+
+The theme is built on [Dawn](https://github.com/Shopify/dawn) 16.0.0, Shopify's free reference theme (licence in `DAWN-LICENSE.md`). Dawn handles the header, product pages, basket, checkout and accounts. The shop's own sections sit on top.
 
 ## What's here
 
-| File | What it is |
+| Path | What it is |
 | --- | --- |
-| `index.html` | The full site: bestseller banner, bracelet builder, how it's made, size guide, about, FAQ, contact and footer. |
-| `configurator.html` | The bracelet builder on its own, as first demoed. |
-| `css/site.css` | All the styling for `index.html`: colours, fonts, layout and dark mode. |
-| `css/configurator.css` | Styling for `configurator.html`. |
-| `img/` | Photos of the five placeholder bead colourways. |
-| `docs/bracelet-guide.png` | The bracelet size chart the size options come from. |
+| `sections/bracelet-banner.liquid` | The sliding bestseller banner with the turning bead ring. |
+| `sections/bead-builder.liquid` | The bracelet builder. Script and styles are in `assets/bead-builder.js` and `assets/bead-builder.css`. |
+| `sections/size-guide.liquid` | The size chart table and how-to-measure text. |
+| `templates/index.json` | The home page: banner, promise strip, builder, how it's made, size guide, about, FAQ, contact and newsletter. |
+| `config/settings_data.json` | Shop colours (the green and stone palette) and button shapes. |
+| `assets/bead-*.jpg` | Placeholder bead photos, used until real products are linked. |
+| `demo/` | The original stand-alone demo pages. Shopify ignores this folder. |
+| `docs/bracelet-guide.png` | The size chart the sizes came from. |
 
-## Preview it
+Everything else is Dawn, unchanged.
 
-Download the repository (green **Code** button, then **Download ZIP**), unzip it and open `index.html` in a browser. No build step or server is needed.
+## How the builder sells a bracelet
 
-## Changing colours and fonts
+Each custom bracelet goes into the basket as:
 
-The colour palette and fonts are set once at the top of each stylesheet (the `:root` block), with the dark-mode colours just below. Change them there and the whole page follows.
+- one **cord and clasp** product (the base price, £15), carrying the size and bead order, and
+- one line per bead colourway, with the quantity used (5p each).
 
-## Changing products, sizes and prices
+All lines from the same bracelet share a `_Bracelet ID`, and the bead lines say which bracelet they're for, so the order shows exactly what to make.
 
-Everything the shop sells is in the `CONFIG` block near the top of the `<script>` in `index.html`:
+## Setting it up in Shopify
 
-- `products`: bead colourways, photo, price per bead and the colours used to draw them.
-- `sizes`: the wrist sizes from the size chart.
-- `basePrice`: the cord and clasp price (currently £15).
-- `bestsellers`: the three designs in the banner.
-- `beadLengthCm` and `claspAllowanceCm`: used for the bead limit, `floor((max wrist cm − clasp) ÷ bead length)`.
+1. **Connect the theme:** Online Store › Themes › Add theme › Connect from GitHub, then pick this repository and the `main` branch.
+2. **Create products:**
+   - "Cord and clasp" at £15, hidden from search if you like.
+   - One product per bead colourway at £0.05 (Blue/Green, Pastel/Multi, Peach/Grey, Purple/Pink, Red/Green). Turn off inventory tracking, or keep stock high, because beads are bought in tens.
+   - The three bestsellers as normal products.
+3. **Link them in the theme editor (Customise):**
+   - In **Bracelet builder**, pick the cord and clasp product, then pick a product in each bead block.
+   - In **Bestseller banner**, pick a product in each slide.
+4. **Sizes:** Theme settings › Bracelet builder holds the size chart, bead length and clasp allowance. Both the builder and the size guide read from it.
+5. **Menu:** Online Store › Navigation › Main menu. Add links to `/#bestsellers`, `/#design`, `/#sizes`, `/#about` and `/#contact`.
 
 ## Still placeholder
 
-Text and items marked with an orange tag on the page are placeholders: the shop name, bestseller names and prices, the about story, delivery and returns wording, email and Instagram. The basket, checkout, contact form and newsletter signup don't send or save anything yet. On Shopify, the builder would add a single "custom bracelet" product to the cart with the design saved as line item properties.
+The bestseller names, the about story, delivery and returns wording and the promise strip are placeholders. Text marked "[Confirm before launch]" needs checking.

@@ -1,0 +1,171 @@
+{{ 'bead-builder.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bead-builder.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign base = section.settings.base_product
+  assign bead_blocks = section.blocks | where: 'type', 'bead'
+-%}
+
+<div id="{{ section.settings.anchor | default: 'design' }}" class="bead-builder color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding" data-bead-builder>
+  <div class="page-width">
+    <div class="bb-head">
+      {%- if section.settings.caption != blank -%}<p class="bb-eyebrow">{{ section.settings.caption | escape }}</p>{%- endif -%}
+      <h2 class="{{ section.settings.heading_size }}">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}<div class="bb-lede">{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+
+    <div class="bb-grid">
+      <div class="bb-preview" aria-label="Bracelet preview">
+        <svg class="bb-ring" data-ring viewBox="0 0 400 400" role="img" aria-label="Preview of your bracelet"></svg>
+        <div class="bb-meter"><span><strong data-used>0</strong> <span data-of></span></span><span class="bb-note" data-length></span></div>
+        <div class="bb-bar" aria-hidden="true"><i data-fill></i></div>
+        <p class="bb-note" data-hint></p>
+        <div class="bb-tools">
+          <button class="bb-btn bb-btn--small" type="button" data-undo>Undo last bead</button>
+          <button class="bb-btn bb-btn--small" type="button" data-shuffle>Shuffle order</button>
+          <button class="bb-btn bb-btn--small bb-btn--ghost" type="button" data-clear>Clear all</button>
+        </div>
+      </div>
+
+      <div class="bb-steps">
+        <div class="bb-step">
+          <div class="bb-step-head">
+            <div><p class="bb-eyebrow">Step 1</p><h3>Choose your size</h3></div>
+            <div class="bb-seg" role="group" aria-label="Size chart">
+              <button type="button" data-fit="women" aria-pressed="true">Women's</button>
+              <button type="button" data-fit="men" aria-pressed="false">Men's</button>
+            </div>
+          </div>
+          <div class="bb-sizes" data-sizes></div>
+          {%- if section.settings.size_note != blank -%}<p class="bb-note">{{ section.settings.size_note }}</p>{%- endif -%}
+        </div>
+
+        <div class="bb-step">
+          <div><p class="bb-eyebrow">Step 2</p><h3>Add your beads</h3></div>
+          <div class="bb-products" data-products></div>
+          <div>
+            <p class="bb-note bb-seq-label">Your bead order, clasp to clasp. Tap a bead to remove it.</p>
+            <div class="bb-seq" data-seq></div>
+          </div>
+        </div>
+
+        <div class="bb-step">
+          <div><p class="bb-eyebrow">Step 3</p><h3>Review</h3></div>
+          <div class="bb-summary" data-summary></div>
+          <div class="bb-buy">
+            <strong data-total></strong>
+            <button class="button" type="button" data-add>Add to basket</button>
+          </div>
+          <p class="bb-note bb-error" data-error role="status"></p>
+          {%- if base == blank and request.design_mode -%}
+            <p class="bb-note bb-error">Theme editor: choose the cord and clasp product in this section's settings so designs can be added to the basket.</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" data-config>
+    {
+      "beadLengthCm": {{ settings.bead_length_mm | divided_by: 10.0 | json }},
+      "claspAllowanceCm": {{ settings.clasp_allowance_mm | divided_by: 10.0 | json }},
+      "sizeChart": {{ settings.bracelet_size_chart | json }},
+      "currency": {{ cart.currency.iso_code | json }},
+      "locale": {{ request.locale.iso_code | json }},
+      "cartAddUrl": {{ routes.cart_add_url | append: '.js' | json }},
+      "cartUrl": {{ routes.cart_url | json }},
+      "base": {%- if base != blank -%}{
+        "variantId": {{ base.selected_or_first_available_variant.id | json }},
+        "title": {{ base.title | json }},
+        "price": {{ base.selected_or_first_available_variant.price | divided_by: 100.0 | json }}
+      }{%- else -%}{
+        "variantId": null,
+        "title": "Cord and clasp",
+        "price": {{ section.settings.fallback_base_price | json }}
+      }{%- endif -%},
+      "products": [
+        {%- for block in bead_blocks -%}
+          {%- assign p = block.settings.product -%}
+          {
+            "id": {{ block.id | json }},
+            "name": {{ block.settings.name | default: p.title | default: 'Bead' | json }},
+            "subtitle": {{ block.settings.subtitle | json }},
+            "variantId": {%- if p != blank -%}{{ p.selected_or_first_available_variant.id | json }}{%- else -%}null{%- endif -%},
+            "available": {%- if p != blank -%}{{ p.available | json }}{%- else -%}true{%- endif -%},
+            "price": {%- if p != blank -%}{{ p.selected_or_first_available_variant.price | divided_by: 100.0 | json }}{%- else -%}{{ block.settings.fallback_price_pence | default: 0 | divided_by: 100.0 | json }}{%- endif -%},
+            "img": {%- if p.featured_image != blank -%}{{ p.featured_image | image_url: width: 160 | json }}{%- elsif block.settings.fallback_image != blank -%}{{ block.settings.fallback_image | asset_url | json }}{%- else -%}null{%- endif -%},
+            "colours": {{ block.settings.colours | remove: ' ' | split: ',' | json }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+</div>
+
+{% schema %}
+{
+  "name": "Bracelet builder",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 30,
+  "settings": [
+    { "type": "text", "id": "caption", "label": "Caption", "default": "Design your own" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Build a bracelet bead by bead" },
+    {
+      "type": "select", "id": "heading_size", "label": "Heading size", "default": "h1",
+      "options": [ { "value": "h2", "label": "Small" }, { "value": "h1", "label": "Medium" }, { "value": "h0", "label": "Large" } ]
+    },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Pick your wrist size, then add polymer clay heishi beads one at a time. The bracelet fills up as you go and the price updates with every bead.</p>" },
+    { "type": "richtext", "id": "size_note", "label": "Size note", "default": "<p>Not sure? See the <a href=\"#sizes\">size guide</a>. If you're between sizes, go up one.</p>" },
+    {
+      "type": "product", "id": "base_product", "label": "Cord and clasp product",
+      "info": "Added to the basket once with every custom bracelet. Its price is the bracelet's base price."
+    },
+    {
+      "type": "number", "id": "fallback_base_price", "label": "Preview base price", "default": 15,
+      "info": "Only used until a cord and clasp product is chosen."
+    },
+    { "type": "text", "id": "anchor", "label": "Link anchor", "default": "design", "info": "Menu links to /#design jump to this section." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 52 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 52 }
+  ],
+  "blocks": [
+    {
+      "type": "bead",
+      "name": "Bead",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Bead product", "info": "Its price is charged per bead." },
+        { "type": "text", "id": "name", "label": "Name", "info": "Defaults to the product title." },
+        { "type": "text", "id": "subtitle", "label": "Description", "default": "Polymer clay heishi bead, 6 mm flat disc" },
+        {
+          "type": "text", "id": "colours", "label": "Preview colours",
+          "info": "Comma-separated hex colours used to draw this bead mix in the preview.",
+          "default": "#a6a8ab,#c9c9c4,#e5e5e0"
+        },
+        { "type": "number", "id": "fallback_price_pence", "label": "Preview price in pence", "default": 5, "info": "Only used until a product is chosen." },
+        { "type": "text", "id": "fallback_image", "label": "Preview image file", "info": "Theme asset file name, only used until a product is chosen." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bracelet builder",
+      "blocks": [ { "type": "bead" }, { "type": "bead" } ]
+    }
+  ]
+}
+{% endschema %}

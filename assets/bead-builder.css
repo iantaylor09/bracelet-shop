@@ -1,0 +1,83 @@
+/* Bracelet builder section. Colours come from the section's Dawn colour scheme. */
+.bead-builder {
+  --bb-fg: rgb(var(--color-foreground));
+  --bb-muted: rgba(var(--color-foreground), 0.68);
+  --bb-line: rgba(var(--color-foreground), 0.16);
+  --bb-surface: rgba(var(--color-foreground), 0.035);
+  --bb-accent: rgb(var(--color-button));
+  --bb-accent-ink: rgb(var(--color-button-text));
+  --bb-slot: rgba(var(--color-foreground), 0.18);
+  --bb-cord: #8c7a63;
+  --bb-clasp: #b29a5b;
+  --bb-warn: #9a5b16;
+}
+.bead-builder h2, .bead-builder h3 { margin: 0; }
+.bb-head { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2.8rem; max-width: 64rem; }
+.bb-eyebrow { margin: 0; font-size: 1.2rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bb-muted); }
+.bb-lede, .bb-lede p { color: var(--bb-muted); margin: 0; }
+.bb-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 3.2rem; align-items: start; }
+@media screen and (max-width: 989px) { .bb-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; } }
+
+.bb-preview { position: sticky; top: 9rem; background: var(--bb-surface); border: 1px solid var(--bb-line); border-radius: 1.8rem; padding: 2rem; display: flex; flex-direction: column; gap: 1.4rem; }
+@media screen and (max-width: 989px) { .bb-preview { position: static; } }
+.bb-ring { width: 100%; max-width: 42rem; aspect-ratio: 1 / 1; margin: 0 auto; display: block; }
+@media screen and (max-width: 989px) { .bb-ring { max-width: 30rem; } }
+.bb-ring .bb-cord { stroke: var(--bb-cord); }
+.bb-ring .bb-slot { fill: var(--bb-slot); }
+.bb-ring .bb-clasp { stroke: var(--bb-clasp); }
+.bb-ring-title { font-family: var(--font-heading-family); font-size: 22px; font-weight: 700; fill: var(--bb-fg); }
+.bb-ring-sub { font-family: var(--font-body-family); font-size: 13px; fill: var(--bb-muted); }
+.bb-meter { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; font-variant-numeric: tabular-nums; }
+.bb-meter strong { font-family: var(--font-heading-family); font-size: 2.4rem; }
+.bb-bar { height: 6px; border-radius: 99px; background: var(--bb-slot); overflow: hidden; }
+.bb-bar > i { display: block; height: 100%; width: 0; background: var(--bb-accent); transition: width 0.25s ease; }
+.bb-note { margin: 0; font-size: 1.35rem; color: var(--bb-muted); }
+.bb-note p { margin: 0; }
+.bb-warn, .bb-error { color: var(--bb-warn); }
+.bb-error:empty { display: none; }
+.bb-tools { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+
+.bb-steps { display: flex; flex-direction: column; gap: 2.8rem; min-width: 0; }
+.bb-step { display: flex; flex-direction: column; gap: 1.2rem; }
+.bb-step-head { display: flex; gap: 1rem; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; }
+.bb-seg { display: inline-flex; border: 1px solid var(--bb-line); border-radius: 999px; padding: 3px; }
+.bb-seg button { border: 0; background: transparent; color: var(--bb-muted); font: inherit; padding: 0.5rem 1.4rem; border-radius: 999px; cursor: pointer; }
+.bb-seg button[aria-pressed="true"] { background: var(--bb-fg); color: rgb(var(--color-background)); }
+
+.bb-sizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(11.8rem, 1fr)); gap: 0.8rem; }
+.bb-size { border: 1px solid var(--bb-line); background: var(--bb-surface); color: var(--bb-fg); border-radius: 1.2rem; padding: 1rem 1.2rem; text-align: left; font: inherit; cursor: pointer; display: flex; flex-direction: column; gap: 0.2rem; font-variant-numeric: tabular-nums; }
+.bb-size span { font-size: 1.25rem; color: var(--bb-muted); }
+.bb-size[aria-pressed="true"] { border-color: var(--bb-accent); box-shadow: inset 0 0 0 1px var(--bb-accent); }
+
+.bb-products { display: grid; gap: 1rem; }
+.bb-prod { display: grid; grid-template-columns: 6.4rem minmax(0, 1fr) auto; gap: 1.2rem; align-items: center; background: var(--bb-surface); border: 1px solid var(--bb-line); border-radius: 1.4rem; padding: 1rem; }
+.bb-prod img, .bb-prod-img { width: 6.4rem; height: 6.4rem; object-fit: cover; border-radius: 1rem; display: block; background: var(--bb-slot); }
+.bb-prod-info { min-width: 0; }
+.bb-prod-name { font-weight: 600; line-height: 1.25; }
+.bb-prod-meta { font-size: 1.25rem; color: var(--bb-muted); display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+.bb-swatches { display: inline-flex; gap: 2px; }
+.bb-swatches i { width: 5px; height: 14px; border-radius: 2px; display: block; }
+.bb-prod-actions { display: flex; flex-direction: column; gap: 0.6rem; align-items: stretch; }
+.bb-count { font-size: 1.15rem; color: var(--bb-muted); text-align: center; font-variant-numeric: tabular-nums; }
+
+.bb-btn { font: inherit; font-weight: 600; border-radius: 999px; padding: 0.7rem 1.4rem; cursor: pointer; border: 1px solid var(--bb-line); background: transparent; color: var(--bb-fg); white-space: nowrap; }
+.bb-btn:hover:not(:disabled) { border-color: var(--bb-fg); }
+.bb-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.bb-btn--small { padding: 0.4rem 1.1rem; font-size: 1.3rem; }
+.bb-btn--primary { background: var(--bb-accent); color: var(--bb-accent-ink); border-color: var(--bb-accent); }
+.bb-btn--ghost { border-color: transparent; }
+.bead-builder button:focus-visible { outline: 2px solid var(--bb-accent); outline-offset: 2px; }
+
+.bb-seq-label { margin-bottom: 0.6rem; }
+.bb-seq { display: flex; flex-wrap: wrap; gap: 4px; min-height: 3.4rem; padding: 0.8rem; border: 1px dashed var(--bb-line); border-radius: 1.2rem; }
+.bb-seq button { width: 18px; height: 26px; border-radius: 5px; border: 1px solid rgba(0, 0, 0, 0.18); cursor: pointer; padding: 0; }
+.bb-seq-empty { align-self: center; }
+
+.bb-summary { background: var(--bb-surface); border: 1px solid var(--bb-line); border-radius: 1.4rem; padding: 1.4rem 1.6rem; display: flex; flex-direction: column; gap: 0.6rem; font-variant-numeric: tabular-nums; }
+.bb-row { display: flex; justify-content: space-between; gap: 1.2rem; }
+.bb-row span:first-child { color: var(--bb-muted); }
+.bb-row--total { border-top: 1px solid var(--bb-line); padding-top: 0.8rem; margin-top: 0.4rem; font-weight: 600; font-size: 1.7rem; }
+.bb-row--total span:first-child { color: var(--bb-fg); }
+.bb-buy { display: flex; justify-content: space-between; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+.bb-buy strong { font-family: var(--font-heading-family); font-size: 2.4rem; font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .bb-bar > i { transition: none; } }
