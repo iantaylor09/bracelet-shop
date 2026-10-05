@@ -1,0 +1,30 @@
+/* Bracelet kits grid, with a drawn placeholder tub set until real photos exist. */
+.kit-grid__head { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2.8rem; max-width: 64rem; }
+.kit-grid__head h2 { margin: 0; }
+.kit-grid__eyebrow { margin: 0; font-size: 1.2rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(var(--color-foreground), 0.68); }
+.kit-grid__lede, .kit-grid__lede p { margin: 0; color: rgba(var(--color-foreground), 0.75); }
+.kit-grid__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.6rem; }
+@media screen and (max-width: 989px) { .kit-grid__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (max-width: 549px) { .kit-grid__list { grid-template-columns: minmax(0, 1fr); } }
+.kit-card { display: flex; flex-direction: column; border: 1px solid rgba(var(--color-foreground), 0.14); border-radius: 1.6rem; overflow: hidden; background: rgba(var(--color-foreground), 0.03); }
+.kit-card__media { position: relative; aspect-ratio: 6 / 5; background: rgba(var(--color-foreground), 0.05); }
+.kit-card__media img, .kit-card__dummy { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.kit-card__tube { fill: rgba(255, 255, 255, 0.55); stroke: rgba(var(--color-foreground), 0.25); }
+.kit-card__lid { fill: rgba(var(--color-foreground), 0.78); }
+.kit-card__shadow { fill: rgba(var(--color-foreground), 0.08); }
+.kit-card__label { font-family: var(--font-body-family); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; fill: rgba(var(--color-foreground), 0.5); }
+.kit-card__badge { position: absolute; top: 1.2rem; left: 1.2rem; background: rgb(var(--color-button)); color: rgb(var(--color-button-text)); font-size: 1.2rem; font-weight: 600; padding: 0.3rem 1rem; border-radius: 999px; }
+.kit-card__body { display: flex; flex-direction: column; gap: 0.8rem; padding: 1.6rem; flex: 1; }
+.kit-card__body h3 { margin: 0; }
+.kit-card__link { color: inherit; text-decoration: none; }
+.kit-card__link:hover { text-decoration: underline; }
+.kit-card__contents, .kit-card__contents p, .kit-card__contents ul { margin: 0; font-size: 1.4rem; color: rgba(var(--color-foreground), 0.75); }
+.kit-card__contents ul { padding-left: 1.1em; }
+.kit-card__foot { margin-top: auto; padding-top: 0.8rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.kit-card__foot form { margin: 0; }
+.kit-card__price { font-family: var(--font-heading-family); font-size: 1.9rem; font-variant-numeric: tabular-nums; }
+.kit-card__soon { font-size: 1.3rem; color: rgba(var(--color-foreground), 0.6); }
+.kit-card--cta { justify-content: center; border-color: transparent; background: rgb(var(--color-background)); }
+.kit-card--cta .kit-grid__eyebrow, .kit-card--cta .kit-card__contents, .kit-card--cta .kit-card__contents p { color: rgba(var(--color-foreground), 0.8); }
+.kit-card--cta .kit-card__body { justify-content: center; gap: 1.2rem; }
+.kit-card--cta .button { align-self: flex-start; }

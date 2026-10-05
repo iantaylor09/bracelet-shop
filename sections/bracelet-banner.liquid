@@ -42,7 +42,15 @@
                 {%- elsif p != blank -%}
                   <button type="button" class="button" disabled>Sold out</button>
                 {%- endif -%}
-                {%- if block.settings.pattern != blank -%}
+                {%- if block.settings.pattern != blank and section.settings.design_url != blank -%}
+                  {%- assign design_name = block.settings.heading | default: p.title -%}
+                  <a
+                    class="button button--secondary"
+                    href="{{ section.settings.design_url }}?pattern={{ block.settings.pattern | url_encode }}&from={{ design_name | url_encode }}#design"
+                  >
+                    Customise this design
+                  </a>
+                {%- elsif block.settings.pattern != blank -%}
                   <button
                     type="button"
                     class="button button--secondary"
@@ -91,6 +99,7 @@
     { "type": "text", "id": "label", "label": "Accessible name", "default": "Bestselling bracelets" },
     { "type": "range", "id": "interval", "label": "Seconds per slide", "min": 3, "max": 12, "step": 1, "unit": "s", "default": 6 },
     { "type": "text", "id": "anchor", "label": "Link anchor", "default": "bestsellers" },
+    { "type": "url", "id": "design_url", "label": "Bracelet builder page", "info": "Where \"Customise this design\" goes. Leave blank if the builder is on this page." },
     { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-3" }
   ],
   "blocks": [
