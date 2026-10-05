@@ -11,7 +11,9 @@ The theme is built on [Dawn](https://github.com/Shopify/dawn) 16.0.0, Shopify's 
 | `sections/bracelet-banner.liquid` | The sliding bestseller banner with the turning bead ring. |
 | `sections/bead-builder.liquid` | The bracelet builder. Script and styles are in `assets/bead-builder.js` and `assets/bead-builder.css`. |
 | `sections/size-guide.liquid` | The size chart table and how-to-measure text. |
-| `templates/index.json` | The home page: banner, promise strip, builder, how it's made, size guide, about, FAQ, contact and newsletter. |
+| `sections/kit-grid.liquid` | Build-your-own kits, with drawn placeholder tubs until the kits have photos, plus a card linking to the builder. |
+| `templates/page.design.json` | The "Design your own" page: the bracelet builder and size guide. |
+| `templates/index.json` | The home page: banner, promise strip, kits, how it's made, size guide, about, FAQ, contact and newsletter. |
 | `config/settings_data.json` | Shop colours (the green and stone palette) and button shapes. |
 | `assets/bead-*.jpg` | Placeholder bead photos, used until real products are linked. |
 | `demo/` | The original stand-alone demo pages. Shopify ignores this folder. |
@@ -34,13 +36,15 @@ All lines from the same bracelet share a `_Bracelet ID`, and the bead lines say 
 2. **Create products:**
    - "Cord and clasp" at £15, hidden from search if you like.
    - One product per bead colourway at £0.05 (Blue/Green, Pastel/Multi, Peach/Grey, Purple/Pink, Red/Green). Turn off inventory tracking, or keep stock high, because beads are bought in tens.
-   - The three bestsellers as normal products.
-3. **Link them in the theme editor (Customise):**
-   - In **Bracelet builder**, pick the cord and clasp product, then pick a product in each bead block.
+   - The three bestsellers and the kits as normal products.
+3. **Create the builder page:** Online Store › Pages › Add page. Call it "Design your own" (so its address is `/pages/design-your-own`) and choose the `page.design` template.
+4. **Link them in the theme editor (Customise):**
+   - On the Design your own page, in **Bracelet builder**, pick the cord and clasp product, then pick a product in each bead block.
    - In **Bestseller banner**, pick a product in each slide.
-4. **Sizes:** Theme settings › Bracelet builder holds the size chart, bead length and clasp allowance. Both the builder and the size guide read from it.
-5. **Menu:** Online Store › Navigation › Main menu. Add links to `/#bestsellers`, `/#design`, `/#sizes`, `/#about` and `/#contact`.
+   - In **Bracelet kits** on the home page, pick a product in each kit.
+5. **Sizes:** Theme settings › Bracelet builder holds the size chart, bead length and clasp allowance. Both the builder and the size guide read from it.
+6. **Menu:** Online Store › Navigation › Main menu. Add links to `/#bestsellers`, `/#kits`, `/pages/design-your-own`, `/#sizes`, `/#about` and `/#contact`.
 
 ## Still placeholder
 
-The bestseller names, the about story, delivery and returns wording and the promise strip are placeholders. Text marked "[Confirm before launch]" needs checking.
+The bestseller names, the kits (names, contents and prices), the about story, delivery and returns wording and the promise strip are placeholders. Text marked "[Confirm before launch]" needs checking.

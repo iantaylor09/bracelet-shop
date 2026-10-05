@@ -198,8 +198,7 @@
     });
 
     // Bestseller banner "Customise this design" buttons send a pattern of bead names.
-    document.addEventListener('bracelet:load-pattern', function (e) {
-      var names = (e.detail && e.detail.pattern) || [];
+    function loadPattern(names, name, scroll) {
       var ids = names.map(function (nm) {
         var p = products.find(function (x) { return x.name.toLowerCase() === String(nm).trim().toLowerCase(); });
         return p && p.id;
@@ -208,12 +207,18 @@
       var med = sizes.findIndex(function (s) { return s.women === 'Medium'; });
       state.fit = 'women'; state.sizeIdx = med >= 0 ? med : defaultIdx;
       state.beads = []; for (var i = 0; i < cap(); i++) state.beads.push(newBead(ids[i % ids.length]));
-      state.label = e.detail.name || 'a bestseller';
+      state.label = name || 'a bestseller';
       render();
-      root.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      if (scroll) root.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }
+    document.addEventListener('bracelet:load-pattern', function (e) {
+      loadPattern((e.detail && e.detail.pattern) || [], e.detail && e.detail.name, true);
     });
 
     render();
+    // Arriving from a bestseller's "Customise this design" link: ?pattern=Blue/Green,Peach/Grey&from=Seaglass
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('pattern')) loadPattern(params.get('pattern').split(','), params.get('from'), false);
   }
 
   function boot() { document.querySelectorAll('[data-bead-builder]').forEach(init); }

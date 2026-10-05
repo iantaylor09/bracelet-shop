@@ -1,0 +1,102 @@
+{
+  "sections": {
+    "builder": {
+      "type": "bead-builder",
+      "blocks": {
+        "bead_1": {
+          "type": "bead",
+          "settings": {
+            "product": "",
+            "name": "Blue/Green",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#1f3c8f,#4f8fd6,#93d6a2,#2f8a55,#f3f4f1,#1b6a3b",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-blue-green.jpg"
+          }
+        },
+        "bead_2": {
+          "type": "bead",
+          "settings": {
+            "product": "",
+            "name": "Pastel/Multi",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#ef6a95,#e23b45,#f7d443,#86cfee,#2c3a8f,#f6b7cd,#9fd3a5",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-pastel-multi.jpg"
+          }
+        },
+        "bead_3": {
+          "type": "bead",
+          "settings": {
+            "product": "",
+            "name": "Peach/Grey",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#f4b57a,#f8d8a6,#a6a8ab,#fbe6c7,#e59b62,#c9c9c4",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-peach-grey.jpg"
+          }
+        },
+        "bead_4": {
+          "type": "bead",
+          "settings": {
+            "product": "",
+            "name": "Purple/Pink",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#5b2a9a,#8b4fc4,#b9a1e0,#e3256f,#3b2386,#f1eef8",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-purple-pink.jpg"
+          }
+        },
+        "bead_5": {
+          "type": "bead",
+          "settings": {
+            "product": "",
+            "name": "Red/Green",
+            "subtitle": "Polymer clay heishi bead, 6 mm flat disc",
+            "colours": "#e2342c,#f6b52a,#c3cf38,#b6a2dc,#f2732f,#f5e04a",
+            "fallback_price_pence": 5,
+            "fallback_image": "bead-red-green.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "bead_1",
+        "bead_2",
+        "bead_3",
+        "bead_4",
+        "bead_5"
+      ],
+      "settings": {
+        "caption": "Design your own",
+        "heading": "Build a bracelet bead by bead",
+        "heading_size": "h1",
+        "text": "<p>Pick your wrist size, then add polymer clay heishi beads one at a time. The bracelet fills up as you go and the price updates with every bead.</p>",
+        "size_note": "<p>Not sure? See the <a href=\"#sizes\">size guide</a> below. If you're between sizes, go up one.</p>",
+        "base_product": "",
+        "fallback_base_price": 15,
+        "anchor": "design",
+        "color_scheme": "scheme-1",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "sizes": {
+      "type": "size-guide",
+      "settings": {
+        "caption": "Size guide",
+        "heading": "Find your fit",
+        "heading_size": "h1",
+        "show_beads": true,
+        "how_to": "<h3>How to measure</h3><ol><li>Wrap a soft tape measure, or a strip of paper, around your wrist just below the wrist bone.</li><li>Mark where it meets and measure the length in centimetres.</li><li>Find your measurement in the table. If you're between sizes, or like a looser fit, go up one.</li></ol><p>Buying a gift? A medium fits most adult wrists.</p>",
+        "anchor": "sizes",
+        "color_scheme": "scheme-1",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "builder",
+    "sizes"
+  ]
+}

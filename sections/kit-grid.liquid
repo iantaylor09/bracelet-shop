@@ -1,0 +1,139 @@
+{{ 'kit-grid.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="{{ section.settings.anchor | default: 'kits' }}" class="kit-grid color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="kit-grid__head">
+      {%- if section.settings.caption != blank -%}<p class="kit-grid__eyebrow">{{ section.settings.caption | escape }}</p>{%- endif -%}
+      <h2 class="{{ section.settings.heading_size }}">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}<div class="kit-grid__lede">{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+
+    <ul class="kit-grid__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        {%- assign kit_name = block.settings.name | default: p.title -%}
+        <li class="kit-card" {{ block.shopify_attributes }}>
+          <div class="kit-card__media">
+            {%- if p.featured_image != blank -%}
+              {{ p.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, (min-width: 750px) 45vw, 90vw', alt: p.featured_image.alt | default: kit_name }}
+            {%- else -%}
+              {%- assign cols = block.settings.colours | remove: ' ' | split: ',' -%}
+              <svg class="kit-card__dummy" viewBox="0 0 240 200" role="img" aria-label="{{ kit_name | escape }} kit, photo coming soon">
+                <ellipse cx="120" cy="178" rx="96" ry="10" class="kit-card__shadow"/>
+                {%- for c in cols limit: 4 -%}
+                  {%- assign x = forloop.index0 | times: 46 | plus: 32 -%}
+                  <g transform="translate({{ x }} 66)">
+                    <rect x="0" y="0" width="38" height="104" rx="8" class="kit-card__tube"/>
+                    {%- for i in (0..13) -%}
+                      {%- assign y = i | times: 6 | plus: 18 -%}
+                      {%- assign shade = forloop.index0 | modulo: 3 -%}
+                      <rect x="6" y="{{ y }}" width="26" height="5" rx="2" fill="{{ c }}" opacity="{% if shade == 1 %}0.75{% elsif shade == 2 %}0.9{% else %}1{% endif %}"/>
+                    {%- endfor -%}
+                    <rect x="-2" y="-8" width="42" height="14" rx="4" class="kit-card__lid"/>
+                  </g>
+                {%- endfor -%}
+                <text x="120" y="38" text-anchor="middle" class="kit-card__label">Photo coming soon</text>
+              </svg>
+            {%- endif -%}
+            {%- if block.settings.badge != blank -%}<span class="kit-card__badge">{{ block.settings.badge | escape }}</span>{%- endif -%}
+          </div>
+          <div class="kit-card__body">
+            <h3 class="h4">
+              {%- if p != blank -%}<a href="{{ p.url }}" class="kit-card__link">{{ kit_name | escape }}</a>{%- else -%}{{ kit_name | escape }}{%- endif -%}
+            </h3>
+            {%- if block.settings.contents != blank -%}<div class="kit-card__contents">{{ block.settings.contents }}</div>{%- endif -%}
+            <div class="kit-card__foot">
+              <span class="kit-card__price">
+                {%- if p != blank -%}{{ p.price | money }}{%- elsif block.settings.fallback_price_pence != blank -%}{{ block.settings.fallback_price_pence | money }}{%- endif -%}
+              </span>
+              {%- if p != blank and p.available -%}
+                <form action="{{ routes.cart_add_url }}" method="post">
+                  <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="button button--small">Add to basket</button>
+                </form>
+              {%- elsif p != blank -%}
+                <button type="button" class="button button--small" disabled>Sold out</button>
+              {%- else -%}
+                <span class="kit-card__soon">Coming soon</span>
+              {%- endif -%}
+            </div>
+          </div>
+        </li>
+      {%- endfor -%}
+
+      {%- if section.settings.show_design_card and section.settings.design_url != blank -%}
+        <li class="kit-card kit-card--cta color-{{ section.settings.design_color_scheme }} gradient">
+          <div class="kit-card__body">
+            <p class="kit-grid__eyebrow">{{ section.settings.design_caption | escape }}</p>
+            <h3 class="h3">{{ section.settings.design_heading | escape }}</h3>
+            {%- if section.settings.design_text != blank -%}<div class="kit-card__contents">{{ section.settings.design_text }}</div>{%- endif -%}
+            <a href="{{ section.settings.design_url }}" class="button">{{ section.settings.design_button | escape }}</a>
+          </div>
+        </li>
+      {%- endif -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bracelet kits",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "caption", "label": "Caption", "default": "Make it yourself" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Build-your-own bracelet kits" },
+    {
+      "type": "select", "id": "heading_size", "label": "Heading size", "default": "h1",
+      "options": [ { "value": "h2", "label": "Small" }, { "value": "h1", "label": "Medium" }, { "value": "h0", "label": "Large" } ]
+    },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Everything you need to make your own heishi bead bracelets at home.</p>" },
+    { "type": "header", "content": "Design-your-own card" },
+    { "type": "checkbox", "id": "show_design_card", "label": "Show card", "default": true },
+    { "type": "text", "id": "design_caption", "label": "Caption", "default": "Rather I made it?" },
+    { "type": "text", "id": "design_heading", "label": "Heading", "default": "Design yours online" },
+    { "type": "richtext", "id": "design_text", "label": "Text", "default": "<p>Pick your size and beads in the bracelet builder and I'll thread it for you by hand.</p>" },
+    { "type": "text", "id": "design_button", "label": "Button label", "default": "Open the bracelet builder" },
+    { "type": "url", "id": "design_url", "label": "Builder page" },
+    { "type": "color_scheme", "id": "design_color_scheme", "label": "Card colour scheme", "default": "scheme-5" },
+    { "type": "text", "id": "anchor", "label": "Link anchor", "default": "kits" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 52 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 52 }
+  ],
+  "blocks": [
+    {
+      "type": "kit",
+      "name": "Kit",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Kit product" },
+        { "type": "text", "id": "name", "label": "Name", "info": "Defaults to the product title." },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "For example: New, Bestseller." },
+        { "type": "richtext", "id": "contents", "label": "What's inside" },
+        {
+          "type": "text", "id": "colours", "label": "Placeholder colours",
+          "info": "Comma-separated hex colours for the dummy kit picture, shown until the product has a photo.",
+          "default": "#4f8fd6,#93d6a2,#f4b57a,#8b4fc4"
+        },
+        { "type": "number", "id": "fallback_price_pence", "label": "Placeholder price in pence", "info": "Shown until a product is chosen." }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Bracelet kits", "blocks": [ { "type": "kit" }, { "type": "kit" }, { "type": "kit" } ] } ]
+}
+{% endschema %}
