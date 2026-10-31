@@ -1,469 +1,362 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "banner": {
-      "type": "bracelet-banner",
-      "blocks": {
-        "seaglass": {
-          "type": "slide",
-          "settings": {
-            "product": "",
-            "tag": "Bestseller",
-            "heading": "Seaglass",
-            "text": "<p>Ocean blues, sea greens and a flash of white. The one people ask about most.</p>",
-            "price_note": "Women's Medium",
-            "pattern": "Blue/Green",
-            "ring_colours": "#1f3c8f,#4f8fd6,#93d6a2,#2f8a55,#f3f4f1,#1b6a3b",
-            "fallback_image": "bead-blue-green.jpg"
-          }
-        },
-        "peach_haze": {
-          "type": "slide",
-          "settings": {
-            "product": "",
-            "tag": "Customer favourite",
-            "heading": "Peach Haze",
-            "text": "<p>Soft peach and warm grey with a cool blue accent. Easy to wear with everything.</p>",
-            "price_note": "Women's Medium",
-            "pattern": "Peach/Grey,Peach/Grey,Peach/Grey,Blue/Green",
-            "ring_colours": "#f4b57a,#f8d8a6,#a6a8ab,#fbe6c7,#e59b62,#4f8fd6",
-            "fallback_image": "bead-peach-grey.jpg"
-          }
-        },
-        "berry_bloom": {
-          "type": "slide",
-          "settings": {
-            "product": "",
-            "tag": "New this season",
-            "heading": "Berry Bloom",
-            "text": "<p>Deep violet and hot pink, lifted with a few bright pastels.</p>",
-            "price_note": "Women's Medium",
-            "pattern": "Purple/Pink,Purple/Pink,Pastel/Multi",
-            "ring_colours": "#5b2a9a,#8b4fc4,#b9a1e0,#e3256f,#3b2386,#f7d443",
-            "fallback_image": "bead-purple-pink.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "seaglass",
-        "peach_haze",
-        "berry_bloom"
-      ],
+    "hero": {
+      "type": "tb-hero",
       "settings": {
-        "label": "Bestselling bracelets",
-        "interval": 5,
-        "anchor": "bestsellers",
-        "color_scheme": "scheme-3",
-        "design_url": "/pages/design-your-own"
+        "eyebrow": "Slow-made in Yorkshire",
+        "heading": "Timeless jewellery, handmade with love",
+        "text": "<p>Every bracelet is stitched by hand, one bead at a time, from natural stone, clay and glass. No two are quite alike, and each one is made to last.</p>",
+        "button_label": "Shop the collections",
+        "button_link": "/collections/all",
+        "button2_label": "Design your own",
+        "button2_link": "/products/design-your-own-bracelet",
+        "placeholder": "Lifestyle shot: bracelets on driftwood, coast or woods, soft daylight, 2400 × 1200 px, keep the left third calm for text",
+        "height": "large",
+        "width": "full",
+        "color_scheme": "scheme-1",
+        "is_page_title": false
       }
     },
-    "promise": {
-      "type": "multicolumn",
+    "collections": {
+      "type": "tb-cards",
+      "settings": {
+        "eyebrow": "Shop by collection",
+        "heading": "Five ways of stitching, named after the Yorkshire landscape",
+        "see_all_label": "See everything",
+        "see_all_link": "/collections/all",
+        "columns": 5,
+        "columns_mobile": "2",
+        "ratio": "portrait",
+        "card_style": "plain",
+        "title_size": "medium",
+        "color_scheme": "scheme-1",
+        "padding": "medium"
+      },
       "blocks": {
-        "p1": {
-          "type": "column",
+        "card_1": {
+          "type": "card",
           "settings": {
-            "title": "Made to order",
-            "text": "<p>Every bracelet is threaded by hand once you order it.</p>",
+            "title": "Beck",
+            "text": "<p>Single-strand glass or stone</p>",
+            "placeholder": "Beck piece flat lay, e.g. IMG_0700",
+            "link": "/collections/beck",
             "link_label": "",
-            "link": ""
+            "icon": "none"
           }
         },
-        "p2": {
-          "type": "column",
+        "card_2": {
+          "type": "card",
           "settings": {
-            "title": "Plastic-free packaging",
-            "text": "<p>Wrapped and posted in recyclable materials. [Confirm before launch]</p>",
+            "title": "Hedgerow",
+            "text": "<p>Layered cord and charms</p>",
+            "placeholder": "Triple the Fun, IMG_0658",
+            "link": "/collections/hedgerow",
             "link_label": "",
-            "link": ""
+            "icon": "none"
           }
         },
-        "p3": {
-          "type": "column",
+        "card_3": {
+          "type": "card",
           "settings": {
-            "title": "UK delivery",
-            "text": "<p>Sent by Royal Mail within 3 to 5 working days. [Confirm before launch]</p>",
+            "title": "Dales",
+            "text": "<p>Zigzag</p>",
+            "placeholder": "Starry Night, IMG_0649",
+            "link": "/collections/dales",
             "link_label": "",
-            "link": ""
+            "icon": "none"
           }
         },
-        "p4": {
-          "type": "column",
+        "card_4": {
+          "type": "card",
           "settings": {
-            "title": "Gift ready",
-            "text": "<p>Add gift wrap and a note at checkout.</p>",
+            "title": "Meadow",
+            "text": "<p>Floating beads</p>",
+            "placeholder": "Sea Glass, IMG_0660",
+            "link": "/collections/meadow",
             "link_label": "",
-            "link": ""
+            "icon": "none"
+          }
+        },
+        "card_5": {
+          "type": "card",
+          "settings": {
+            "title": "Tarn",
+            "text": "<p>Worry beads</p>",
+            "placeholder": "Worry beads held in the hand [photo to take]",
+            "link": "/collections/tarn",
+            "link_label": "",
+            "icon": "none"
           }
         }
       },
       "block_order": [
-        "p1",
-        "p2",
-        "p3",
-        "p4"
-      ],
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4",
+        "card_5"
+      ]
+    },
+    "rockpool": {
+      "type": "tb-image-text",
       "settings": {
-        "title": "",
-        "heading_size": "h2",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
+        "layout": "card",
+        "image_position": "left",
+        "ratio": "landscape",
+        "color_scheme": "scheme-5",
+        "padding": "small",
+        "eyebrow": "For the young at heart, whatever your age",
+        "heading": "Rockpool",
+        "text": "<p>Bright, playful pieces full of the colour and small treasures you find in a rockpool on the Yorkshire coast. Meet Stella the Starfish and friends.</p>",
+        "button_label": "Shop Rockpool",
+        "button_link": "/collections/rockpool",
+        "button_style": "link",
+        "placeholder": "Rockpool pieces: rainbow shell beads with turtle and starfish charms (IMG_0637 to 0640)"
+      }
+    },
+    "new": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Fresh off the table",
+        "heading_size": "h1",
+        "description": "<p>New pieces land on the first Friday of every month. Each one's a one-off, so if you love it, it's yours.</p>",
+        "show_description": true,
+        "description_style": "body",
+        "collection": "new-this-month",
+        "products_to_show": 4,
         "columns_desktop": 4,
-        "column_alignment": "left",
-        "background_style": "none",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": false,
         "color_scheme": "scheme-2",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
         "columns_mobile": "2",
         "swipe_on_mobile": false,
-        "padding_top": 28,
-        "padding_bottom": 28
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     },
-    "how": {
-      "type": "multicolumn",
-      "blocks": {
-        "h1": {
-          "type": "column",
-          "settings": {
-            "title": "1. You design it",
-            "text": "<p>Choose a ready-made favourite or build your own, bead by bead, sized to your wrist.</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "h2": {
-          "type": "column",
-          "settings": {
-            "title": "2. I thread it by hand",
-            "text": "<p>Every bracelet is made to order on strong cord with a secure clasp, so nothing sits in a warehouse.</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "h3": {
-          "type": "column",
-          "settings": {
-            "title": "3. It's posted to you",
-            "text": "<p>Wrapped in recyclable, plastic-free packaging and sent within 3 to 5 working days.</p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "h1",
-        "h2",
-        "h3"
-      ],
+    "why": {
+      "type": "tb-image-text",
       "settings": {
-        "title": "From your design to your wrist",
-        "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 3,
-        "column_alignment": "left",
-        "background_style": "none",
-        "color_scheme": "scheme-2",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 52,
-        "padding_bottom": 52
-      }
-    },
-    "sizes": {
-      "type": "size-guide",
-      "settings": {
-        "caption": "Size guide",
-        "heading": "Find your fit",
-        "heading_size": "h1",
-        "show_beads": true,
-        "how_to": "<h3>How to measure</h3><ol><li>Wrap a soft tape measure, or a strip of paper, around your wrist just below the wrist bone.</li><li>Mark where it meets and measure the length in centimetres.</li><li>Find your measurement in the table. If you're between sizes, or like a looser fit, go up one.</li></ol><p>Buying a gift? A medium fits most adult wrists.</p>",
-        "anchor": "sizes",
+        "layout": "plain",
+        "image_position": "left",
+        "ratio": "portrait",
         "color_scheme": "scheme-1",
-        "padding_top": 52,
-        "padding_bottom": 52
+        "show_bird": true,
+        "eyebrow": "Why Tailorbird",
+        "heading": "Stitched by hand, one bead at a time",
+        "text": "<p>The tailorbird is a tiny songbird that stitches leaves together to build its nest, one patient stitch at a time. I make jewellery the same way. Every piece is stitched by hand from natural stone, clay and glass, so no two are quite alike and each is made to last.</p><p>I hope yours feels like it was made just for you, because it was.</p>",
+        "button_label": "Read our story",
+        "button_link": "/pages/our-story",
+        "button_style": "link",
+        "placeholder": "The maker's hands stitching beads at the kitchen table, beads in a dish, daylight, 1600 × 1800 px"
       }
     },
-    "about_anchor": {
-      "type": "custom-liquid",
+    "three_ways": {
+      "type": "tb-cards",
       "settings": {
-        "custom_liquid": "<div id=\"about\"></div>",
-        "color_scheme": "scheme-1",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "about": {
-      "type": "image-with-text",
-      "blocks": {
-        "cap": {
-          "type": "caption",
-          "settings": {
-            "caption": "About me",
-            "text_style": "caption-with-letter-spacing",
-            "text_size": "medium"
-          }
-        },
-        "head": {
-          "type": "heading",
-          "settings": {
-            "heading": "Hi, I'm Brittany",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>I make colourful, made-to-order bracelets from my kitchen table, one bead at a time. It started as a way to switch off after work and turned into gifts for friends, then friends of friends.</p><p>Because I only make what's ordered, there's no excess stock and very little waste. If you have an idea that doesn't fit the builder, get in touch and we'll make it together.</p>",
-            "text_style": "body"
-          }
-        },
-        "btn": {
-          "type": "button",
-          "settings": {
-            "button_label": "Say hello",
-            "button_link": "/#contact",
-            "button_style_secondary": true
-          }
-        }
-      },
-      "block_order": [
-        "cap",
-        "head",
-        "text",
-        "btn"
-      ],
-      "settings": {
-        "height": "adapt",
-        "desktop_image_width": "medium",
-        "layout": "image_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "scheme-2",
-        "color_scheme": "scheme-2",
-        "padding_top": 52,
-        "padding_bottom": 52
-      }
-    },
-    "faq_anchor": {
-      "type": "custom-liquid",
-      "settings": {
-        "custom_liquid": "<div id=\"faq\"></div>",
-        "color_scheme": "scheme-1",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "faq": {
-      "type": "collapsible-content",
-      "blocks": {
-        "q1": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "How long will my order take?",
-            "icon": "truck",
-            "row_content": "<p>Each bracelet is made to order, usually within 3 to 5 working days, then sent by Royal Mail. You'll get an email when it's on its way.</p>",
-            "page": ""
-          }
-        },
-        "q2": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Can I return a bracelet?",
-            "icon": "return",
-            "row_content": "<p>Ready-made bracelets can be returned unworn within 14 days. Custom designs are made just for you, so they can't be returned unless they arrive faulty, but I'm happy to resize one if the fit isn't right.</p>",
-            "page": ""
-          }
-        },
-        "q3": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "What are the beads made of?",
-            "icon": "question_mark",
-            "row_content": "<p>The beads are 6 mm polymer clay heishi discs, threaded on strong cord with a metal clasp.</p>",
-            "page": ""
-          }
-        },
-        "q4": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "How do I look after my bracelet?",
-            "icon": "heart",
-            "row_content": "<p>Take it off before swimming, showering or exercising, and keep it away from perfume and lotions.</p>",
-            "page": ""
-          }
-        },
-        "q5": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Can I send it as a gift?",
-            "icon": "box",
-            "row_content": "<p>Yes. Choose gift wrap at checkout and add a note, and I'll leave the price off the packing slip.</p>",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "q1",
-        "q2",
-        "q3",
-        "q4",
-        "q5"
-      ],
-      "settings": {
-        "caption": "Questions",
-        "heading": "Good to know",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "layout": "none",
-        "container_color_scheme": "scheme-2",
-        "color_scheme": "scheme-1",
-        "open_first_collapsible_row": false,
-        "image_ratio": "adapt",
-        "desktop_layout": "image_second",
-        "padding_top": 52,
-        "padding_bottom": 52
-      }
-    },
-    "contact_anchor": {
-      "type": "custom-liquid",
-      "settings": {
-        "custom_liquid": "<div id=\"contact\"></div>",
-        "color_scheme": "scheme-1",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "contact": {
-      "type": "contact-form",
-      "settings": {
-        "heading": "Get in touch",
-        "heading_size": "h1",
-        "color_scheme": "scheme-2",
-        "padding_top": 52,
-        "padding_bottom": 52
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "blocks": {
-        "h": {
-          "type": "heading",
-          "settings": {
-            "heading": "Get new colours first",
-            "heading_size": "h2"
-          }
-        },
-        "p": {
-          "type": "paragraph",
-          "settings": {
-            "text": "<p>New bead mixes, restocks and the occasional offer. No spam.</p>"
-          }
-        },
-        "f": {
-          "type": "email_form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "h",
-        "p",
-        "f"
-      ],
-      "settings": {
+        "eyebrow": "Three ways to wear Tailorbird",
+        "heading": "Your bracelet, your personality",
+        "columns": 3,
+        "ratio": "landscape",
+        "card_style": "plain",
+        "title_size": "medium",
         "color_scheme": "scheme-3",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
-    },
-    "kits": {
-      "type": "kit-grid",
+        "padding": "medium"
+      },
       "blocks": {
-        "starter": {
-          "type": "kit",
+        "card_1": {
+          "type": "card",
           "settings": {
-            "product": "",
-            "name": "Starter kit",
-            "badge": "New",
-            "contents": "<ul><li>4 bead colours, about 800 beads</li><li>Stretch cord and 2 clasps</li><li>Makes about 4 bracelets</li></ul>",
-            "colours": "#4f8fd6,#93d6a2,#f4b57a,#2c3a8f",
-            "fallback_price_pence": 1200
+            "title": "Ready-made",
+            "text": "<p>One-of-a-kind pieces for every day and special occasions. From [£22].</p>",
+            "placeholder": "Ready-made pieces on the wood board",
+            "link": "/collections/all",
+            "link_label": "Shop ready-made",
+            "icon": "none"
           }
         },
-        "rainbow": {
-          "type": "kit",
+        "card_2": {
+          "type": "card",
           "settings": {
-            "product": "",
-            "name": "Rainbow kit",
-            "badge": "",
-            "contents": "<ul><li>8 bead colours, about 1,600 beads</li><li>Stretch cord and 4 clasps</li><li>Makes about 8 bracelets</li></ul>",
-            "colours": "#e2342c,#f7d443,#2f8a55,#8b4fc4",
-            "fallback_price_pence": 2000
+            "title": "Design your own",
+            "text": "<p>Pick the style, beads and charm, and I'll stitch it for you. From [£28], ready in [5 to 7] working days.</p>",
+            "placeholder": "Bead tray with a half-finished custom bracelet",
+            "link": "/products/design-your-own-bracelet",
+            "link_label": "Design your bracelet",
+            "icon": "none"
           }
         },
-        "pastel": {
-          "type": "kit",
+        "card_3": {
+          "type": "card",
           "settings": {
-            "product": "",
-            "name": "Pastel kit",
-            "badge": "",
-            "contents": "<ul><li>4 soft pastel colours, about 800 beads</li><li>Stretch cord and 2 clasps</li><li>Makes about 4 bracelets</li></ul>",
-            "colours": "#f6b7cd,#86cfee,#f8d8a6,#b9a1e0",
-            "fallback_price_pence": 1200
+            "title": "DIY kits",
+            "text": "<p>Make one of my pieces yourself, with my beads and step-by-step instructions. Kits from [£18], plus workshops.</p>",
+            "placeholder": "Open DIY kit: beads in paper bags, cord, instructions",
+            "link": "/collections/diy-kits",
+            "link_label": "See kits and workshops",
+            "icon": "none"
           }
         }
       },
       "block_order": [
-        "starter",
-        "rainbow",
-        "pastel"
-      ],
+        "card_1",
+        "card_2",
+        "card_3"
+      ]
+    },
+    "stack": {
+      "type": "tb-image-text",
       "settings": {
-        "caption": "Make it yourself",
-        "heading": "Build-your-own bracelet kits",
-        "heading_size": "h1",
-        "text": "<p>Everything you need to make your own heishi bead bracelets at home. Kit names, contents and prices are placeholders.</p>",
-        "show_design_card": true,
-        "design_caption": "Rather I made it?",
-        "design_heading": "Design yours online",
-        "design_text": "<p>Pick your size and beads in the bracelet builder and I'll thread it for you by hand.</p>",
-        "design_button": "Open the bracelet builder",
-        "design_url": "/pages/design-your-own",
-        "design_color_scheme": "scheme-5",
-        "anchor": "kits",
-        "color_scheme": "scheme-1",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "layout": "card",
+        "image_position": "left",
+        "ratio": "landscape",
+        "color_scheme": "scheme-4",
+        "padding": "medium",
+        "eyebrow": "Stacks and sets",
+        "heading": "Make it a stack",
+        "text": "<p>Any three Everyday pieces for [£60], gift-wrapped as always. Mix collections, mix colours, wear them together or share them out.</p>",
+        "button_label": "Build a stack",
+        "button_link": "/collections/stacks-and-sets",
+        "button_style": "primary",
+        "placeholder": "Three bracelets as overlapping circles in a diagonal (stack flat lay)"
       }
+    },
+    "promises": {
+      "type": "tb-cards",
+      "settings": {
+        "columns": 3,
+        "ratio": "none",
+        "card_style": "panel",
+        "title_size": "small",
+        "color_scheme": "scheme-1",
+        "padding": "small"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "Plastic-free packaging",
+            "text": "<p>Every piece arrives in a compostable kraft bag, stamped by hand with the little bird.</p>",
+            "placeholder": "",
+            "link": "",
+            "link_label": "",
+            "icon": "bag"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "A card you can plant",
+            "text": "<p>The story card is seed paper. Read it, keep it a while, then plant it and grow wildflowers.</p>",
+            "placeholder": "",
+            "link": "",
+            "link_label": "",
+            "icon": "sprout"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "Made to last",
+            "text": "<p>Nickel-safe findings and a simple resize-or-swap promise if it doesn't fit just right.</p>",
+            "placeholder": "",
+            "link": "",
+            "link_label": "",
+            "icon": "clock"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ]
+    },
+    "instagram": {
+      "type": "tb-cards",
+      "settings": {
+        "eyebrow": "On Instagram",
+        "heading": "@[tailorbird handle]",
+        "see_all_label": "Follow along",
+        "see_all_instagram": true,
+        "columns": 6,
+        "columns_mobile": "2",
+        "ratio": "square",
+        "card_style": "plain",
+        "color_scheme": "scheme-1",
+        "padding": "medium"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "placeholder": "Reel · stitching",
+            "icon": "none"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "placeholder": "Post · on the wrist",
+            "icon": "none"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "placeholder": "Post · market stall",
+            "icon": "none"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "placeholder": "Post · new drop",
+            "icon": "none"
+          }
+        },
+        "card_5": {
+          "type": "card",
+          "settings": {
+            "placeholder": "Post · packaging",
+            "icon": "none"
+          }
+        },
+        "card_6": {
+          "type": "card",
+          "settings": {
+            "placeholder": "Post · coast walk",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4",
+        "card_5",
+        "card_6"
+      ]
     }
   },
   "order": [
-    "banner",
-    "promise",
-    "kits",
-    "how",
-    "sizes",
-    "about_anchor",
-    "about",
-    "faq_anchor",
-    "faq",
-    "contact_anchor",
-    "contact",
-    "newsletter"
+    "hero",
+    "collections",
+    "rockpool",
+    "new",
+    "why",
+    "three_ways",
+    "stack",
+    "promises",
+    "instagram"
   ]
 }

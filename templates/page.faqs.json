@@ -1,0 +1,61 @@
+{
+  "sections": {
+    "help": {
+      "type": "tb-help",
+      "settings": {},
+      "blocks": {
+        "content_1": {
+          "type": "content",
+          "settings": {}
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Are the findings nickel-free?",
+            "answer": "<p>Yes, I use nickel-safe findings. Each listing says exactly what the clasp and spacers are made from: [sterling silver, silver-plated or copper].</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Are the stones real?",
+            "answer": "<p>[Yes. Each listing says which beads are natural stone, glass or clay.]</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What if it doesn't fit?",
+            "answer": "<p>Send it back and I'll resize it or swap it, free. [Confirm the resize-or-swap window.]</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does a custom bracelet take?",
+            "answer": "<p>Made-to-order pieces are ready to post in [5 to 7] working days.</p>"
+          }
+        },
+        "contact_6": {
+          "type": "contact",
+          "settings": {
+            "heading": "Say hello",
+            "text": "<p>Questions, ideas or a bracelet emergency, I'm happy to help. I usually reply within [a day].</p><p>[hello@tailorbird…]</p>",
+            "color_scheme": "scheme-2"
+          }
+        }
+      },
+      "block_order": [
+        "content_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "contact_6"
+      ]
+    }
+  },
+  "order": [
+    "help"
+  ]
+}

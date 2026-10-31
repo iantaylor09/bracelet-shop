@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "help": {
+      "type": "tb-help",
+      "settings": {},
+      "blocks": {
+        "content_1": {
+          "type": "content",
+          "settings": {
+            "text": "<p>Most of my bracelets are made to fit a 7 in (18 cm) wrist. If yours is smaller or larger, pick small or large, or tell me your measurement and I'll make it to fit.</p>"
+          }
+        },
+        "size_guide_2": {
+          "type": "size_guide",
+          "settings": {}
+        },
+        "heading_3": {
+          "type": "heading",
+          "settings": {
+            "heading": "FAQs"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Are the findings nickel-free?",
+            "answer": "<p>Yes, I use nickel-safe findings. Each listing says exactly what the clasp and spacers are made from: [sterling silver, silver-plated or copper].</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Are the stones real?",
+            "answer": "<p>[Yes. Each listing says which beads are natural stone, glass or clay.]</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "What if it doesn't fit?",
+            "answer": "<p>Send it back and I'll resize it or swap it, free. [Confirm the resize-or-swap window.]</p>"
+          }
+        },
+        "faq_7": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does a custom bracelet take?",
+            "answer": "<p>Made-to-order pieces are ready to post in [5 to 7] working days.</p>"
+          }
+        },
+        "contact_8": {
+          "type": "contact",
+          "settings": {
+            "heading": "Say hello",
+            "text": "<p>Questions, ideas or a bracelet emergency, I'm happy to help. I usually reply within [a day].</p><p>[hello@tailorbird…]</p>",
+            "color_scheme": "scheme-2"
+          }
+        }
+      },
+      "block_order": [
+        "content_1",
+        "size_guide_2",
+        "heading_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "contact_8"
+      ]
+    }
+  },
+  "order": [
+    "help"
+  ]
+}

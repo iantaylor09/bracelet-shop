@@ -1,0 +1,205 @@
+{
+  "sections": {
+    "intro": {
+      "type": "tb-image-text",
+      "settings": {
+        "layout": "plain",
+        "image_position": "right",
+        "ratio": "landscape",
+        "is_page_title": true,
+        "heading_size": "display",
+        "eyebrow": "Gift guide",
+        "heading": "A gift that feels made for them",
+        "text": "<p>Because it was. Every piece is one of a kind and arrives gift-wrapped in a stamped kraft bag with a seed paper card, so all that's left is the bow. Well, the twine.</p>",
+        "placeholder": "Wrapped gift: kraft bag, jute twine, dried flower sprig, seed paper card on linen, 1600 × 1200 px",
+        "color_scheme": "scheme-1",
+        "padding": "small"
+      }
+    },
+    "occasion": {
+      "type": "tb-cards",
+      "settings": {
+        "heading": "Shop by occasion",
+        "columns": 4,
+        "columns_mobile": "2",
+        "ratio": "portrait",
+        "card_style": "plain",
+        "title_size": "medium",
+        "color_scheme": "scheme-1",
+        "padding": "medium"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "Birthdays",
+            "text": "<p>Birthstone pieces and colours they love</p>",
+            "placeholder": "Bracelet with a small birthday card",
+            "link": "/collections/birthday-gifts",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "Weddings and bridesmaids",
+            "text": "<p>Sets made in the wedding colours</p>",
+            "placeholder": "Bridesmaid set on linen",
+            "link": "/collections/wedding-gifts",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "Mother's Day",
+            "text": "<p>Matching sets and make-together kits</p>",
+            "placeholder": "Two wrists, matching pieces",
+            "link": "/collections/mother-and-daughter",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "title": "Christmas",
+            "text": "<p>Winter Berry and friends, gift-wrapped</p>",
+            "placeholder": "Winter Berry (IMG_0650) with greenery",
+            "link": "/collections/christmas-gifts",
+            "link_label": "",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ]
+    },
+    "price": {
+      "type": "tb-cards",
+      "settings": {
+        "heading": "Shop by price",
+        "columns": 3,
+        "ratio": "none",
+        "card_style": "plain",
+        "title_size": "large",
+        "color_scheme": "scheme-2",
+        "padding": "medium"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "Under £20",
+            "text": "<p>Rockpool, kits and little treats</p>",
+            "placeholder": "",
+            "link": "/collections/gifts-under-25",
+            "link_label": "",
+            "panel": true,
+            "color_scheme": "scheme-4",
+            "icon": "none"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "£20 to £35",
+            "text": "<p>Everyday pieces</p>",
+            "placeholder": "",
+            "link": "/collections/all?filter.v.price.gte=20&filter.v.price.lte=35",
+            "link_label": "",
+            "panel": true,
+            "color_scheme": "scheme-5",
+            "icon": "none"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "Over £35",
+            "text": "<p>Occasion pieces and stacks</p>",
+            "placeholder": "",
+            "link": "/collections/all?filter.v.price.gte=35",
+            "link_label": "",
+            "panel": true,
+            "color_scheme": "scheme-3",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ]
+    },
+    "pairs": {
+      "type": "tb-cards",
+      "settings": {
+        "columns": 2,
+        "ratio": "wide",
+        "card_style": "plain",
+        "title_size": "medium",
+        "color_scheme": "scheme-1",
+        "padding": "small"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "Matching with mum",
+            "text": "<p>A grown-up piece and a playful Rockpool piece in the same colours. Made as a pair, wrapped as a pair.</p>",
+            "placeholder": "Mum and daughter wrists with matching bracelets",
+            "link": "/collections/mother-and-daughter",
+            "link_label": "Shop mother and daughter sets",
+            "panel": true,
+            "color_scheme": "scheme-4",
+            "icon": "none"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "Not sure what they'd pick?",
+            "text": "<p>A gift card lets them choose a ready-made piece, design their own or book a workshop. Sent by email, from [£10].</p>",
+            "placeholder": "Tailorbird gift card",
+            "link": "/products/gift-card",
+            "link_label": "Buy a gift card",
+            "panel": true,
+            "color_scheme": "scheme-3",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2"
+      ]
+    },
+    "posting": {
+      "type": "tb-note",
+      "settings": {
+        "heading": "Last posting dates",
+        "text": "<p>For Christmas: order by [date] for second class, [date] for first class. Want to add a handwritten note? Leave it at checkout and I'll write it on the story card.</p>",
+        "button_label": "Delivery details",
+        "button_link": "/policies/shipping-policy",
+        "button_style": "link",
+        "color_scheme": "scheme-2",
+        "padding": "medium"
+      }
+    }
+  },
+  "order": [
+    "intro",
+    "occasion",
+    "price",
+    "pairs",
+    "posting"
+  ]
+}

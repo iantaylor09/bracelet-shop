@@ -1,0 +1,17 @@
+{%- comment -%}
+  The line under a product name on cards: a short description (metafield custom.subtitle),
+  or "from the Beck collection" from a collection-beck tag.
+{%- endcomment -%}
+{%- assign tb_collection = '' -%}
+{%- for tag in product.tags -%}
+  {%- assign tag_d = tag | downcase -%}
+  {%- if tag_d contains 'collection-' -%}
+    {%- assign tb_collection = tag_d | remove_first: 'collection-' | replace: '-', ' ' | capitalize -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if product.metafields.custom.subtitle != blank -%}
+  <p class="tb-card-sub">{{ product.metafields.custom.subtitle | escape }}</p>
+{%- elsif tb_collection != '' -%}
+  <p class="tb-card-from">from the {{ tb_collection }} collection</p>
+{%- endif -%}

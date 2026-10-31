@@ -1,50 +1,63 @@
-# Bracelet shop
+# Tailorbird
 
-A Shopify theme for a handmade, made-to-order heishi bead bracelet shop, with a "design your own bracelet" builder.
+The Shopify theme for Tailorbird: slow-made jewellery, stitched by hand in Yorkshire.
 
-The theme is built on [Dawn](https://github.com/Shopify/dawn) 16.0.0, Shopify's free reference theme (licence in `DAWN-LICENSE.md`). Dawn handles the header, product pages, basket, checkout and accounts. The shop's own sections sit on top.
+The theme is built on [Dawn](https://github.com/Shopify/dawn) 16.0.0, Shopify's free reference theme (licence in `DAWN-LICENSE.md`). Dawn handles the header, product pages, bag, checkout and accounts. The Tailorbird sections and styles sit on top, following the Tailorbird branding guide and website wireframes.
 
 ## What's here
 
 | Path | What it is |
 | --- | --- |
-| `sections/bracelet-banner.liquid` | The sliding bestseller banner with the turning bead ring. |
-| `sections/bead-builder.liquid` | The bracelet builder. Script and styles are in `assets/bead-builder.js` and `assets/bead-builder.css`. |
-| `sections/size-guide.liquid` | The size chart table and how-to-measure text. |
-| `sections/kit-grid.liquid` | Build-your-own kits, with drawn placeholder tubs until the kits have photos, plus a card linking to the builder. |
-| `templates/page.design.json` | The "Design your own" page: the bracelet builder and size guide. |
-| `templates/index.json` | The home page: banner, promise strip, kits, how it's made, size guide, about, FAQ, contact and newsletter. |
-| `config/settings_data.json` | Shop colours (the green and stone palette) and button shapes. |
-| `assets/bead-*.jpg` | Placeholder bead photos, used until real products are linked. |
-| `demo/` | The original stand-alone demo pages. Shopify ignores this folder. |
-| `docs/bracelet-guide.png` | The size chart the sizes came from. |
+| `assets/tailorbird.css` | Brand styles: type sizes, links, placeholders, cards, forms and the builder. |
+| `assets/tailorbird-*.png` | The logo and bird mark, used until the real logo files are uploaded in the theme editor. |
+| `sections/tb-hero.liquid` | Big photo with a text box and two buttons. |
+| `sections/tb-cards.liquid` | Rows of cards: collections, "three ways", promises, Instagram, how it's made, price tiles, reviews. |
+| `sections/tb-image-text.liquid` | Photo beside text, plain, as a colour band or as a rounded panel. |
+| `sections/tb-intro.liquid` | Centred title with the little bird. |
+| `sections/tb-note.liquid` | A slim panel with a button, for example "Can't find quite the right one?". |
+| `sections/tb-events.liquid` | Workshop dates with Book buttons, or markets and stockists. |
+| `sections/tb-enquiry.liquid` | The weddings and bridesmaids enquiry form. |
+| `sections/tb-collection-hero.liquid` | The collection banner and the row of collection buttons. |
+| `sections/tb-design-your-own.liquid` | The Design your own builder. Script in `assets/tb-design.js`. |
+| `sections/kit-grid.liquid` | DIY kit cards with "Rather have it made?" links. |
+| `sections/tb-help.liquid` | Help pages: side menu, page text, size table, FAQs and contact form. |
+| `snippets/tb-*.liquid` | Placeholders, icons, the size table and the product card extras. |
+| `templates/*.json` | Page layouts, listed below. |
+| `demo/` | The original, pre-Tailorbird demo pages. Shopify ignores this folder. |
 
-Everything else is Dawn, unchanged.
+## Page templates
 
-## How the builder sells a bracelet
+| Template | Use it for | Address |
+| --- | --- | --- |
+| `index` | Home | `/` |
+| `collection` | Every collection: Beck, Hedgerow, Dales, Meadow, Tarn, Rockpool, gifts… | `/collections/…` |
+| `collection.diy-kits` | The DIY kits collection, with workshops and private parties | `/collections/diy-kits` |
+| `product` | Every piece | `/products/…` |
+| `product.design` | The Design your own bracelet product | `/products/design-your-own-bracelet` |
+| `page.gift-guide` | Gift guide | `/pages/gift-guide` |
+| `page.our-story` | Our story, with how it's made and markets further down | `/pages/our-story` |
+| `page.size-guide` | Size guide | `/pages/size-guide` |
+| `page.faqs`, `page.contact`, `page.help` | FAQs, contact, and any other help page (care…) | `/pages/…` |
 
-Each custom bracelet goes into the basket as:
-
-- one **cord and clasp** product (the base price, £15), carrying the size and bead order, and
-- one line per bead colourway, with the quantity used (5p each).
-
-All lines from the same bracelet share a `_Bracelet ID`, and the bead lines say which bracelet they're for, so the order shows exactly what to make.
+`page.design` is the same builder as `product.design`, kept so the old Design your own page still works.
 
 ## Setting it up in Shopify
 
-1. **Connect the theme:** Online Store › Themes › Add theme › Connect from GitHub, then pick this repository and the `main` branch.
-2. **Create products:**
-   - "Cord and clasp" at £15, hidden from search if you like.
-   - One product per bead colourway at £0.05 (Blue/Green, Pastel/Multi, Peach/Grey, Purple/Pink, Red/Green). Turn off inventory tracking, or keep stock high, because beads are bought in tens.
-   - The three bestsellers and the kits as normal products.
-3. **Create the builder page:** Online Store › Pages › Add page. Call it "Design your own" (so its address is `/pages/design-your-own`) and choose the `page.design` template.
-4. **Link them in the theme editor (Customise):**
-   - On the Design your own page, in **Bracelet builder**, pick the cord and clasp product, then pick a product in each bead block.
-   - In **Bestseller banner**, pick a product in each slide.
-   - In **Bracelet kits** on the home page, pick a product in each kit.
-5. **Sizes:** Theme settings › Bracelet builder holds the size chart, bead length and clasp allowance. Both the builder and the size guide read from it.
-6. **Menu:** Online Store › Navigation › Main menu. Add links to `/#bestsellers`, `/#kits`, `/pages/design-your-own`, `/#sizes`, `/#about` and `/#contact`.
+1. **Logo:** Theme settings › Logo: upload `tailorbird-horizontal-full-colour.svg` from 02-Website / Logo-SVG. Theme settings › Brand information › Image: upload the reversed version for the dark footer. Favicon: `favicon.svg` from 02-Website / Favicons. Until then the theme shows a copy of the logo taken from the branding guide.
+2. **Fonts:** Theme settings › Typography is set to Fraunces (headings) and Nunito Sans (body), both from Shopify's free font library. If either is missing, pick it there.
+3. **Collections:** create Beck, Hedgerow, Dales, Meadow, Tarn and Rockpool as automated collections, each on a tag (`collection-beck`, `collection-hedgerow` and so on). Add the collection's short line ("Single-strand glass or stone") in a collection metafield called `custom.subtitle`. Also create New this month, Stacks and sets, Charms, the gift collections, DIY kits (choose the `diy-kits` template) and Workshops.
+4. **Product tags the theme reads:**
+   - `collection-beck` → "from the Beck collection" under the name.
+   - `new` → "New" badge; `charm-included` → "Charm included" badge.
+   - `one-of-a-kind`, `everyday` or `occasion` → the badges on the product page.
+   - A product metafield `custom.subtitle` gives the plain description shown under the name ("Burgundy and black-gold glass bracelet"). A product reference metafield `custom.diy_kit` adds the "Make your own with the DIY kit" box.
+5. **Design your own:** create a product called "Design your own bracelet" at £28, with the `product.design` template. Give it a Style option with variants Beck, Hedgerow, Dales and Meadow if the styles should be priced differently. In the theme editor, add bead photos to the colours and, for any charm that costs extra (birthstone), pick a charm product.
+6. **Filters:** install Shopify's Search & Discovery app and add filters for Occasion, Made from, Colour, Charms, Charm motif and Price, using product metafields.
+7. **Menus (Online Store › Navigation):**
+   - Main menu: Shop (Shop all, New this month, the six collections, Stacks and sets, Charms), Design your own, DIY kits (All kits, Workshops, Private parties at `/collections/diy-kits#private`), Gifts (Gift guide and the gift collections, Gift cards), Our story (Our story, How it's made at `/pages/our-story#how-its-made`, Markets and stockists at `/pages/our-story#markets`, Journal).
+   - Footer menus with the handles `footer-shop`, `footer-help` and `footer-tailorbird`.
+8. **Sizes and making time:** Theme settings › Tailorbird holds the bracelet sizes, the making time and the Design your own address. The size guide, builder and product pages all read from it.
 
 ## Still placeholder
 
-The bestseller names, the kits (names, contents and prices), the about story, delivery and returns wording and the promise strip are placeholders. Text marked "[Confirm before launch]" needs checking.
+Striped boxes are photos still to take, with the shot from the branding guide's shot list written on them. Anything in [square brackets] is a price, date or detail to confirm, as on the wireframes.

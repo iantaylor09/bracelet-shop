@@ -1,0 +1,22 @@
+{%- comment -%} The size table, from Theme settings › Tailorbird › Bracelet sizes. {%- endcomment -%}
+{%- assign rows = settings.tb_size_chart | newline_to_br | split: '<br />' -%}
+<div class="tb-table-wrap">
+  <table class="tb-table">
+    <thead><tr><th scope="col">Size</th><th scope="col">Fits a wrist of</th><th scope="col">Bracelet length</th></tr></thead>
+    <tbody>
+      {%- for row in rows -%}
+        {%- assign cells = row | strip | split: '|' -%}
+        {%- if cells.size >= 2 -%}
+          {%- assign name = cells[0] | strip -%}
+          {%- assign is_default = false -%}
+          {%- if name contains '*' -%}{%- assign is_default = true -%}{%- assign name = name | remove: '*' | strip -%}{%- endif -%}
+          <tr{% if is_default %} class="is-default"{% endif %}>
+            <th scope="row">{{ name | escape }}</th>
+            <td>{{ cells[1] | strip | escape }}</td>
+            <td>{{ cells[2] | strip | escape }}</td>
+          </tr>
+        {%- endif -%}
+      {%- endfor -%}
+    </tbody>
+  </table>
+</div>

@@ -2,68 +2,79 @@
   "current": "Dawn",
   "presets": {
     "Dawn": {
-      "logo_width": 90,
+      "logo_width": 170,
       "customer_account_menu": "customer-account-main-menu",
       "color_schemes": {
         "scheme-1": {
           "settings": {
-            "background": "#EEF0EB",
+            "background": "#F3ECE0",
             "background_gradient": "",
-            "text": "#1E2622",
-            "button": "#3D6B57",
-            "button_label": "#F4F7F3",
-            "secondary_button_label": "#1E2622",
-            "shadow": "#1E2622"
+            "text": "#3B2F27",
+            "button": "#B4532A",
+            "button_label": "#F3ECE0",
+            "secondary_button_label": "#3B2F27",
+            "shadow": "#3B2F27"
           }
         },
         "scheme-2": {
           "settings": {
-            "background": "#F8F9F6",
+            "background": "#FAF6EF",
             "background_gradient": "",
-            "text": "#1E2622",
-            "button": "#3D6B57",
-            "button_label": "#F4F7F3",
-            "secondary_button_label": "#1E2622",
-            "shadow": "#1E2622"
+            "text": "#3B2F27",
+            "button": "#B4532A",
+            "button_label": "#F3ECE0",
+            "secondary_button_label": "#3B2F27",
+            "shadow": "#3B2F27"
           }
         },
         "scheme-3": {
           "settings": {
-            "background": "#24382F",
+            "background": "#3B2F27",
             "background_gradient": "",
-            "text": "#EEF3EE",
-            "button": "#EEF3EE",
-            "button_label": "#24382F",
-            "secondary_button_label": "#EEF3EE",
-            "shadow": "#1E2622"
+            "text": "#F3ECE0",
+            "button": "#B4532A",
+            "button_label": "#F3ECE0",
+            "secondary_button_label": "#F3ECE0",
+            "shadow": "#3B2F27"
           }
         },
         "scheme-4": {
           "settings": {
-            "background": "#1E2622",
+            "background": "#D8C3A0",
             "background_gradient": "",
-            "text": "#EEF3EE",
-            "button": "#EEF3EE",
-            "button_label": "#1E2622",
-            "secondary_button_label": "#EEF3EE",
-            "shadow": "#1E2622"
+            "text": "#3B2F27",
+            "button": "#B4532A",
+            "button_label": "#F3ECE0",
+            "secondary_button_label": "#3B2F27",
+            "shadow": "#3B2F27"
           }
         },
         "scheme-5": {
           "settings": {
-            "background": "#3D6B57",
+            "background": "#8E9A78",
             "background_gradient": "",
-            "text": "#F4F7F3",
-            "button": "#F4F7F3",
-            "button_label": "#3D6B57",
-            "secondary_button_label": "#F4F7F3",
-            "shadow": "#1E2622"
+            "text": "#3B2F27",
+            "button": "#B4532A",
+            "button_label": "#F3ECE0",
+            "secondary_button_label": "#3B2F27",
+            "shadow": "#3B2F27"
+          }
+        },
+        "scheme-6": {
+          "settings": {
+            "background": "#6E7B3C",
+            "background_gradient": "",
+            "text": "#F3ECE0",
+            "button": "#F3ECE0",
+            "button_label": "#6E7B3C",
+            "secondary_button_label": "#F3ECE0",
+            "shadow": "#3B2F27"
           }
         }
       },
-      "type_header_font": "assistant_n4",
-      "heading_scale": 100,
-      "type_body_font": "assistant_n4",
+      "type_header_font": "fraunces_n4",
+      "heading_scale": 110,
+      "type_body_font": "nunito_sans_n4",
       "body_scale": 100,
       "page_width": 1200,
       "spacing_sections": 0,
@@ -95,7 +106,7 @@
       "card_style": "standard",
       "card_image_padding": 0,
       "card_text_alignment": "left",
-      "card_color_scheme": "scheme-2",
+      "card_color_scheme": "scheme-1",
       "card_border_thickness": 0,
       "card_border_opacity": 10,
       "card_corner_radius": 12,
@@ -106,10 +117,10 @@
       "collection_card_style": "standard",
       "collection_card_image_padding": 0,
       "collection_card_text_alignment": "left",
-      "collection_card_color_scheme": "scheme-2",
+      "collection_card_color_scheme": "scheme-1",
       "collection_card_border_thickness": 0,
       "collection_card_border_opacity": 10,
-      "collection_card_corner_radius": 0,
+      "collection_card_corner_radius": 12,
       "collection_card_shadow_opacity": 0,
       "collection_card_shadow_horizontal_offset": 0,
       "collection_card_shadow_vertical_offset": 4,
@@ -117,31 +128,31 @@
       "blog_card_style": "standard",
       "blog_card_image_padding": 0,
       "blog_card_text_alignment": "left",
-      "blog_card_color_scheme": "scheme-2",
+      "blog_card_color_scheme": "scheme-1",
       "blog_card_border_thickness": 0,
       "blog_card_border_opacity": 10,
-      "blog_card_corner_radius": 0,
+      "blog_card_corner_radius": 12,
       "blog_card_shadow_opacity": 0,
       "blog_card_shadow_horizontal_offset": 0,
       "blog_card_shadow_vertical_offset": 4,
       "blog_card_shadow_blur": 5,
       "text_boxes_border_thickness": 0,
       "text_boxes_border_opacity": 10,
-      "text_boxes_radius": 0,
+      "text_boxes_radius": 12,
       "text_boxes_shadow_opacity": 0,
       "text_boxes_shadow_horizontal_offset": 0,
       "text_boxes_shadow_vertical_offset": 4,
       "text_boxes_shadow_blur": 5,
       "media_border_thickness": 1,
-      "media_border_opacity": 5,
-      "media_radius": 0,
+      "media_border_opacity": 0,
+      "media_radius": 12,
       "media_shadow_opacity": 0,
       "media_shadow_horizontal_offset": 0,
       "media_shadow_vertical_offset": 4,
       "media_shadow_blur": 5,
       "popup_border_thickness": 1,
       "popup_border_opacity": 10,
-      "popup_corner_radius": 0,
+      "popup_corner_radius": 12,
       "popup_shadow_opacity": 5,
       "popup_shadow_horizontal_offset": 0,
       "popup_shadow_vertical_offset": 4,
@@ -152,13 +163,13 @@
       "drawer_shadow_horizontal_offset": 0,
       "drawer_shadow_vertical_offset": 4,
       "drawer_shadow_blur": 5,
-      "badge_position": "bottom left",
+      "badge_position": "top left",
       "badge_corner_radius": 40,
-      "sale_badge_color_scheme": "scheme-4",
+      "sale_badge_color_scheme": "scheme-6",
       "sold_out_badge_color_scheme": "scheme-3",
       "brand_headline": "",
-      "brand_description": "<p></p>",
-      "brand_image_width": 100,
+      "brand_description": "<p>Slow-made jewellery, stitched by hand one bead at a time, like the little tailorbird that sews its nest from leaves. Made in Yorkshire.</p>",
+      "brand_image_width": 220,
       "social_twitter_link": "",
       "social_facebook_link": "",
       "social_pinterest_link": "",

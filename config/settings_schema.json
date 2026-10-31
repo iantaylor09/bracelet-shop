@@ -1468,38 +1468,31 @@
     ]
   },
   {
-    "name": "Bracelet builder",
+    "name": "Tailorbird",
     "settings": [
       {
         "type": "paragraph",
-        "content": "These settings are shared by the bracelet builder and the size guide."
-      },
-      {
-        "type": "range",
-        "id": "bead_length_mm",
-        "label": "Bead length on the cord",
-        "min": 1,
-        "max": 20,
-        "step": 1,
-        "unit": "mm",
-        "default": 6
-      },
-      {
-        "type": "range",
-        "id": "clasp_allowance_mm",
-        "label": "Space taken by the clasp",
-        "min": 0,
-        "max": 50,
-        "step": 1,
-        "unit": "mm",
-        "default": 20
+        "content": "Shared by the size guide, the Design your own builder and product pages."
       },
       {
         "type": "textarea",
-        "id": "bracelet_size_chart",
-        "label": "Size chart",
-        "info": "One size per line: wrist inches | min cm | max cm | women's size | men's size. Leave a size blank if it doesn't apply.",
-        "default": "5–5.5 | 12.7 | 14.0 | X-Small |\n5.5–6 | 14.0 | 15.2 | Small |\n6–6.5 | 15.2 | 16.5 | Medium |\n6.5–7 | 16.5 | 17.8 | Large | Small\n7–7.5 | 17.8 | 19.0 | X-Large | Medium\n7.5–8 | 19.0 | 20.3 | 2X-Large | Large\n8–8.5 | 20.3 | 21.6 | 3X-Large | X-Large\n8.5–9 | 21.6 | 22.9 | | 2X-Large\n9–9.5 | 22.9 | 24.1 | | 3X-Large"
+        "id": "tb_size_chart",
+        "label": "Bracelet sizes",
+        "info": "One size per line: name | fits a wrist of | bracelet length. Put * after the name of the size most people pick.",
+        "default": "Small | 14 to 15.5 cm | 16.5 cm, 6.5 in\nStandard* | 15.5 to 17 cm | 18 cm, 7 in\nLarge | 17 to 18.5 cm | 19 cm, 7.5 in\nExtra small (smaller wrists) | 12.5 to 14 cm | Stretch"
+      },
+      {
+        "type": "text",
+        "id": "tb_making_time",
+        "label": "Making time for made-to-order pieces",
+        "default": "5 to 7 working days"
+      },
+      {
+        "type": "text",
+        "id": "tb_design_url",
+        "label": "Design your own page",
+        "default": "/products/design-your-own-bracelet",
+        "info": "Where \"Design your own\" buttons go, for example /products/design-your-own-bracelet."
       }
     ]
   }

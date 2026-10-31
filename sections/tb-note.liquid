@@ -1,0 +1,61 @@
+{%- liquid
+  assign s = section.settings
+  assign link = s.button_link | default: settings.tb_design_url
+  assign heading = s.heading
+  assign text = s.text
+  if collection
+    assign heading = heading | replace: '[collection]', collection.title
+    assign text = text | replace: '[collection]', collection.title
+    if s.add_style
+      assign joiner = '?'
+      if link contains '?'
+        assign joiner = '&'
+      endif
+      assign style_param = collection.title | url_encode
+      assign link = link | append: joiner | append: 'style=' | append: style_param
+    endif
+  endif
+-%}
+<section {% if s.anchor != blank %}id="{{ s.anchor | handleize }}"{% endif %} class="tb-section tb-pad-{{ s.padding }}">
+  <div class="page-width">
+    <div class="tb-note color-{{ s.color_scheme }}{% if s.list != blank %} tb-note--list{% endif %}">
+      <div class="tb-note__copy">
+        {%- if heading != blank -%}<h2 class="tb-h3">{{ heading | escape }}</h2>{%- endif -%}
+        {%- if text != blank -%}<div class="tb-rte">{{ text }}</div>{%- endif -%}
+      </div>
+      {%- if s.list != blank -%}<div class="tb-note__list tb-rte">{{ s.list }}</div>{%- endif -%}
+      {%- if s.button_label != blank -%}
+        {%- if s.button_style == 'link' -%}
+          <a class="tb-link" href="{{ link }}">{{ s.button_label | escape }}</a>
+        {%- else -%}
+          <a class="button" href="{{ link }}">{{ s.button_label | escape }}</a>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tailorbird note",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "info": "On a collection page, [collection] becomes the collection's name." },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "richtext", "id": "list", "label": "List", "info": "Optional bullet list shown beside the text." },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Leave blank to go to the Design your own page." },
+    { "type": "checkbox", "id": "add_style", "label": "On a collection page, start Design your own from that collection", "default": false },
+    { "type": "select", "id": "button_style", "label": "Button style", "default": "primary", "options": [
+      { "value": "primary", "label": "Rust button" }, { "value": "link", "label": "Text link" }
+    ] },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Panel colours", "default": "scheme-4" },
+    { "type": "select", "id": "padding", "label": "Space above and below", "default": "small", "options": [
+      { "value": "small", "label": "Small" }, { "value": "medium", "label": "Medium" }, { "value": "large", "label": "Large" }
+    ] },
+    { "type": "text", "id": "anchor", "label": "Link anchor" }
+  ],
+  "presets": [ { "name": "Tailorbird note" } ]
+}
+{% endschema %}

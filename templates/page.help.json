@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "help": {
+      "type": "tb-help",
+      "settings": {},
+      "blocks": {
+        "content_1": {
+          "type": "content",
+          "settings": {}
+        },
+        "contact_2": {
+          "type": "contact",
+          "settings": {
+            "heading": "Say hello",
+            "text": "<p>Questions, ideas or a bracelet emergency, I'm happy to help. I usually reply within [a day].</p><p>[hello@tailorbird…]</p>",
+            "color_scheme": "scheme-2"
+          }
+        }
+      },
+      "block_order": [
+        "content_1",
+        "contact_2"
+      ]
+    }
+  },
+  "order": [
+    "help"
+  ]
+}

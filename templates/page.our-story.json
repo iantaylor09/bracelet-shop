@@ -1,0 +1,221 @@
+{
+  "sections": {
+    "intro": {
+      "type": "tb-intro",
+      "settings": {
+        "show_bird": true,
+        "eyebrow": "Our story",
+        "heading": "One patient stitch at a time",
+        "is_page_title": true,
+        "text": "<p>The tailorbird is a tiny songbird that stitches leaves together to build its nest, one patient stitch at a time. I make jewellery the same way.</p>",
+        "alignment": "center",
+        "color_scheme": "scheme-1",
+        "padding": "medium"
+      }
+    },
+    "wide": {
+      "type": "tb-hero",
+      "settings": {
+        "placeholder": "Wide shot of the maker at the kitchen table in Yorkshire, beads, daylight, a cup of tea, 2400 × 1000 px",
+        "height": "large",
+        "width": "page"
+      }
+    },
+    "maker": {
+      "type": "tb-image-text",
+      "settings": {
+        "layout": "plain",
+        "image_position": "left",
+        "ratio": "portrait",
+        "eyebrow": "Meet the maker",
+        "heading": "Hello, I'm Brittany",
+        "text": "<p>Every piece is stitched by hand from natural stone, clay and glass, so no two are quite alike and each is made to last. I hope yours feels like it was made just for you, because it was.</p><p>[A few lines in your own words: how you started making, what you love about beads, and a favourite piece. Keep it short and chatty, like you're talking across the stall.]</p><p>Tailorbird is slow-made. That means made with intention, by hand, to last for years, not a season. Nothing is rushed or mass-made.</p>",
+        "signature": "[Signature]",
+        "placeholder": "Portrait of the maker, natural light, holding a bracelet",
+        "color_scheme": "scheme-1",
+        "padding": "medium"
+      }
+    },
+    "how": {
+      "type": "tb-cards",
+      "settings": {
+        "eyebrow": "How it's made",
+        "heading": "From bead tray to your wrist",
+        "columns": 4,
+        "columns_mobile": "2",
+        "ratio": "landscape",
+        "card_style": "plain",
+        "numbered": true,
+        "title_size": "medium",
+        "color_scheme": "scheme-3",
+        "padding": "medium",
+        "anchor": "how-its-made"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "Choosing the beads",
+            "text": "<p>Natural stone, clay and glass, picked one at a time for colour and feel.</p>",
+            "placeholder": "Beads sorted by colour in small dishes",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "Finding the feeling",
+            "text": "<p>Every piece starts with a place or a mood, and gets its own name.</p>",
+            "placeholder": "Sketchbook and a laid-out bead pattern",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "Stitching by hand",
+            "text": "<p>Strung bead by bead, then finished neatly so it lasts for years.</p>",
+            "placeholder": "Close-up of hands threading a zigzag",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "title": "Wrapped and sent",
+            "text": "<p>Stamped, wrapped and posted with a story card, ready to give.</p>",
+            "placeholder": "Packing a parcel at the table",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ]
+    },
+    "packaging": {
+      "type": "tb-cards",
+      "settings": {
+        "eyebrow": "Plastic-free, always",
+        "heading": "Packaging you can plant",
+        "columns": 3,
+        "ratio": "square",
+        "card_style": "plain",
+        "title_size": "medium",
+        "color_scheme": "scheme-1",
+        "padding": "medium",
+        "anchor": "packaging"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "A compostable bag",
+            "text": "<p>Home-compostable kraft paper, stamped by hand with the little bird and sealed with a sticker.</p>",
+            "placeholder": "Compostable kraft bag with the rust bird stamp",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "A seed paper story card",
+            "text": "<p>Your piece's name, its beads and how to care for it. Then plant it and grow wildflowers.</p>",
+            "placeholder": "Seed paper story card, front and back",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "A paper mailer",
+            "text": "<p>Online orders travel in a compostable padded paper mailer, so nothing ends up in landfill.</p>",
+            "placeholder": "Padded paper mailer with sticker",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ]
+    },
+    "markets": {
+      "type": "tb-events",
+      "settings": {
+        "layout": "split",
+        "eyebrow": "Find me in person",
+        "heading": "Markets and stockists",
+        "text": "<p>Come and say hello, try a few on and have a rummage in the bead tray.</p>",
+        "placeholder": "The market stall: linen, crates, driftwood and slate displays",
+        "events_heading": "Upcoming markets",
+        "stockists_heading": "Stockists",
+        "color_scheme": "scheme-4",
+        "padding": "medium",
+        "anchor": "markets"
+      },
+      "blocks": {
+        "event_1": {
+          "type": "event",
+          "settings": {
+            "date": "[Sat 29 Nov]",
+            "title": "[Christmas market, Beverley]"
+          }
+        },
+        "event_2": {
+          "type": "event",
+          "settings": {
+            "date": "[Sun 7 Dec]",
+            "title": "[Craft fair, Cottingham]"
+          }
+        },
+        "event_3": {
+          "type": "event",
+          "settings": {
+            "date": "[Date]",
+            "title": "[Market]"
+          }
+        },
+        "stockist_4": {
+          "type": "stockist",
+          "settings": {
+            "name": "Art and Soul",
+            "place": "Hull and Beverley [confirm once stocked]"
+          }
+        }
+      },
+      "block_order": [
+        "event_1",
+        "event_2",
+        "event_3",
+        "stockist_4"
+      ]
+    }
+  },
+  "order": [
+    "intro",
+    "wide",
+    "maker",
+    "how",
+    "packaging",
+    "markets"
+  ]
+}
