@@ -1,0 +1,18 @@
+{%- comment -%}
+  A Tailorbird image, or a striped sandstone placeholder with a label until a photo is chosen.
+  - image: image object (optional)
+  - label: placeholder text, such as "Beck piece flat lay"
+  - ratio: square | portrait | landscape | wide | tall | none
+  - sizes: sizes attribute
+  - class: extra classes
+{%- endcomment -%}
+{%- assign tb_ratio = ratio | default: 'square' -%}
+<div class="tb-media tb-media--{{ tb_ratio }}{% if class %} {{ class }}{% endif %}">
+  {%- if image != blank -%}
+    {{ image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: sizes, widths: '400, 600, 800, 1200, 1600', alt: image.alt }}
+  {%- else -%}
+    <div class="tb-placeholder" role="img" aria-label="Photo to come: {{ label | default: 'photo' | escape }}">
+      {%- if label != blank -%}<span>{{ label | escape }}</span>{%- endif -%}
+    </div>
+  {%- endif -%}
+</div>

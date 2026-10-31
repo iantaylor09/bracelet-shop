@@ -1,36 +1,49 @@
 {
   "sections": {
     "banner": {
-      "type": "main-collection-banner",
+      "type": "tb-collection-hero",
       "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false,
-        "color_scheme": "scheme-1"
+        "eyebrow": "Collection",
+        "color_scheme": "scheme-2"
       }
     },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
-        "products_per_page": 16,
+        "products_per_page": 24,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
+        "image_ratio": "square",
         "image_shape": "default",
-        "show_secondary_image": false,
+        "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
         "enable_filtering": true,
-        "filter_type": "horizontal",
+        "filter_type": "vertical",
         "enable_sorting": true,
         "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
+    },
+    "design_cta": {
+      "type": "tb-note",
+      "settings": {
+        "heading": "Can't find quite the right one?",
+        "text": "<p>Tell me the colours you love and I'll stitch a [collection] bracelet just for you.</p>",
+        "button_label": "Design your own",
+        "button_link": "",
+        "add_style": true,
+        "button_style": "primary",
+        "color_scheme": "scheme-4",
+        "padding": "medium"
       }
     }
   },
   "order": [
     "banner",
-    "product-grid"
+    "product-grid",
+    "design_cta"
   ]
 }

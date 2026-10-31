@@ -1,0 +1,112 @@
+{%- liquid
+  assign s = section.settings
+  assign menu = linklists[s.menu]
+  assign title = s.heading | default: page.title
+-%}
+<section class="tb-section tb-pad-medium" {% if s.anchor != blank %}id="{{ s.anchor | handleize }}"{% endif %}>
+  <div class="page-width tb-help">
+    <nav class="tb-help__nav" aria-label="Help">
+      <p class="tb-eyebrow">Help</p>
+      <ul role="list">
+        {%- if menu.links.size > 0 -%}
+          {%- for link in menu.links -%}
+            <li><a href="{{ link.url }}"{% if link.active or link.url == request.path %} class="is-active" aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+        {%- else -%}
+          {%- capture fallback -%}Size guide|/pages/size-guide,Caring for your jewellery|/pages/care,Delivery|/policies/shipping-policy,Returns and resizing|/policies/refund-policy,FAQs|/pages/faqs,Contact|/pages/contact{%- endcapture -%}
+          {%- assign items = fallback | split: ',' -%}
+          {%- for item in items -%}
+            {%- assign parts = item | split: '|' -%}
+            <li><a href="{{ parts[1] }}"{% if parts[1] == request.path %} class="is-active" aria-current="page"{% endif %}>{{ parts[0] }}</a></li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </nav>
+
+    <div class="tb-help__main">
+      {%- if title != blank -%}<h1 class="tb-display">{{ title | escape }}</h1>{%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        {%- case block.type -%}
+          {%- when 'content' -%}
+            <div class="tb-rte tb-help__content" {{ block.shopify_attributes }}>
+              {%- if b.text != blank -%}{{ b.text }}{%- else -%}{{ page.content }}{%- endif -%}
+            </div>
+          {%- when 'size_guide' -%}
+            <div class="tb-help__sizes" {{ block.shopify_attributes }}>
+              <div class="tb-split tb-split--plain tb-split--image-left tb-split--tight">
+                <div class="tb-split__media">{%- render 'tb-media', image: b.image, label: b.placeholder, ratio: 'landscape' -%}</div>
+                <div class="tb-split__copy tb-rte">{{ b.steps }}</div>
+              </div>
+              {%- render 'tb-size-table' -%}
+            </div>
+          {%- when 'heading' -%}
+            <h2 class="tb-h2 tb-help__heading" {{ block.shopify_attributes }}>{{ b.heading | escape }}</h2>
+          {%- when 'faq' -%}
+            <details class="tb-faq" {{ block.shopify_attributes }}>
+              <summary>{{ b.question | escape }}</summary>
+              <div class="tb-rte">{{ b.answer }}</div>
+            </details>
+          {%- when 'contact' -%}
+            <div class="tb-contact color-{{ b.color_scheme }}" id="contact" {{ block.shopify_attributes }}>
+              <div>
+                <h2 class="tb-h2">{{ b.heading | escape }}</h2>
+                {%- if b.text != blank -%}<div class="tb-rte">{{ b.text }}</div>{%- endif -%}
+              </div>
+              {%- assign form_id = 'TbContact-' | append: block.id -%}
+              {%- form 'contact', id: form_id -%}
+                {%- if form.posted_successfully? -%}
+                  <p class="tb-form-ok" role="status">Thank you. I'll get back to you soon.</p>
+                {%- elsif form.errors -%}
+                  <p class="tb-form-error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+                {%- endif -%}
+                <div class="tb-fields tb-fields--2">
+                  <label class="tb-field"><span>Name</span><input type="text" name="contact[name]" autocomplete="name"></label>
+                  <label class="tb-field"><span>Email</span><input type="email" name="contact[email]" autocomplete="email" spellcheck="false" required></label>
+                </div>
+                <label class="tb-field"><span>Message</span><textarea name="contact[body]" rows="5" required></textarea></label>
+                <button type="submit" class="button">Send message</button>
+              {%- endform -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Help page",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Help menu", "info": "The links down the side. Leave blank for size guide, care, delivery, returns, FAQs and contact." },
+    { "type": "text", "id": "heading", "label": "Heading", "info": "Leave blank to use the page title." },
+    { "type": "text", "id": "anchor", "label": "Link anchor" }
+  ],
+  "blocks": [
+    { "type": "content", "name": "Page text", "settings": [
+      { "type": "richtext", "id": "text", "label": "Text", "info": "Leave blank to show the text written on the page in Online Store › Pages." }
+    ] },
+    { "type": "size_guide", "name": "Size guide", "limit": 1, "settings": [
+      { "type": "paragraph", "content": "The table comes from Theme settings › Tailorbird › Bracelet sizes." },
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "placeholder", "label": "Placeholder label", "default": "Simple drawing: a strip of paper wrapped around a wrist, marked with a pen" },
+      { "type": "richtext", "id": "steps", "label": "How to measure", "default": "<ol><li>Wrap a strip of paper or a soft tape measure around your wrist, just above the wrist bone.</li><li>Mark where it meets and measure it against a ruler.</li><li>Add [1 to 2 cm] for a comfortable fit, then pick the size below.</li></ol>" }
+    ] },
+    { "type": "heading", "name": "Heading", "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "FAQs" }
+    ] },
+    { "type": "faq", "name": "Question", "settings": [
+      { "type": "text", "id": "question", "label": "Question", "default": "Are the findings nickel-free?" },
+      { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes, I use nickel-safe findings. Each listing says exactly what the clasp and spacers are made from.</p>" }
+    ] },
+    { "type": "contact", "name": "Contact form", "limit": 1, "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Say hello" },
+      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Questions, ideas or a bracelet emergency, I'm happy to help. I usually reply within [a day].</p>" },
+      { "type": "color_scheme", "id": "color_scheme", "label": "Panel colours", "default": "scheme-2" }
+    ] }
+  ],
+  "presets": [ { "name": "Help page" } ]
+}
+{% endschema %}

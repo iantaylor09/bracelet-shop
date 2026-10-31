@@ -1,0 +1,158 @@
+{
+  "sections": {
+    "hero": {
+      "type": "tb-hero",
+      "settings": {
+        "eyebrow": "DIY kits",
+        "heading": "Slow down and make it yourself",
+        "is_page_title": true,
+        "text": "<p>Take home a kit with my beads and step-by-step instructions, or come and stitch with me at a workshop. You can do this, I promise.</p>",
+        "placeholder": "A table mid-workshop: kits, bead dishes, tea mugs, natural light, 2400 × 900 px",
+        "height": "medium",
+        "width": "full",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "kits": {
+      "type": "kit-grid",
+      "settings": {
+        "eyebrow": "DIY kits",
+        "heading": "Everything you need, in one kraft box",
+        "text": "<p>Each kit makes one bracelet from a real Tailorbird design. From [£18].</p>",
+        "see_all_label": "See all kits",
+        "see_all_link": "#workshops",
+        "columns": 3,
+        "color_scheme": "scheme-1",
+        "padding": "medium",
+        "anchor": "kits"
+      },
+      "blocks": {
+        "kit_1": {
+          "type": "kit",
+          "settings": {
+            "name": "Make your own Starry Night",
+            "line": "Dales zigzag · a little fiddly, very satisfying",
+            "placeholder": "Open kit box, beads in paper bags, finished bracelet beside it",
+            "fallback_price_pence": 1800,
+            "made_name": "Starry Night",
+            "made_link": "/collections/dales"
+          }
+        },
+        "kit_2": {
+          "type": "kit",
+          "settings": {
+            "name": "Make your own Sea Glass",
+            "line": "Meadow floating beads · great first kit",
+            "placeholder": "Kit flat lay",
+            "fallback_price_pence": 1800,
+            "made_name": "Sea Glass",
+            "made_link": "/collections/meadow"
+          }
+        },
+        "kit_3": {
+          "type": "kit",
+          "settings": {
+            "name": "Make your own Stella the Starfish",
+            "line": "Bright and playful, great for making together",
+            "placeholder": "Rockpool kit with turtle charm",
+            "fallback_price_pence": 1800,
+            "made_name": "Stella the Starfish",
+            "made_link": "/collections/rockpool"
+          }
+        }
+      },
+      "block_order": [
+        "kit_1",
+        "kit_2",
+        "kit_3"
+      ]
+    },
+    "box": {
+      "type": "tb-note",
+      "settings": {
+        "heading": "What's in the box",
+        "text": "<p>Kit contents, to confirm per kit.</p>",
+        "list": "<ul><li>The beads for one design, in little paper bags</li><li>Cord or wire and a clasp</li><li>A charm, where the design has one</li><li>Printed instructions with photos</li><li>A link to a short how-to video</li><li>A seed paper story card</li></ul>",
+        "color_scheme": "scheme-2",
+        "padding": "small"
+      }
+    },
+    "workshops": {
+      "type": "tb-events",
+      "settings": {
+        "layout": "rows",
+        "eyebrow": "Workshops",
+        "heading": "Come and stitch with me",
+        "text": "<p>Two relaxed hours, all the beads you need, tea and biscuits. You'll leave with a bracelet you made yourself. [Price] per person.</p>",
+        "color_scheme": "scheme-3",
+        "padding": "medium",
+        "anchor": "workshops"
+      },
+      "blocks": {
+        "event_1": {
+          "type": "event",
+          "settings": {
+            "date": "[Sat 14 Feb]",
+            "time": "[10am to 12pm]",
+            "title": "Galentine's stitch and sip",
+            "venue": "[Venue, Hull]",
+            "button_label": "Book a place",
+            "link": "/collections/workshops"
+          }
+        },
+        "event_2": {
+          "type": "event",
+          "settings": {
+            "date": "[Sat 7 Mar]",
+            "time": "[2pm to 4pm]",
+            "title": "Mother's Day: make one, give one",
+            "venue": "[Art and Soul, Beverley]",
+            "button_label": "Book a place",
+            "link": "/collections/workshops"
+          }
+        },
+        "event_3": {
+          "type": "event",
+          "settings": {
+            "date": "[Date]",
+            "time": "[Time]",
+            "title": "[Workshop name]",
+            "venue": "[Venue]",
+            "button_label": "Book a place",
+            "link": "/collections/workshops"
+          }
+        }
+      },
+      "block_order": [
+        "event_1",
+        "event_2",
+        "event_3"
+      ]
+    },
+    "parties": {
+      "type": "tb-image-text",
+      "settings": {
+        "layout": "plain",
+        "image_position": "left",
+        "ratio": "landscape",
+        "eyebrow": "Private parties",
+        "heading": "Hen dos, birthdays and Galentine's",
+        "text": "<p>I'll bring the beads to you, or you come to me. Pick the colours, choose a design to make, and I'll guide everyone through it. For groups of [6 to 12].</p>",
+        "button_label": "Ask about a party",
+        "button_link": "/pages/contact",
+        "button_style": "secondary",
+        "placeholder": "Hen party or Galentine's group holding up their finished bracelets",
+        "color_scheme": "scheme-1",
+        "padding": "medium",
+        "anchor": "private"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "kits",
+    "box",
+    "workshops",
+    "parties"
+  ]
+}

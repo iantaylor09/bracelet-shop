@@ -3,18 +3,29 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
-          "type": "text",
+        "badges": {
+          "type": "custom_liquid",
           "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
+            "custom_liquid": "{%- liquid\n  assign t = product.tags | join: ',' | downcase | split: ','\n-%}\n<div class=\"tb-product-badges\">\n  {%- if t contains 'one-of-a-kind' -%}<span class=\"is-dark\">One of a kind</span>{%- endif -%}\n  {%- if t contains 'everyday' -%}<span class=\"is-sand\">Everyday</span>{%- elsif t contains 'occasion' -%}<span class=\"is-sand\">Occasion</span>{%- endif -%}\n  {%- if t contains 'charm-included' -%}<span class=\"is-sand\">Charm included</span>{%- endif -%}\n</div>"
           }
         },
         "title": {
-          "type": "title"
+          "type": "title",
+          "settings": {}
+        },
+        "from": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- assign coll = '' -%}\n{%- for tag in product.tags -%}{%- assign d = tag | downcase -%}{%- if d contains 'collection-' -%}{%- assign coll = d | remove_first: 'collection-' -%}{%- break -%}{%- endif -%}{%- endfor -%}\n<p class=\"tb-product-from\">\n  {%- if product.metafields.custom.subtitle != blank -%}{{ product.metafields.custom.subtitle | escape }}{%- endif -%}\n  {%- if coll != '' -%}{%- if product.metafields.custom.subtitle != blank -%}, {% endif -%}<a href=\"{{ routes.collections_url }}/{{ coll }}\">from the {{ coll | replace: '-', ' ' | capitalize }} collection</a>{%- endif -%}\n</p>"
+          }
         },
         "price": {
-          "type": "price"
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -23,63 +34,115 @@
             "swatch_shape": "circle"
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector"
+        "gift": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"tb-tickline\">{%- render 'tb-icon', icon: 'tick' -%}Gift-wrapped, with a seed paper story card (free)</p>"
+          }
         },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
           }
         },
-        "description": {
-          "type": "description"
-        },
-        "share": {
-          "type": "share",
+        "shipping": {
+          "type": "text",
           "settings": {
-            "share_label": "Share"
+            "text": "Ships in [1 to 2] working days by Royal Mail. Free resize or swap if it doesn't fit just right.",
+            "text_style": "subtitle"
+          }
+        },
+        "kit": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- assign kit = product.metafields.custom.diy_kit.value -%}\n{%- if kit != blank -%}\n  <div class=\"tb-kit-callout\"><p><strong>Love {{ product.title | escape }}?</strong> Make your own with the DIY kit, {{ kit.price | money }}.</p><a href=\"{{ kit.url }}\">See the kit</a></div>\n{%- endif -%}"
+          }
+        },
+        "made_from": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Made from",
+            "icon": "none",
+            "content": "<p>[Glass and natural stone beads], [silver-plated toggle clasp and spacers]. Nickel-safe findings. Every bead was picked by hand, so yours will be just a little different from the photo.</p>"
+          }
+        },
+        "size_fit": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Size and fit",
+            "icon": "none",
+            "content": "<p>Most of my bracelets are made to fit a 7 in (18 cm) wrist. Pick small or large, or <a href=\"/pages/size-guide\">see the size guide</a>.</p>"
+          }
+        },
+        "care": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Caring for it",
+            "icon": "none",
+            "content": "<p>Take it off for swimming, showers and bed, keep it away from perfume and lotion, and store it flat in its bag. [Confirm care notes]</p>"
+          }
+        },
+        "delivery": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Delivery and returns",
+            "icon": "none",
+            "content": "<p>Posted in a compostable padded paper mailer by Royal Mail. [Delivery prices and returns window to confirm].</p>"
           }
         }
       },
       "block_order": [
-        "vendor",
+        "badges",
         "title",
+        "from",
         "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
         "description",
-        "share"
+        "variant_picker",
+        "gift",
+        "buy_buttons",
+        "shipping",
+        "kit",
+        "made_from",
+        "size_fit",
+        "care",
+        "delivery"
       ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
         "media_position": "left",
-        "gallery_layout": "stacked",
-        "media_size": "large",
+        "gallery_layout": "thumbnail_slider",
+        "media_size": "medium",
         "constrain_to_viewport": true,
-        "media_fit": "contain",
+        "media_fit": "cover",
         "image_zoom": "lightbox",
-        "mobile_thumbnails": "hide",
+        "mobile_thumbnails": "show",
         "hide_variants": true,
         "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12
+        "padding_top": 24,
+        "padding_bottom": 24
       }
     },
-    "disclosures": {
-      "type": "disclosures",
+    "arrives": {
+      "type": "tb-image-text",
       "settings": {
-        "padding_top": 36,
-        "padding_bottom": 0
+        "layout": "band",
+        "color_scheme": "scheme-2",
+        "image_position": "left",
+        "ratio": "landscape",
+        "eyebrow": "How it arrives",
+        "heading": "Wrapped by hand, ready to give",
+        "text": "<p>Each piece comes in a compostable kraft bag, stamped with the little bird and sealed with a sticker. Tucked inside is a seed paper card with the bracelet's name and story. When you're done with it, plant it.</p>",
+        "placeholder": "Packaging: the bracelet with its stamped kraft bag, olive tissue and seed paper story card",
+        "padding": "medium"
       }
     },
     "related-products": {
       "type": "related-products",
       "settings": {
-        "heading": "You may also like",
+        "heading": "Wears well with",
         "heading_size": "h2",
         "products_to_show": 4,
         "columns_desktop": 4,
@@ -91,13 +154,66 @@
         "show_rating": false,
         "columns_mobile": "2",
         "padding_top": 36,
-        "padding_bottom": 28
+        "padding_bottom": 12
       }
+    },
+    "reviews": {
+      "type": "tb-cards",
+      "settings": {
+        "heading": "Kind words",
+        "columns": 3,
+        "ratio": "none",
+        "card_style": "dashed",
+        "title_size": "small",
+        "color_scheme": "scheme-1",
+        "padding": "medium"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "[Customer review, from a reviews app such as Judge.me]",
+            "text": "<p>[Name, town]</p>",
+            "placeholder": "",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "[Customer review]",
+            "text": "<p>[Name, town]</p>",
+            "placeholder": "",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "[Customer review]",
+            "text": "<p>[Name, town]</p>",
+            "placeholder": "",
+            "link": "",
+            "link_label": "",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ]
     }
   },
   "order": [
     "main",
-    "disclosures",
-    "related-products"
+    "arrives",
+    "related-products",
+    "reviews"
   ]
 }

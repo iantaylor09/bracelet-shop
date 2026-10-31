@@ -1,0 +1,181 @@
+{%- liquid
+  assign s = section.settings
+  assign p = s.product | default: product
+  assign base_price = s.fallback_price_pence
+  if p != blank
+    assign base_price = p.price
+  endif
+  assign rows = settings.tb_size_chart | newline_to_br | split: '<br />'
+-%}
+<script src="{{ 'tb-design.js' | asset_url }}" defer="defer"></script>
+
+<section id="{{ s.anchor | default: 'design' | handleize }}" class="tb-section tb-pad-medium" data-tb-design>
+  <script type="application/json" data-config>
+    {
+      "product": {% if p != blank %}{ "title": {{ p.title | json }}, "variants": [{% for v in p.variants %}{ "id": {{ v.id }}, "title": {{ v.title | json }}, "price": {{ v.price }}, "available": {{ v.available | json }} }{% unless forloop.last %},{% endunless %}{% endfor %}] }{% else %}null{% endif %},
+      "fallbackPrice": {{ base_price }},
+      "maxColours": {{ s.max_colours }},
+      "makingTime": {{ settings.tb_making_time | json }},
+      "moneyFormat": {{ shop.money_format | json }},
+      "cartAddUrl": {{ routes.cart_add_url | append: '.js' | json }},
+      "cartUrl": {{ routes.cart_url | json }},
+      "charms": [{% assign first = true %}{% for block in section.blocks %}{% if block.type == 'charm' %}{% unless first %},{% endunless %}{% assign first = false %}{ "name": {{ block.settings.name | json }}, "price": {% if block.settings.product != blank %}{{ block.settings.product.price }}{% else %}{{ block.settings.price_pence }}{% endif %}, "variantId": {% if block.settings.product != blank %}{{ block.settings.product.selected_or_first_available_variant.id }}{% else %}null{% endif %} }{% endif %}{% endfor %}]
+    }
+  </script>
+
+  <div class="page-width tb-design">
+    <form class="tb-design__steps" novalidate data-form>
+      <fieldset class="tb-step">
+        <legend class="tb-step__title"><span class="tb-step__num">1</span>{{ s.step1 | escape }}</legend>
+        <div class="tb-style-grid">
+          {%- assign n = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'style' -%}
+              {%- assign n = n | plus: 1 -%}
+              <label class="tb-style" {{ block.shopify_attributes }}>
+                <input type="radio" name="style" value="{{ block.settings.name | escape }}" data-preview="{{ block.settings.preview }}"{% if n == 1 %} checked{% endif %}>
+                <span class="tb-style__card">
+                  {%- render 'tb-media', image: block.settings.image, label: block.settings.placeholder, ratio: 'square', sizes: '200px' -%}
+                  <span class="tb-style__name">{{ block.settings.name | escape }}</span>
+                  <span class="tb-style__sub">{{ block.settings.subtitle | escape }}</span>
+                  <span class="tb-style__tick">Selected</span>
+                </span>
+              </label>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </fieldset>
+
+      <fieldset class="tb-step">
+        <legend class="tb-step__title"><span class="tb-step__num">2</span>{{ s.step2 | escape }}</legend>
+        <p class="tb-step__hint">{{ s.step2_hint | escape }}</p>
+        <div class="tb-swatches">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'colour' -%}
+              <label class="tb-swatch" {{ block.shopify_attributes }}>
+                <span class="tb-swatch__chip" style="--chip: {{ block.settings.hex }}">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+                  {%- endif -%}
+                </span>
+                <span class="tb-swatch__label">
+                  <input type="checkbox" name="colour" value="{{ block.settings.name | escape }}" data-hex="{{ block.settings.hex }}">
+                  {{ block.settings.name | escape }}
+                </span>
+              </label>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <p class="tb-step__msg" data-colour-msg aria-live="polite"></p>
+      </fieldset>
+
+      <fieldset class="tb-step">
+        <legend class="tb-step__title"><span class="tb-step__num">3</span>{{ s.step3 | escape }}</legend>
+        <div class="tb-pills tb-pills--choice">
+          <label class="tb-choice"><input type="radio" name="charm" value="" checked><span>No charm</span></label>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'charm' -%}
+              {%- liquid
+                assign charm_price = block.settings.price_pence
+                if block.settings.product != blank
+                  assign charm_price = block.settings.product.price
+                endif
+              -%}
+              <label class="tb-choice" {{ block.shopify_attributes }}>
+                <input type="radio" name="charm" value="{{ block.settings.name | escape }}">
+                <span>{{ block.settings.name | escape }}{% if charm_price > 0 %} (+{{ charm_price | money_without_trailing_zeros }}){% endif %}</span>
+              </label>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </fieldset>
+
+      <fieldset class="tb-step">
+        <legend class="tb-step__title"><span class="tb-step__num">4</span>{{ s.step4 | escape }}</legend>
+        <div class="tb-fields tb-fields--2">
+          <label class="tb-field">
+            <span>Wrist size <a class="tb-link" href="{{ s.size_guide_link | default: '/pages/size-guide' }}">Size guide</a></span>
+            <select name="size">
+              {%- for row in rows -%}
+                {%- assign cells = row | strip | split: '|' -%}
+                {%- if cells.size >= 3 -%}
+                  {%- assign name = cells[0] | strip -%}
+                  {%- assign is_default = false -%}
+                  {%- if name contains '*' -%}{%- assign is_default = true -%}{%- assign name = name | remove: '*' | strip -%}{%- endif -%}
+                  {%- assign size_label = name | append: ', ' | append: cells[2] | strip -%}
+                  <option value="{{ size_label | escape }}"{% if is_default %} selected{% endif %}>{{ size_label | escape }}</option>
+                {%- endif -%}
+              {%- endfor -%}
+              <option value="I'll send my measurement">Other: I'll tell you my measurement</option>
+            </select>
+          </label>
+          <label class="tb-field"><span>Who's it for? (optional)</span><input type="text" name="for" maxlength="60" placeholder="For me, or a name for the story card"></label>
+        </div>
+        <label class="tb-field"><span>Anything else I should know?</span><textarea name="note" rows="3" maxlength="500" placeholder="Favourite colours, a birthstone, the outfit it's for"></textarea></label>
+      </fieldset>
+    </form>
+
+    <aside class="tb-design__summary color-{{ s.summary_color_scheme }}" aria-label="Your bracelet">
+      <h2 class="tb-h3">Your bracelet</h2>
+      <div class="tb-design__preview">
+        <svg viewBox="0 0 300 300" role="img" aria-label="Preview of your bracelet" data-preview-svg></svg>
+      </div>
+      <dl class="tb-design__list">
+        <div><dt>Style</dt><dd data-out="style"></dd></div>
+        <div><dt>Colours</dt><dd data-out="colours"></dd></div>
+        <div><dt>Charm</dt><dd data-out="charm"></dd></div>
+        <div><dt>Size</dt><dd data-out="size"></dd></div>
+        <div><dt>Ready in</dt><dd>{{ settings.tb_making_time | escape }}</dd></div>
+      </dl>
+      <p class="tb-design__total"><span>Total</span><strong data-out="total">{{ base_price | money }}</strong></p>
+      <button type="button" class="button tb-wide" data-add>Add to bag</button>
+      <p class="tb-form-error" data-error role="alert"></p>
+      {%- if s.summary_note != blank -%}<p class="tb-muted tb-small">{{ s.summary_note | replace: '[making time]', settings.tb_making_time | escape }}</p>{%- endif -%}
+    </aside>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Design your own builder",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Design your own product", "info": "Leave blank on the product's own page. If the product has a variant per style (Beck, Hedgerow…), each style uses its variant's price." },
+    { "type": "number", "id": "fallback_price_pence", "label": "Price in pence before a product is chosen", "default": 2800 },
+    { "type": "range", "id": "max_colours", "label": "Most colours someone can pick", "min": 1, "max": 6, "step": 1, "default": 3 },
+    { "type": "text", "id": "step1", "label": "Step 1 heading", "default": "Start from a collection" },
+    { "type": "text", "id": "step2", "label": "Step 2 heading", "default": "Pick your colours" },
+    { "type": "text", "id": "step2_hint", "label": "Step 2 hint", "default": "Choose up to three. Each swatch is a photo of the real beads." },
+    { "type": "text", "id": "step3", "label": "Step 3 heading", "default": "Add a charm" },
+    { "type": "text", "id": "step4", "label": "Step 4 heading", "default": "Size and a little note" },
+    { "type": "url", "id": "size_guide_link", "label": "Size guide link" },
+    { "type": "text", "id": "summary_note", "label": "Note under the button", "default": "Made by hand to order and posted gift-wrapped in [making time]." },
+    { "type": "color_scheme", "id": "summary_color_scheme", "label": "Summary panel colours", "default": "scheme-2" },
+    { "type": "text", "id": "anchor", "label": "Link anchor", "default": "design" }
+  ],
+  "blocks": [
+    { "type": "style", "name": "Style", "settings": [
+      { "type": "text", "id": "name", "label": "Collection name", "default": "Beck" },
+      { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Single-strand glass or stone" },
+      { "type": "image_picker", "id": "image", "label": "Photo" },
+      { "type": "text", "id": "placeholder", "label": "Placeholder label" },
+      { "type": "select", "id": "preview", "label": "Preview drawing", "default": "beck", "options": [
+        { "value": "beck", "label": "Single strand" }, { "value": "hedgerow", "label": "Layered strands" },
+        { "value": "dales", "label": "Zigzag" }, { "value": "meadow", "label": "Floating beads" }
+      ] }
+    ] },
+    { "type": "colour", "name": "Colour", "settings": [
+      { "type": "text", "id": "name", "label": "Name", "default": "Sea glass" },
+      { "type": "color", "id": "hex", "label": "Colour for the preview", "default": "#8FB9A8" },
+      { "type": "image_picker", "id": "image", "label": "Bead photo", "info": "A close-up of the real beads, shown as the swatch." }
+    ] },
+    { "type": "charm", "name": "Charm", "settings": [
+      { "type": "text", "id": "name", "label": "Name", "default": "Turtle" },
+      { "type": "product", "id": "product", "label": "Charm product", "info": "Only needed if the charm costs extra. It's added to the bag with the bracelet." },
+      { "type": "number", "id": "price_pence", "label": "Extra price in pence before a product is chosen", "default": 0 }
+    ] }
+  ],
+  "presets": [ { "name": "Design your own builder" } ]
+}
+{% endschema %}

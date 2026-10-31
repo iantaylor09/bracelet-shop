@@ -1,0 +1,119 @@
+{%- liquid
+  assign s = section.settings
+  assign see_all = s.see_all_link
+  if see_all == blank and s.see_all_instagram
+    assign see_all = settings.social_instagram_link
+  endif
+-%}
+<section
+  {% if s.anchor != blank %}id="{{ s.anchor | handleize }}"{% endif %}
+  class="tb-section color-{{ s.color_scheme }} gradient tb-pad-{{ s.padding }}"
+>
+  <div class="page-width">
+    {%- if s.eyebrow != blank or s.heading != blank or s.text != blank -%}
+      <div class="tb-head{% if s.see_all_label != blank %} tb-head--split{% endif %}">
+        <div>
+          {%- if s.eyebrow != blank -%}<p class="tb-eyebrow">{{ s.eyebrow | escape }}</p>{%- endif -%}
+          {%- if s.heading != blank -%}<h2 class="tb-h2">{{ s.heading | escape }}</h2>{%- endif -%}
+          {%- if s.text != blank -%}<div class="tb-intro">{{ s.text }}</div>{%- endif -%}
+        </div>
+        {%- if s.see_all_label != blank -%}
+          <a class="tb-link" href="{{ see_all | default: '#' }}">{{ s.see_all_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="tb-grid tb-grid--{{ s.columns }} tb-grid--m{{ s.columns_mobile }}">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign c = b.collection
+          assign url = b.link | default: c.url
+          assign title = b.title | default: c.title
+          assign img = b.image | default: c.featured_image
+        -%}
+        <div
+          class="tb-card tb-card--{{ s.card_style }}{% if b.panel %} tb-card--filled color-{{ b.color_scheme }}{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {%- if s.ratio != 'none' -%}
+            {%- if url != blank -%}<a href="{{ url }}" class="tb-card__media-link" tabindex="-1" aria-hidden="true">{%- endif -%}
+            {%- render 'tb-media', image: img, label: b.placeholder, ratio: s.ratio, sizes: '(min-width: 990px) 30vw, 50vw' -%}
+            {%- if url != blank -%}</a>{%- endif -%}
+          {%- endif -%}
+          <div class="tb-card__body">
+            {%- if b.icon != 'none' -%}{%- render 'tb-icon', icon: b.icon -%}{%- endif -%}
+            {%- if s.numbered -%}<p class="tb-card__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</p>{%- endif -%}
+            {%- if title != blank -%}
+              <h3 class="tb-card__title tb-card__title--{{ s.title_size }}">
+                {%- if url != blank and b.link_label == blank -%}<a href="{{ url }}">{{ title | escape }}</a>{%- else -%}{{ title | escape }}{%- endif -%}
+              </h3>
+            {%- endif -%}
+            {%- if b.text != blank -%}<div class="tb-card__text">{{ b.text }}</div>{%- endif -%}
+            {%- if b.link_label != blank -%}
+              <a class="tb-link" href="{{ url | default: '#' }}">{{ b.link_label | escape }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tailorbird cards",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small label" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "text", "label": "Intro text" },
+    { "type": "text", "id": "see_all_label", "label": "Link label", "info": "Shown on the right of the heading, for example See everything." },
+    { "type": "url", "id": "see_all_link", "label": "Link" },
+    { "type": "checkbox", "id": "see_all_instagram", "label": "Link to Instagram when the link is blank", "default": false },
+    { "type": "range", "id": "columns", "label": "Cards per row", "min": 1, "max": 6, "step": 1, "default": 3 },
+    { "type": "select", "id": "columns_mobile", "label": "Cards per row on phones", "default": "1", "options": [
+      { "value": "1", "label": "1" }, { "value": "2", "label": "2" }
+    ] },
+    { "type": "select", "id": "ratio", "label": "Image shape", "default": "square", "options": [
+      { "value": "square", "label": "Square" }, { "value": "portrait", "label": "Portrait" }, { "value": "landscape", "label": "Landscape" },
+      { "value": "wide", "label": "Wide" }, { "value": "none", "label": "No image" }
+    ] },
+    { "type": "select", "id": "card_style", "label": "Card style", "default": "plain", "options": [
+      { "value": "plain", "label": "Plain" }, { "value": "panel", "label": "Panel" }, { "value": "dashed", "label": "Dashed outline" }
+    ] },
+    { "type": "select", "id": "title_size", "label": "Card title size", "default": "medium", "options": [
+      { "value": "small", "label": "Small" }, { "value": "medium", "label": "Medium" }, { "value": "large", "label": "Large" }
+    ] },
+    { "type": "checkbox", "id": "numbered", "label": "Number the cards (01, 02…)", "default": false },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1" },
+    { "type": "select", "id": "padding", "label": "Space above and below", "default": "medium", "options": [
+      { "value": "small", "label": "Small" }, { "value": "medium", "label": "Medium" }, { "value": "large", "label": "Large" }
+    ] },
+    { "type": "text", "id": "anchor", "label": "Link anchor" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection", "info": "Optional. Fills in the title, image and link." },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder label" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "richtext", "id": "text", "label": "Text" },
+        { "type": "text", "id": "link_label", "label": "Link label" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "select", "id": "icon", "label": "Icon", "default": "none", "options": [
+          { "value": "none", "label": "None" }, { "value": "bag", "label": "Bag" }, { "value": "sprout", "label": "Sprout" },
+          { "value": "clock", "label": "Clock" }, { "value": "heart", "label": "Heart" }
+        ] },
+        { "type": "checkbox", "id": "panel", "label": "Fill this card with its own colour", "default": false },
+        { "type": "color_scheme", "id": "color_scheme", "label": "Card colours", "default": "scheme-4" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Tailorbird cards", "blocks": [ { "type": "card" }, { "type": "card" }, { "type": "card" } ] } ]
+}
+{% endschema %}

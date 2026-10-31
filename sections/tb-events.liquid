@@ -1,0 +1,114 @@
+{%- assign s = section.settings -%}
+<section {% if s.anchor != blank %}id="{{ s.anchor | handleize }}"{% endif %} class="tb-section color-{{ s.color_scheme }} gradient tb-pad-{{ s.padding }}">
+  <div class="page-width tb-events tb-events--{{ s.layout }}">
+    <div class="tb-events__intro">
+      {%- if s.eyebrow != blank -%}<p class="tb-eyebrow">{{ s.eyebrow | escape }}</p>{%- endif -%}
+      {%- if s.heading != blank -%}<h2 class="tb-h2">{{ s.heading | escape }}</h2>{%- endif -%}
+      {%- if s.text != blank -%}<div class="tb-intro">{{ s.text }}</div>{%- endif -%}
+      {%- if s.layout == 'split' -%}
+        {%- render 'tb-media', image: s.image, label: s.placeholder, ratio: 'wide', sizes: '(min-width: 990px) 45vw, 100vw' -%}
+      {%- endif -%}
+    </div>
+    <div class="tb-events__lists">
+      {%- if s.events_heading != blank -%}<h3 class="tb-h3">{{ s.events_heading | escape }}</h3>{%- endif -%}
+      <ul class="tb-events__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'event' -%}
+            {%- assign b = block.settings -%}
+            {%- assign url = b.link | default: b.product.url -%}
+            <li class="tb-event" {{ block.shopify_attributes }}>
+              <div class="tb-event__when">
+                <span class="tb-event__date">{{ b.date | escape }}</span>
+                {%- if b.time != blank -%}<span class="tb-event__time">{{ b.time | escape }}</span>{%- endif -%}
+              </div>
+              <div class="tb-event__what">
+                {%- if b.title != blank -%}<strong>{{ b.title | escape }}</strong>{%- endif -%}
+                {%- if b.venue != blank -%}<span>{{ b.venue | escape }}</span>{%- endif -%}
+              </div>
+              {%- if b.button_label != blank -%}
+                <a class="button tb-event__btn" href="{{ url | default: '#' }}">{{ b.button_label | escape }}</a>
+              {%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+      {%- liquid
+        assign has_stockists = false
+        for block in section.blocks
+          if block.type == 'stockist'
+            assign has_stockists = true
+          endif
+        endfor
+      -%}
+      {%- if has_stockists -%}
+        {%- if s.stockists_heading != blank -%}<h3 class="tb-h3">{{ s.stockists_heading | escape }}</h3>{%- endif -%}
+        <ul class="tb-events__list" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'stockist' -%}
+              <li class="tb-event tb-event--stockist" {{ block.shopify_attributes }}>
+                <div class="tb-event__what">
+                  {%- if block.settings.link != blank -%}
+                    <a href="{{ block.settings.link }}"><strong>{{ block.settings.name | escape }}</strong></a>
+                  {%- else -%}
+                    <strong>{{ block.settings.name | escape }}</strong>
+                  {%- endif -%}
+                  {%- if block.settings.place != blank -%}<span>{{ block.settings.place | escape }}</span>{%- endif -%}
+                </div>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tailorbird dates",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    { "type": "select", "id": "layout", "label": "Layout", "default": "rows", "options": [
+      { "value": "rows", "label": "Rows with buttons (workshops)" }, { "value": "split", "label": "Text and photo beside the list (markets)" }
+    ] },
+    { "type": "text", "id": "eyebrow", "label": "Small label" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Only shown with the markets layout." },
+    { "type": "text", "id": "placeholder", "label": "Placeholder label" },
+    { "type": "text", "id": "events_heading", "label": "Heading above the dates" },
+    { "type": "text", "id": "stockists_heading", "label": "Heading above the stockists", "default": "Stockists" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-3" },
+    { "type": "select", "id": "padding", "label": "Space above and below", "default": "medium", "options": [
+      { "value": "small", "label": "Small" }, { "value": "medium", "label": "Medium" }, { "value": "large", "label": "Large" }
+    ] },
+    { "type": "text", "id": "anchor", "label": "Link anchor" }
+  ],
+  "blocks": [
+    {
+      "type": "event",
+      "name": "Date",
+      "settings": [
+        { "type": "text", "id": "date", "label": "Date", "default": "[Date]" },
+        { "type": "text", "id": "time", "label": "Time" },
+        { "type": "text", "id": "title", "label": "Name" },
+        { "type": "text", "id": "venue", "label": "Venue" },
+        { "type": "product", "id": "product", "label": "Ticket product", "info": "For workshops: a product with tickets as stock. The button goes there." },
+        { "type": "url", "id": "link", "label": "Or a link" },
+        { "type": "text", "id": "button_label", "label": "Button label", "info": "Leave blank for markets." }
+      ]
+    },
+    {
+      "type": "stockist",
+      "name": "Stockist",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Shop name" },
+        { "type": "text", "id": "place", "label": "Where" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Tailorbird dates", "blocks": [ { "type": "event" }, { "type": "event" } ] } ]
+}
+{% endschema %}

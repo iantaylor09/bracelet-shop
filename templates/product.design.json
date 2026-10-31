@@ -1,0 +1,230 @@
+{
+  "sections": {
+    "intro": {
+      "type": "tb-image-text",
+      "settings": {
+        "layout": "plain",
+        "image_position": "right",
+        "ratio": "landscape",
+        "is_page_title": true,
+        "heading_size": "display",
+        "color_scheme": "scheme-1",
+        "padding": "small",
+        "eyebrow": "Design your own",
+        "heading": "Design a bracelet that's all yours",
+        "text": "<p>Choose how it's stitched, pick your beads and add a charm if you like. I'll make it by hand and send it gift-wrapped. From [£28].</p>",
+        "note": "Made to order. Ready to post in [making time].",
+        "placeholder": "Bead tray with colour-sorted beads and a half-stitched bracelet, hands in frame, 1600 × 1200 px"
+      }
+    },
+    "builder": {
+      "type": "tb-design-your-own",
+      "settings": {
+        "fallback_price_pence": 2800,
+        "max_colours": 3,
+        "summary_color_scheme": "scheme-2",
+        "anchor": "design"
+      },
+      "blocks": {
+        "style_1": {
+          "type": "style",
+          "settings": {
+            "name": "Beck",
+            "subtitle": "Single-strand glass or stone",
+            "preview": "beck",
+            "placeholder": "IMAGE · IMG_0700"
+          }
+        },
+        "style_2": {
+          "type": "style",
+          "settings": {
+            "name": "Hedgerow",
+            "subtitle": "Layered cord and charms",
+            "preview": "hedgerow",
+            "placeholder": "IMAGE · IMG_0658"
+          }
+        },
+        "style_3": {
+          "type": "style",
+          "settings": {
+            "name": "Dales",
+            "subtitle": "Zigzag on two cords",
+            "preview": "dales",
+            "placeholder": "IMAGE · IMG_0649"
+          }
+        },
+        "style_4": {
+          "type": "style",
+          "settings": {
+            "name": "Meadow",
+            "subtitle": "Floating beads",
+            "preview": "meadow",
+            "placeholder": "IMAGE · IMG_0660"
+          }
+        },
+        "colour_5": {
+          "type": "colour",
+          "settings": {
+            "name": "Sea glass",
+            "hex": "#8FB9A8"
+          }
+        },
+        "colour_6": {
+          "type": "colour",
+          "settings": {
+            "name": "Amber",
+            "hex": "#C98A2E"
+          }
+        },
+        "colour_7": {
+          "type": "colour",
+          "settings": {
+            "name": "Berry",
+            "hex": "#8E2F4F"
+          }
+        },
+        "colour_8": {
+          "type": "colour",
+          "settings": {
+            "name": "Turquoise",
+            "hex": "#3FA7A3"
+          }
+        },
+        "colour_9": {
+          "type": "colour",
+          "settings": {
+            "name": "Blush",
+            "hex": "#E5B3AE"
+          }
+        },
+        "colour_10": {
+          "type": "colour",
+          "settings": {
+            "name": "Moss",
+            "hex": "#6E7B3C"
+          }
+        },
+        "colour_11": {
+          "type": "colour",
+          "settings": {
+            "name": "Ocean blue",
+            "hex": "#2F5E8C"
+          }
+        },
+        "colour_12": {
+          "type": "colour",
+          "settings": {
+            "name": "Lilac",
+            "hex": "#B7A3CF"
+          }
+        },
+        "colour_13": {
+          "type": "colour",
+          "settings": {
+            "name": "Speckled",
+            "hex": "#D9D2C3"
+          }
+        },
+        "colour_14": {
+          "type": "colour",
+          "settings": {
+            "name": "Black and gold",
+            "hex": "#2B2522"
+          }
+        },
+        "charm_15": {
+          "type": "charm",
+          "settings": {
+            "name": "Turtle",
+            "price_pence": 0
+          }
+        },
+        "charm_16": {
+          "type": "charm",
+          "settings": {
+            "name": "Starfish",
+            "price_pence": 0
+          }
+        },
+        "charm_17": {
+          "type": "charm",
+          "settings": {
+            "name": "Butterfly",
+            "price_pence": 0
+          }
+        },
+        "charm_18": {
+          "type": "charm",
+          "settings": {
+            "name": "Dragonfly",
+            "price_pence": 0
+          }
+        },
+        "charm_19": {
+          "type": "charm",
+          "settings": {
+            "name": "Heart",
+            "price_pence": 0
+          }
+        },
+        "charm_20": {
+          "type": "charm",
+          "settings": {
+            "name": "Star",
+            "price_pence": 0
+          }
+        },
+        "charm_21": {
+          "type": "charm",
+          "settings": {
+            "name": "Birthstone",
+            "price_pence": 0
+          }
+        }
+      },
+      "block_order": [
+        "style_1",
+        "style_2",
+        "style_3",
+        "style_4",
+        "colour_5",
+        "colour_6",
+        "colour_7",
+        "colour_8",
+        "colour_9",
+        "colour_10",
+        "colour_11",
+        "colour_12",
+        "colour_13",
+        "colour_14",
+        "charm_15",
+        "charm_16",
+        "charm_17",
+        "charm_18",
+        "charm_19",
+        "charm_20",
+        "charm_21"
+      ]
+    },
+    "weddings": {
+      "type": "tb-enquiry",
+      "settings": {
+        "eyebrow": "Weddings, bridesmaids and birthstones",
+        "heading": "Made in your colours, for your day",
+        "text": "<p>Matching bracelets for the bridal party, birthstone pieces, or a set for you and your daughter. Tell me what you have in mind and I'll come back to you within [two days] with ideas and a price.</p>",
+        "show_image": true,
+        "placeholder": "Bridesmaid set: five matching bracelets on linen with dried flowers",
+        "subject": "Bridesmaid or wedding set",
+        "color_scheme": "scheme-5",
+        "form_color_scheme": "scheme-1",
+        "anchor": "weddings",
+        "padding": "medium"
+      }
+    }
+  },
+  "order": [
+    "intro",
+    "builder",
+    "weddings"
+  ]
+}

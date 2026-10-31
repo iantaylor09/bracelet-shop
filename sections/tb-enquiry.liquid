@@ -1,0 +1,67 @@
+{%- assign s = section.settings -%}
+<section {% if s.anchor != blank %}id="{{ s.anchor | handleize }}"{% endif %} class="tb-section color-{{ s.color_scheme }} gradient tb-pad-{{ s.padding }}">
+  <div class="page-width tb-enquiry">
+    <div class="tb-enquiry__intro">
+      {%- if s.eyebrow != blank -%}<p class="tb-eyebrow">{{ s.eyebrow | escape }}</p>{%- endif -%}
+      {%- if s.heading != blank -%}<h2 class="tb-h2">{{ s.heading | escape }}</h2>{%- endif -%}
+      {%- if s.text != blank -%}<div class="tb-intro">{{ s.text }}</div>{%- endif -%}
+      {%- if s.show_image -%}
+        {%- render 'tb-media', image: s.image, label: s.placeholder, ratio: 'wide', sizes: '(min-width: 990px) 45vw, 100vw' -%}
+      {%- endif -%}
+    </div>
+    <div class="tb-enquiry__form color-{{ s.form_color_scheme }}">
+      {%- assign form_id = 'TbEnquiry-' | append: section.id -%}
+      {%- form 'contact', id: form_id -%}
+        {%- if form.posted_successfully? -%}
+          <p class="tb-form-ok" role="status">{{ s.success | escape }}</p>
+        {%- elsif form.errors -%}
+          <p class="tb-form-error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+        {%- endif -%}
+        <input type="hidden" name="contact[Enquiry]" value="{{ s.subject | escape }}">
+        <div class="tb-fields tb-fields--3">
+          <label class="tb-field"><span>Your name</span><input type="text" name="contact[name]" autocomplete="name" required></label>
+          <label class="tb-field"><span>Email</span><input type="email" name="contact[email]" autocomplete="email" spellcheck="false" required></label>
+          {%- if s.ask_quantity -%}
+            <label class="tb-field"><span>How many pieces?</span><input type="number" min="1" name="contact[How many pieces]" inputmode="numeric"></label>
+          {%- endif -%}
+        </div>
+        {%- if s.ask_date -%}
+          <div class="tb-fields tb-fields--3">
+            <label class="tb-field"><span>Date needed by</span><input type="date" name="contact[Date needed by]"></label>
+          </div>
+        {%- endif -%}
+        <label class="tb-field"><span>{{ s.message_label | escape }}</span><textarea name="contact[body]" rows="4"></textarea></label>
+        <button type="submit" class="button tb-wide">{{ s.button_label | escape }}</button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tailorbird enquiry form",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Weddings, bridesmaids and birthstones" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Made in your colours, for your day" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "checkbox", "id": "show_image", "label": "Show a photo under the text", "default": true },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder label" },
+    { "type": "text", "id": "subject", "label": "Enquiry type", "default": "Bridesmaid or wedding set", "info": "Shown at the top of the email you receive." },
+    { "type": "checkbox", "id": "ask_quantity", "label": "Ask how many pieces", "default": true },
+    { "type": "checkbox", "id": "ask_date", "label": "Ask for a date", "default": true },
+    { "type": "text", "id": "message_label", "label": "Message label", "default": "Colours and ideas" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send my enquiry" },
+    { "type": "text", "id": "success", "label": "Thank-you message", "default": "Thank you. I'll be in touch soon with ideas and a price." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-5" },
+    { "type": "color_scheme", "id": "form_color_scheme", "label": "Form panel colours", "default": "scheme-1" },
+    { "type": "select", "id": "padding", "label": "Space above and below", "default": "medium", "options": [
+      { "value": "small", "label": "Small" }, { "value": "medium", "label": "Medium" }, { "value": "large", "label": "Large" }
+    ] },
+    { "type": "text", "id": "anchor", "label": "Link anchor", "default": "weddings" }
+  ],
+  "presets": [ { "name": "Tailorbird enquiry form" } ]
+}
+{% endschema %}

@@ -1,0 +1,57 @@
+{%- liquid
+  assign s = section.settings
+  assign subtitle = collection.metafields.custom.subtitle.value | default: collection.metafields.custom.subtitle
+  assign menu = linklists[s.menu]
+-%}
+<section class="tb-section tb-pad-small">
+  <div class="page-width">
+    <nav class="tb-crumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{{ collection.title | escape }}</span>
+    </nav>
+
+    <div class="tb-coll-hero color-{{ s.color_scheme }}">
+      <div class="tb-coll-hero__copy">
+        <p class="tb-eyebrow">{{ s.eyebrow | escape }}</p>
+        <h1 class="tb-display">{{ collection.title | escape }}</h1>
+        {%- if subtitle != blank -%}<p class="tb-accent">{{ subtitle | escape }}</p>{%- endif -%}
+        {%- if collection.description != blank -%}<div class="tb-rte">{{ collection.description }}</div>{%- endif -%}
+      </div>
+      <div class="tb-coll-hero__media">
+        {%- assign label = 'Collection banner: three ' | append: collection.title | append: ' pieces on the wood board, 1600 × 900 px' -%}
+        {%- render 'tb-media', image: collection.image, label: label, ratio: 'none', sizes: '(min-width: 990px) 50vw, 100vw' -%}
+      </div>
+    </div>
+
+    <nav class="tb-pills" aria-label="Collections">
+      {%- if menu.links.size > 0 -%}
+        {%- for link in menu.links -%}
+          <a href="{{ link.url }}" class="tb-pill{% if link.active or link.url == collection.url %} is-active{% endif %}"{% if link.active or link.url == collection.url %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign names = 'Beck,Hedgerow,Dales,Meadow,Tarn,Rockpool' | split: ',' -%}
+        {%- for name in names -%}
+          {%- assign handle = name | handleize -%}
+          <a href="{{ routes.collections_url }}/{{ handle }}" class="tb-pill{% if collection.handle == handle %} is-active{% endif %}"{% if collection.handle == handle %} aria-current="page"{% endif %}>{{ name }}</a>
+        {%- endfor -%}
+      {%- endif -%}
+    </nav>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection banner",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "The title, description and banner photo come from the collection. The italic line comes from the collection metafield custom.subtitle." },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Collection" },
+    { "type": "link_list", "id": "menu", "label": "Collection buttons menu", "info": "A menu listing the collections to show as buttons. Leave blank for Beck, Hedgerow, Dales, Meadow, Tarn and Rockpool." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Banner colours", "default": "scheme-2" }
+  ]
+}
+{% endschema %}

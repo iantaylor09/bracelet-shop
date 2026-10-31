@@ -1,0 +1,12 @@
+{%- comment -%}
+  Tailorbird badges on product cards, driven by product tags:
+  new → "New", charm-included → "Charm included".
+{%- endcomment -%}
+{%- if product.available -%}
+  {%- assign tb_tags = product.tags | join: ',' | downcase | split: ',' -%}
+  {%- if tb_tags contains 'new' -%}
+    <span class="badge tb-badge tb-badge--olive">New</span>
+  {%- elsif tb_tags contains 'charm-included' -%}
+    <span class="badge tb-badge tb-badge--sand">Charm included</span>
+  {%- endif -%}
+{%- endif -%}
