@@ -6,7 +6,7 @@
         {%- render 'tb-media', image: s.image, label: s.placeholder, ratio: 'portrait', sizes: '(min-width: 750px) 50vw, 100vw' -%}
       </div>
       <div class="tb-split__copy">
-        <img class="tb-bird" src="{{ 'tailorbird-bird.png' | asset_url }}" alt="" width="48" height="39">
+        <img class="tb-bird" src="{{ 'tailorbird-bird.svg' | asset_url }}" alt="" width="48" height="38">
         {%- if s.eyebrow != blank -%}<p class="tb-eyebrow">{{ s.eyebrow | escape }}</p>{%- endif -%}
         <h1 class="tb-display">{{ s.heading | escape }}</h1>
         {%- if s.text != blank -%}<div class="tb-lede">{{ s.text }}</div>{%- endif -%}

@@ -1,7 +1,7 @@
 {%- assign s = section.settings -%}
 <section {% if s.anchor != blank %}id="{{ s.anchor | handleize }}"{% endif %} class="tb-section color-{{ s.color_scheme }} gradient tb-pad-{{ s.padding }}">
   <div class="page-width tb-intro-block tb-intro-block--{{ s.alignment }}">
-    {%- if s.show_bird -%}<img class="tb-bird tb-bird--lg" src="{{ 'tailorbird-bird.png' | asset_url }}" alt="" width="64" height="52" loading="lazy">{%- endif -%}
+    {%- if s.show_bird -%}<img class="tb-bird tb-bird--lg" src="{{ 'tailorbird-bird.svg' | asset_url }}" alt="" width="64" height="51" loading="lazy">{%- endif -%}
     {%- if s.eyebrow != blank -%}<p class="tb-eyebrow">{{ s.eyebrow | escape }}</p>{%- endif -%}
     {%- if s.heading != blank -%}
       {%- if s.is_page_title -%}<h1 class="tb-display">{{ s.heading | escape }}</h1>{%- else -%}<h2 class="tb-h2">{{ s.heading | escape }}</h2>{%- endif -%}
