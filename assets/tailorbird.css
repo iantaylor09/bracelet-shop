@@ -44,6 +44,8 @@
 .tb-card-from { font-family: var(--font-heading-family); font-style: italic; font-size: 1.35rem; margin: 0.2rem 0 0; color: rgba(var(--color-foreground), 0.75); }
 .tb-card-sub { font-size: 1.35rem; margin: 0.2rem 0 0; color: rgba(var(--color-foreground), 0.75); }
 .footer .footer-block__brand-info img, .header__heading-logo { height: auto; }
+.header__heading-logo-wrapper picture, .footer-block__image-wrapper picture { display: block; }
+@media screen and (max-width: 749px) { .header__heading-logo { width: 20rem; } }
 
 /* ---------- Placeholders and media ---------- */
 .tb-media { position: relative; border-radius: var(--tb-radius); overflow: hidden; background: rgb(var(--tb-sand)); }
