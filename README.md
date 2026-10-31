@@ -45,7 +45,7 @@ The theme is built on [Dawn](https://github.com/Shopify/dawn) 16.0.0, Shopify's 
 
 ## Setting it up in Shopify
 
-1. **Logo:** Theme settings › Logo: upload `tailorbird-horizontal-full-colour.svg` from 02-Website / Logo-SVG. Theme settings › Brand information › Image: upload the reversed version for the dark footer. Favicon: `favicon.svg` from 02-Website / Favicons. Until then the theme shows a copy of the logo taken from the branding guide.
+1. **Logo:** Theme settings › Logo: upload `tailorbird-horizontal-full-colour.svg` from 02-Website / Logo-SVG. Use the version without the slogan: at header size the slogan is too small to read, and the home page heading already says it. Theme settings › Brand information › Image: upload the reversed version for the dark footer. Favicon: `favicon.svg` from 02-Website / Favicons. Until then the theme shows a copy of the logo taken from the branding guide.
 2. **Fonts:** Theme settings › Typography is set to Fraunces (headings) and Nunito Sans (body), both from Shopify's free font library. If either is missing, pick it there.
 3. **Collections:** create Beck, Hedgerow, Dales, Meadow, Tarn and Rockpool as automated collections, each on a tag (`collection-beck`, `collection-hedgerow` and so on). Add the collection's short line ("Single-strand glass or stone") in a collection metafield called `custom.subtitle`. Also create New this month, Stacks and sets, Charms, the gift collections, DIY kits (choose the `diy-kits` template) and Workshops.
 4. **Product tags the theme reads:**
