@@ -294,3 +294,44 @@
 .tb-tickline .tb-icon { stroke: rgb(var(--tb-rust)); width: 2rem; height: 2rem; }
 .tb-kit-callout { display: flex; justify-content: space-between; align-items: center; gap: 1.6rem; padding: 1.4rem 1.6rem; border: 1px solid rgba(var(--tb-sand), 1); border-radius: var(--tb-radius); background: rgb(var(--tb-paper)); font-size: 1.45rem; }
 .tb-kit-callout a { color: rgb(var(--tb-rust-deep)); font-weight: 700; white-space: nowrap; }
+
+/* ---------- Holding page (password page) ---------- */
+.tb-holding .tb-display { max-width: 52rem; }
+.tb-holding__form { margin-top: 2.4rem; max-width: 52rem; }
+.tb-holding__row { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.tb-holding__row input { flex: 1 1 24rem; }
+.tb-holding__row .button { flex: none; }
+.password-header .password-logo { height: auto; }
+
+/* ---------- Stitching bird (404 page) ---------- */
+.tb-stitch { width: min(42rem, 100%); margin: 0 auto 2.4rem; }
+.tb-stitch svg { display: block; width: 100%; height: auto; overflow: visible; }
+.tb-stitch__bird { transform-box: fill-box; transform-origin: 40% 95%; animation: tbBob 1.4s ease-in-out infinite alternate; }
+.tb-stitch__bead { transform-box: fill-box; transform-origin: center; animation-duration: 8s; animation-iteration-count: infinite; animation-timing-function: ease-out; opacity: 0; }
+.tb-stitch__needle { animation: tbNeedle 8s ease-in-out infinite; }
+.tb-stitch__thread { animation: tbThread 1.2s linear infinite; }
+@keyframes tbBob { from { transform: rotate(-2deg); } to { transform: rotate(3deg) translateY(2px); } }
+@keyframes tbThread { to { stroke-dashoffset: -32; } }
+@keyframes tbNeedle { 0% { transform: translate(196px, 160px); } 61% { transform: translate(400px, 160px); } 88% { transform: translate(400px, 160px); opacity: 1; } 96%, 100% { transform: translate(400px, 160px); opacity: 0; } }
+@keyframes tbBead0 { 0%, 0.0% { opacity: 0; transform: translate(-46px, -100px) scale(.4); } 4.0% { opacity: 1; transform: translate(0, 0) scale(1); } 88% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.tb-stitch__bead--0 { animation-name: tbBead0; }
+@keyframes tbBead1 { 0%, 8.8% { opacity: 0; transform: translate(-78px, -100px) scale(.4); } 12.8% { opacity: 1; transform: translate(0, 0) scale(1); } 88% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.tb-stitch__bead--1 { animation-name: tbBead1; }
+@keyframes tbBead2 { 0%, 17.5% { opacity: 0; transform: translate(-110px, -100px) scale(.4); } 21.5% { opacity: 1; transform: translate(0, 0) scale(1); } 88% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.tb-stitch__bead--2 { animation-name: tbBead2; }
+@keyframes tbBead3 { 0%, 26.2% { opacity: 0; transform: translate(-142px, -100px) scale(.4); } 30.2% { opacity: 1; transform: translate(0, 0) scale(1); } 88% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.tb-stitch__bead--3 { animation-name: tbBead3; }
+@keyframes tbBead4 { 0%, 35.0% { opacity: 0; transform: translate(-174px, -100px) scale(.4); } 39.0% { opacity: 1; transform: translate(0, 0) scale(1); } 88% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.tb-stitch__bead--4 { animation-name: tbBead4; }
+@keyframes tbBead5 { 0%, 43.8% { opacity: 0; transform: translate(-206px, -100px) scale(.4); } 47.8% { opacity: 1; transform: translate(0, 0) scale(1); } 88% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.tb-stitch__bead--5 { animation-name: tbBead5; }
+@keyframes tbBead6 { 0%, 52.5% { opacity: 0; transform: translate(-238px, -100px) scale(.4); } 56.5% { opacity: 1; transform: translate(0, 0) scale(1); } 88% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.tb-stitch__bead--6 { animation-name: tbBead6; }
+@media (prefers-reduced-motion: reduce) {
+  .tb-stitch__bird, .tb-stitch__bead, .tb-stitch__needle, .tb-stitch__thread { animation: none; opacity: 1; transform: none; }
+  .tb-stitch__needle { display: none; }
+}
+.tb-404 { text-align: center; max-width: 64rem; margin-inline: auto; }
+.tb-404 .tb-buttons { justify-content: center; }
+.tb-404__search { display: flex; gap: 0.8rem; max-width: 44rem; margin: 2.4rem auto 0; }
+.tb-404__search input { flex: 1; min-width: 0; font: inherit; font-size: 1.5rem; padding: 1.1rem 1.6rem; border-radius: 4rem; border: 1px solid rgba(var(--tb-oak), 0.55); background: rgb(var(--tb-paper)); color: rgb(var(--tb-bark)); }

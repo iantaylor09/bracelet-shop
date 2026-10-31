@@ -38,6 +38,8 @@ The theme is built on [Dawn](https://github.com/Shopify/dawn) 16.0.0, Shopify's 
 | `page.our-story` | Our story, with how it's made and markets further down | `/pages/our-story` |
 | `page.size-guide` | Size guide | `/pages/size-guide` |
 | `page.faqs`, `page.contact`, `page.help` | FAQs, contact, and any other help page (care…) | `/pages/…` |
+| `password` | The holding page shown while the shop is password protected, with an email sign-up | `/password` |
+| `404` | Page not found, with the little bird stitching beads | any missing address |
 
 `page.design` is the same builder as `product.design`, kept so the old Design your own page still works.
 
@@ -57,6 +59,10 @@ The theme is built on [Dawn](https://github.com/Shopify/dawn) 16.0.0, Shopify's 
    - Main menu: Shop (Shop all, New this month, the six collections, Stacks and sets, Charms), Design your own, DIY kits (All kits, Workshops, Private parties at `/collections/diy-kits#private`), Gifts (Gift guide and the gift collections, Gift cards), Our story (Our story, How it's made at `/pages/our-story#how-its-made`, Markets and stockists at `/pages/our-story#markets`, Journal).
    - Footer menus with the handles `footer-shop`, `footer-help` and `footer-tailorbird`.
 8. **Sizes and making time:** Theme settings › Tailorbird holds the bracelet sizes, the making time and the Design your own address. The size guide, builder and product pages all read from it.
+
+## Holding page
+
+While Online Store › Preferences › Password protection is on, visitors see the Tailorbird holding page (`sections/tb-holding.liquid`). Emails they leave go into Customers, subscribed to email marketing and tagged `newsletter` and `holding-page`, ready for a launch email from Shopify Email. Leave the password message in Preferences blank, because the holding page has its own text.
 
 ## Still placeholder
 
