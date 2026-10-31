@@ -123,7 +123,7 @@
                         </div>
                       {%- else -%}
                         <div class="footer-block__image-wrapper" style="max-width: min(100%, {{ settings.brand_image_width }}px);">
-                          <img src="{{ 'tailorbird-logo-reversed.svg' | asset_url }}" alt="{{ shop.name | escape }}" width="{{ settings.brand_image_width }}" height="{{ settings.brand_image_width | times: 105 | divided_by: 452 }}" loading="lazy">
+                          {%- render 'tb-logo', width: settings.brand_image_width, reversed: true, loading: 'lazy' -%}
                         </div>
                       {%- endif -%}
                       {%- if settings.brand_headline != blank -%}

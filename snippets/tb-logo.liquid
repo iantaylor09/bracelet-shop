@@ -1,0 +1,29 @@
+{%- comment -%}
+  The built-in Tailorbird logo, used when no logo is picked in Theme settings.
+  - width: display width in px. The slogan version is used from 750px up and wherever plain_on_mobile is false.
+  - reversed: true for dark backgrounds.
+  - plain_on_mobile: true to show the logo without the slogan on phones, where the header is too narrow for it to be read.
+  - class, loading: passed to the img.
+{%- endcomment -%}
+{%- liquid
+  assign suffix = ''
+  if reversed
+    assign suffix = '-reversed'
+  endif
+  assign plain_file = 'tailorbird-logo' | append: suffix | append: '.svg'
+  assign slogan_file = 'tailorbird-logo-slogan' | append: suffix | append: '.svg'
+  assign slogan_height = width | times: 136 | divided_by: 451
+-%}
+<picture>
+  {%- if plain_on_mobile -%}
+    <source media="(max-width: 749px)" srcset="{{ plain_file | asset_url }}" width="200" height="46">
+  {%- endif -%}
+  <img
+    src="{{ slogan_file | asset_url }}"
+    alt="{{ shop.name | escape }}"
+    width="{{ width }}"
+    height="{{ slogan_height }}"
+    {% if class %}class="{{ class }}"{% endif %}
+    {% if loading %}loading="{{ loading }}"{% endif %}
+  >
+</picture>

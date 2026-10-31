@@ -2,7 +2,7 @@
   "current": "Dawn",
   "presets": {
     "Dawn": {
-      "logo_width": 200,
+      "logo_width": 300,
       "customer_account_menu": "customer-account-main-menu",
       "color_schemes": {
         "scheme-1": {
@@ -169,7 +169,7 @@
       "sold_out_badge_color_scheme": "scheme-3",
       "brand_headline": "",
       "brand_description": "<p>Slow-made jewellery, stitched by hand one bead at a time, like the little tailorbird that sews its nest from leaves. Made in Yorkshire.</p>",
-      "brand_image_width": 220,
+      "brand_image_width": 300,
       "social_twitter_link": "",
       "social_facebook_link": "",
       "social_pinterest_link": "",

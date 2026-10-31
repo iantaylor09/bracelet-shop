@@ -206,13 +206,7 @@
           </div>
         {%- else -%}
           <div class="header__heading-logo-wrapper">
-            <img
-              src="{{ 'tailorbird-logo.svg' | asset_url }}"
-              alt="{{ shop.name | escape }}"
-              width="{{ settings.logo_width }}"
-              height="{{ settings.logo_width | times: 105 | divided_by: 452 }}"
-              class="header__heading-logo"
-            >
+            {%- render 'tb-logo', width: settings.logo_width, plain_on_mobile: true, class: 'header__heading-logo' -%}
           </div>
         {%- endif -%}
       </a>
@@ -257,13 +251,7 @@
           </div>
         {%- else -%}
           <div class="header__heading-logo-wrapper">
-            <img
-              src="{{ 'tailorbird-logo.svg' | asset_url }}"
-              alt="{{ shop.name | escape }}"
-              width="{{ settings.logo_width }}"
-              height="{{ settings.logo_width | times: 105 | divided_by: 452 }}"
-              class="header__heading-logo"
-            >
+            {%- render 'tb-logo', width: settings.logo_width, plain_on_mobile: true, class: 'header__heading-logo' -%}
           </div>
         {%- endif -%}
       </a>

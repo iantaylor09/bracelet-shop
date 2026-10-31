@@ -9,7 +9,7 @@ The theme is built on [Dawn](https://github.com/Shopify/dawn) 16.0.0, Shopify's 
 | Path | What it is |
 | --- | --- |
 | `assets/tailorbird.css` | Brand styles: type sizes, links, placeholders, cards, forms and the builder. |
-| `assets/tailorbird-*.svg` | The official logo (horizontal, without the slogan), its reversed version for the footer, the bird mark and the favicon, from the Tailorbird logo files. |
+| `assets/tailorbird-*.svg` | The official logo files: the horizontal logo with and without the slogan (each with a reversed version for the dark footer), the bird mark and the favicon. `snippets/tb-logo.liquid` picks between them. |
 | `sections/tb-hero.liquid` | Big photo with a text box and two buttons. |
 | `sections/tb-cards.liquid` | Rows of cards: collections, "three ways", promises, Instagram, how it's made, price tiles, reviews. |
 | `sections/tb-image-text.liquid` | Photo beside text, plain, as a colour band or as a rounded panel. |
@@ -45,7 +45,7 @@ The theme is built on [Dawn](https://github.com/Shopify/dawn) 16.0.0, Shopify's 
 
 ## Setting it up in Shopify
 
-1. **Logo:** nothing to upload. The theme already uses the official SVG logo files: the horizontal logo without the slogan in the header and holding page, the reversed one in the footer, and `favicon.svg` as the browser icon. The slogan is left out because at header size it is too small to read, and the home page heading already says it. Only pick a logo, brand image or favicon in Theme settings if you want to replace these.
+1. **Logo:** nothing to upload. The theme already uses the official SVG logo files. The header, holding page and footer show the horizontal logo with the slogan at 300px wide, where the slogan is big enough to read. On phones the header switches to the version without the slogan, because at phone size the slogan would be too small. The favicon is `favicon.svg`. Only pick a logo, brand image or favicon in Theme settings if you want to replace these, and keep the logo width at 300 so the slogan stays readable.
 2. **Fonts:** Theme settings › Typography is set to Fraunces (headings) and Nunito Sans (body), both from Shopify's free font library. If either is missing, pick it there.
 3. **Collections:** create Beck, Hedgerow, Dales, Meadow, Tarn and Rockpool as automated collections, each on a tag (`collection-beck`, `collection-hedgerow` and so on). Add the collection's short line ("Single-strand glass or stone") in a collection metafield called `custom.subtitle`. Also create New this month, Stacks and sets, Charms, the gift collections, DIY kits (choose the `diy-kits` template) and Workshops.
 4. **Product tags the theme reads:**
